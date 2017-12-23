@@ -1,0 +1,6 @@
+framework module PusherChatkit {
+  umbrella header "PusherChatkit-umbrella.h"
+
+  export *
+  module * { export * }
+}
