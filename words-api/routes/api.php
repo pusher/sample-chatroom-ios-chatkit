@@ -12,8 +12,11 @@
 |
 */
 
-Route::post('/users/login', 'UserController@login');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::post('/users', 'UserController@index');
+    Route::post('/chatkit/token', 'ChatkitController@getToken');
+    Route::put('/messages/{id}', 'MessageController@update');
+    Route::post('/messages', 'MessageController@create');
+});
+
 Route::post('/users/signup', 'UserController@create');
-Route::get('/users', 'UserController@index');
-Route::put('/messages/{id}', 'MessageController@update');
-Route::post('/messages', 'MessageController@create');

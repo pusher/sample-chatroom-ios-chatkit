@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Chatkit\Chatkit;
+use App\Chatkit;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

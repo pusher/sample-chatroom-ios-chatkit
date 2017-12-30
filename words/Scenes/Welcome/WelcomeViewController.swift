@@ -12,7 +12,5 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController
-{
-    // Nothing really happens here tbh!
+class WelcomeViewController: UIViewController {
 }

@@ -12,49 +12,49 @@
 
 import UIKit
 
-@objc protocol ListContactsRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+@objc protocol ListContactsRoutingLogic {
+    func routeToChatroom(segue: UIStoryboardSegue?)
 }
 
-protocol ListContactsDataPassing
-{
-  var dataStore: ListContactsDataStore? { get }
+protocol ListContactsDataPassing {
+    var dataStore: ListContactsDataStore? { get }
 }
 
-class ListContactsRouter: NSObject, ListContactsRoutingLogic, ListContactsDataPassing
-{
-  weak var viewController: ListContactsViewController?
-  var dataStore: ListContactsDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+class ListContactsRouter: NSObject, ListContactsRoutingLogic, ListContactsDataPassing {
 
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: ListContactsViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ListContactsDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    // MARK: Properties
+    
+    var dataStore: ListContactsDataStore?
+    weak var viewController: ListContactsViewController?
+
+    // MARK: Routing
+    
+    func routeToChatroom(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ChatroomViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            
+            passDataToChatroom(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatroomViewController") as! ChatroomViewController
+            var destinationDS = destinationVC.router!.dataStore!
+            
+            passDataToChatroom(source: dataStore!, destination: &destinationDS)
+            navigateToChatroom(source: viewController!, destination: destinationVC)
+        }
+    }
+    
+    // MARK: Navigation
+    
+    func navigateToChatroom(source: ListContactsViewController, destination: ChatroomViewController) {
+        source.show(destination, sender: nil)
+    }
+    
+    // MARK: Passing data
+    
+    func passDataToChatroom(source: ListContactsDataStore, destination: inout ChatroomDataStore) {
+        let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
+        destination.room_id = source.contacts?[selectedRow!].room_id
+    }
 }

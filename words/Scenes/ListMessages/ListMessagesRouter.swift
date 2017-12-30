@@ -12,49 +12,49 @@
 
 import UIKit
 
-@objc protocol ListMessagesRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+@objc protocol ListMessagesRoutingLogic {
+    func routeToChatroom(segue: UIStoryboardSegue?)
 }
 
-protocol ListMessagesDataPassing
-{
-  var dataStore: ListMessagesDataStore? { get }
+protocol ListMessagesDataPassing {
+    var dataStore: ListMessagesDataStore? { get }
 }
 
-class ListMessagesRouter: NSObject, ListMessagesRoutingLogic, ListMessagesDataPassing
-{
-  weak var viewController: ListMessagesViewController?
-  var dataStore: ListMessagesDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
+class ListMessagesRouter: NSObject, ListMessagesRoutingLogic, ListMessagesDataPassing {
 
-  // MARK: Navigation
+    // MARK: Properties
+    
+    var dataStore: ListMessagesDataStore?
+    weak var viewController: ListMessagesViewController?
+
+    // MARK: Routing
+
+    func routeToChatroom(segue: UIStoryboardSegue?) {
+        if let segue = segue {
+            let destinationVC = segue.destination as! ChatroomViewController
+            var destinationDS = destinationVC.router!.dataStore!
+
+            passDataToChatroom(source: dataStore!, destination: &destinationDS)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatroomViewController") as! ChatroomViewController
+            var destinationDS = destinationVC.router!.dataStore!
+
+            passDataToChatroom(source: dataStore!, destination: &destinationDS)
+            navigateToChatroom(source: viewController!, destination: destinationVC)
+        }
+    }
+
+    // MARK: Navigation
+    
+    func navigateToChatroom(source: ListMessagesViewController, destination: ChatroomViewController) {
+        source.show(destination, sender: nil)
+    }
   
-  //func navigateToSomewhere(source: ListMessagesViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: ListMessagesDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
+    // MARK: Passing data
+
+    func passDataToChatroom(source: ListMessagesDataStore, destination: inout ChatroomDataStore) {
+        let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
+        destination.room_id = source.messages?[selectedRow!].room_id
+    }
 }

@@ -23,25 +23,18 @@ enum Signup
 
     struct Response
     {
-        var successful: Bool
-        var ID: Int?
-        var name: String?
-        var email: String?
-        var token: [String : Any?]?
+        var user: User?
         var data: [String : Any?]?
-
-        init(successful: Bool) {
-            self.successful = successful
-        }
         
-        init(successful: Bool, data: [String:Any?]?) {
+        init(data: [String:Any?]?) {
             self.data = data
-            self.successful = successful
-
-            self.ID = data!["id"] as? Int
-            self.name = data!["name"] as? String
-            self.email = data!["email"] as? String
-            self.token = data!["token"] as? [String : Any?]
+            
+            self.user = User(
+                id: (data!["id"] as? Int)!,
+                name: (data!["name"] as? String)!,
+                email: (data!["email"] as? String)!,
+                chatkit_id: (data!["chatkit_id"] as? String)!
+            )
         }
     }
 }

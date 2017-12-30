@@ -9,7 +9,9 @@
 import UIKit
 
 struct AppConstants {
-    static let ENDPOINT: String = "http://127.0.0.1:8000/api"
+    static let ENDPOINT: String = "http://127.0.0.1:8000"
+    static let CLIENT_ID: Int = 2
+    static let CLIENT_SECRET: String = "O2VAbtSJVgAqJGOL12DvpA7sHsYCX2hMAQJB0sRf"
 }
 
 @UIApplicationMain
@@ -18,11 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let ud = UserDefaults.standard
-
-        ud.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        ud.synchronize()
-
+//        let ud = UserDefaults.standard
+//        ud.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+//        ud.synchronize()
         return true
     }
 }

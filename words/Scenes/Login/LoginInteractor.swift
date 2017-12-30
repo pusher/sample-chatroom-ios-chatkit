@@ -12,32 +12,40 @@
 
 import UIKit
 
-protocol LoginBusinessLogic
-{
-    func login(request: Login.Request)
+protocol LoginBusinessLogic {
+    func login(request: Login.Account.Request)
 }
 
-class LoginInteractor: LoginBusinessLogic
-{
-    var worker: LoginWorker?
+class LoginInteractor: LoginBusinessLogic {
+
+    // MARK: Properties
     
     var viewController: LoginFormErrorLogic?
-    
     var router: (NSObjectProtocol & LoginRoutingLogic)?
-    
+    var worker: UsersWorker = UsersWorker(usersStore: UsersAPI())
+
     // MARK: Login
     
-    func login(request: Login.Request) {
-        worker = LoginWorker()
-        
-        worker?.login(request: request, completion: { response in
-            if response.successful {
-                TokenDataStore().setToken(response.token!)
-                
-                self.router?.routeToListMessages()
-            } else {
-                self.viewController?.showValidationError("Invalid username or password.")
+    func login(request: Login.Account.Request) {
+        self.worker.login(request: Login.Account.Request(email: request.email, password: request.password)) { (userToken, loginError) in
+            if loginError != nil {
+                self.viewController?.showValidationError("An error occurred while logging in.")
+                return
             }
-        })
+
+            UserTokenDataStore().setToken(userToken!)
+            
+            let chatkitTokenRequest = Login.Chatkit.Request(username: request.email, password: request.password, token: userToken!)
+            
+            self.worker.fetchChatkitToken(request: chatkitTokenRequest) { (chatkitToken, chatkitTokenError) in
+                if chatkitTokenError != nil {
+                    self.viewController?.showValidationError("An error occurred while logging in.")
+                    return
+                }
+                
+                ChatkitTokenDataStore().setToken(chatkitToken!)
+                self.router?.routeToListMessages()
+            }
+        }
     }
 }

@@ -14,18 +14,58 @@ import UIKit
 
 enum ListContacts
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    enum AddContact
     {
+        struct Request
+        {
+            var user_id: String
+        }
+        
+        struct Response
+        {
+            var data: [String: Any?]
+            var contact: Contact?
+            
+            init(data: [String: Any?]) {
+                self.data = data
+                
+                let user = User(
+                    id: data["id"] as! Int,
+                    name: data["name"] as! String,
+                    email: data["email"] as! String,
+                    chatkit_id: data["chatkit_id"] as! String
+                )
+                
+                self.contact = Contact(user: user, room_id: data["room_id"] as! String)
+            }
+        }
+        
+        struct ViewModel
+        {
+            var contact: FetchContacts.ViewModel.DisplayedContact
+        }
     }
-    struct Response
+    
+    enum FetchContacts
     {
+        struct Request
+        {
+        }
+    
+        struct Response
+        {
+            var contacts: [Contact]
+        }
+    
+        struct ViewModel
+        {
+            struct DisplayedContact
+            {
+                var name: String
+                var isOnline: Bool
+            }
+            
+            var displayedContacts: [DisplayedContact]
+        }
     }
-    struct ViewModel
-    {
-    }
-  }
 }

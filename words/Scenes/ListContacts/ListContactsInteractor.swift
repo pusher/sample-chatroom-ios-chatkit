@@ -12,30 +12,40 @@
 
 import UIKit
 
-protocol ListContactsBusinessLogic
-{
-  func doSomething(request: ListContacts.Something.Request)
+protocol ListContactsBusinessLogic {
+    func fetchContacts(request: ListContacts.FetchContacts.Request)
+    func addContact(request: ListContacts.AddContact.Request)
 }
 
-protocol ListContactsDataStore
-{
-  //var name: String { get set }
+protocol ListContactsDataStore {
+    var contacts: [Contact]? { get }
 }
 
-class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore
-{
-  var presenter: ListContactsPresentationLogic?
-  var worker: ListContactsWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ListContacts.Something.Request)
-  {
-    worker = ListContactsWorker()
-    worker?.doSomeWork()
+class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
     
-    let response = ListContacts.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    // MARK: Properties
+    
+    var contacts: [Contact]?
+    var presenter: ListContactsPresentationLogic?
+    var worker: UsersWorker = UsersWorker(usersStore: UsersAPI())
+
+    // MARK: Fetch Contacts
+  
+    func fetchContacts(request: ListContacts.FetchContacts.Request) {
+        worker.fetchContacts { contacts in
+            let response = ListContacts.FetchContacts.Response(contacts: contacts)
+            self.presenter?.presentFetchedContacts(response: response)
+        }
+    }
+    
+    // MARK: Add contact
+    
+    func addContact(request: ListContacts.AddContact.Request) {
+        worker.addContact(request: request) { (contact, error) in
+            if error == nil {
+            } else {
+                print("Error adding contact")
+            }
+        }
+    }
 }

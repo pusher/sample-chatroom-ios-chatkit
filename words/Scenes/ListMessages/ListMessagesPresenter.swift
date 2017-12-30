@@ -14,18 +14,28 @@ import UIKit
 
 protocol ListMessagesPresentationLogic
 {
-  func presentSomething(response: ListMessages.Something.Response)
+     func presentFetchedMessages(response: ListMessages.FetchMessages.Response)
 }
 
 class ListMessagesPresenter: ListMessagesPresentationLogic
 {
-  weak var viewController: ListMessagesDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: ListMessages.Something.Response)
-  {
-    let viewModel = ListMessages.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+    weak var viewController: ListMessagesDisplayLogic?
+    
+    func presentFetchedMessages(response: ListMessages.FetchMessages.Response) {
+        var displayedMessages: [ListMessages.FetchMessages.ViewModel.DisplayedMessage] = []
+        
+        for message in response.messages {
+            let displayedMessage = ListMessages.FetchMessages.ViewModel.DisplayedMessage(
+                id: message.id,
+                message: message.message,
+                room_id: message.room_id!
+            )
+
+            displayedMessages.append(displayedMessage)
+        }
+
+        let viewModel = ListMessages.FetchMessages.ViewModel(displayedMessages: displayedMessages)
+        
+        viewController?.displayFetchedMessages(viewModel: viewModel)
+    }
 }

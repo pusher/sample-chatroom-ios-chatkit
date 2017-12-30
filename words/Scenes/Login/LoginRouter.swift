@@ -12,13 +12,12 @@
 
 import UIKit
 
-@objc protocol LoginRoutingLogic
-{
+@objc protocol LoginRoutingLogic {
     func routeToListMessages()
 }
 
-class LoginRouter: NSObject, LoginRoutingLogic
-{
+class LoginRouter: NSObject, LoginRoutingLogic {
+
     weak var viewController: LoginViewController?
 
     func routeToListMessages() {

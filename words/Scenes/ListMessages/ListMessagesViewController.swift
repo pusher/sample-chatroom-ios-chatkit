@@ -12,78 +12,103 @@
 
 import UIKit
 
-protocol ListMessagesDisplayLogic: class
-{
-  func displaySomething(viewModel: ListMessages.Something.ViewModel)
+protocol ListMessagesDisplayLogic: class {
+    func displayFetchedMessages(viewModel: ListMessages.FetchMessages.ViewModel)
 }
 
-class ListMessagesViewController: UITableViewController, ListMessagesDisplayLogic
-{
-  var interactor: ListMessagesBusinessLogic?
-  var router: (NSObjectProtocol & ListMessagesRoutingLogic & ListMessagesDataPassing)?
+class ListMessagesViewController: UITableViewController, ListMessagesDisplayLogic {
 
-  // MARK: Object lifecycle
+    // MARK: Properties
+
+    var interactor: ListMessagesBusinessLogic?
+    var displayedMessages: [ListMessages.FetchMessages.ViewModel.DisplayedMessage] = []
+    var router: (NSObjectProtocol & ListMessagesRoutingLogic & ListMessagesDataPassing)?
+    
+    // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = ListMessagesInteractor()
-    let presenter = ListMessagesPresenter()
-    let router = ListMessagesRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
   
-  // MARK: View lifecycle
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
   
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
+    // MARK: Setup
   
-  // MARK: Do something
+    private func setup() {
+        let viewController = self
+        let interactor = ListMessagesInteractor()
+        let presenter = ListMessagesPresenter()
+        let router = ListMessagesRouter()
+        
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
   
-  //@IBOutlet weak var nameTextField: UITextField!
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
   
-  func doSomething()
-  {
-    let request = ListMessages.Something.Request()
-    interactor?.doSomething(request: request)
-  }
+    // MARK: - View lifecycle
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Update the titlebar
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tabBarController?.navigationItem.title = "Chats"
+
+        fetchMessages()
+    }
   
-  func displaySomething(viewModel: ListMessages.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    // MARK: Fetch Messages
+  
+    private func fetchMessages() {
+        let request = ListMessages.FetchMessages.Request()
+        interactor?.fetchMessages(request: request)
+    }
+    
+    func displayFetchedMessages(viewModel: ListMessages.FetchMessages.ViewModel) {
+        displayedMessages = viewModel.displayedMessages
+        tableView.reloadData()
+    }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayedMessages.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let displayedMessage = displayedMessages[indexPath.row]
+
+        var cell = tableView.dequeueReusableCell(withIdentifier: "MessageTableViewCell")
+        
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "MessageTableViewCell")
+        }
+        
+        cell?.textLabel?.text = displayedMessage.room_id
+        cell?.detailTextLabel?.text = displayedMessage.message
+
+        return cell!
+    }
 }

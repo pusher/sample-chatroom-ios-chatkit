@@ -12,35 +12,32 @@
 
 import UIKit
 
-protocol LoginFormErrorLogic: class
-{
+protocol LoginFormErrorLogic: class {
     func showValidationError(_ message: String)
 }
 
-class LoginViewController: UIViewController, LoginFormErrorLogic
-{
-    var interactor: LoginBusinessLogic?
+class LoginViewController: UIViewController, LoginFormErrorLogic {
+
+    // MARK: Properties
     
+    var interactor: LoginBusinessLogic?
     var router: (NSObjectProtocol & LoginRoutingLogic)?
 
     // MARK: Object lifecycle
   
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
 
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
   
     // MARK: Setup
   
-    private func setup()
-    {
+    private func setup() {
         let viewController = self
         let router = LoginRouter()
         let interactor = LoginInteractor()
@@ -55,7 +52,6 @@ class LoginViewController: UIViewController, LoginFormErrorLogic
     // MARK: Input fields
     
     @IBOutlet weak var emailTextField: AuthTextField!
-    
     @IBOutlet weak var passwordTextField: AuthTextField!
 
     // MARK: Actions
@@ -65,24 +61,13 @@ class LoginViewController: UIViewController, LoginFormErrorLogic
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        guard let email = emailTextField.text, email != "" else {
-            return showValidationError("Email is required")
-        }
-        
-        guard let password = passwordTextField.text, password != "" else {
-            return showValidationError("Password is required")
-        }
-        
-        let request = Login.Request(email: email, password: password)
-        
+        let request = Login.Account.Request(email: emailTextField.text!, password: passwordTextField.text!)
         interactor?.login(request: request)
     }
     
     func showValidationError(_ message: String) {
         let alert = UIAlertController(title: "Error logging in", message: message, preferredStyle: .alert)
-        
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        
         self.show(alert, sender: self)
     }
 }

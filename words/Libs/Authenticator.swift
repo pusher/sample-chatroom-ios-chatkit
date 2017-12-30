@@ -7,17 +7,17 @@
 
 import UIKit
 
-class Authenticator: NSObject {
-
+class Authenticator
+{
     func isLoggedIn() -> Bool {
-        let accessToken = (getJwt()["access_token"] ?? "") as! String
-        
-        let hasAccessToken = accessToken.count > 0
-        
-        return hasAccessToken
+        return getAccessToken().count > 0
     }
 
-    private func getJwt() -> [String : Any?] {
-        return TokenDataStore().getToken()
+    private func getAccessToken() -> String {
+        guard let token = ChatkitTokenDataStore().getToken().access_token, token.count > 0 else {
+            return ""
+        }
+
+        return token
     }
 }

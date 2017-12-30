@@ -14,31 +14,53 @@ import UIKit
 
 enum Login
 {
-    struct Request
+    struct Account
     {
-        var email: String
-        var password: String
-    }
-    
-    struct Response
-    {
-        var successful: Bool
-        var ID: Int?
-        var email: String?
-        var token: [String : Any?]?
-        var data: [String: Any?]?
-        
-        init(successful: Bool) {
-            self.successful = successful
+        struct Request
+        {
+            var email: String
+            var password: String
         }
         
-        init(successful: Bool, data: [String:Any?]?) {
-            self.data = data
-            self.successful = successful
+        struct Response
+        {
+            var userToken: UserToken?
+            var data: [String: Any?]?
             
-            self.ID = data!["id"] as? Int
-            self.email = data!["email"] as? String
-            self.token = data!["token"] as? [String : Any?]
+            init(data: [String:Any?]?) {
+                self.data = data
+                
+                self.userToken = UserToken(
+                    token_type: (data!["token_type"] as? String)!,
+                    access_token: (data!["access_token"] as? String)!,
+                    refresh_token: (data!["refresh_token"] as? String)!,
+                    expires_in: (data!["expires_in"] as? Int)!
+                )
+            }
+        }
+    }
+
+    struct Chatkit
+    {
+        struct Request
+        {
+            var username: String
+            var password: String
+            var token: UserToken
+        }
+        
+        struct Response
+        {
+            var token: ChatkitToken?
+            var data: [String:Any?]
+            
+            init(data: [String:Any?]) {
+                self.data = data
+                self.token = ChatkitToken(
+                    access_token: data["access_token"] as? String,
+                    refresh_token: data["refresh_token"] as? String
+                )
+            }
         }
     }
 }

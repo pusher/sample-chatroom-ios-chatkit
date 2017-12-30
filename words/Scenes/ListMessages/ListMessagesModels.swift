@@ -14,18 +14,29 @@ import UIKit
 
 enum ListMessages
 {
-  // MARK: Use cases
+    // MARK: Use cases
   
-  enum Something
-  {
-    struct Request
+    enum FetchMessages
     {
+        struct Request
+        {
+        }
+        
+        struct Response
+        {
+            var messages: [Message]
+        }
+        
+        struct ViewModel
+        {
+            struct DisplayedMessage
+            {
+                var id: Int
+                var message: String
+                var room_id: String
+            }
+
+            var displayedMessages: [DisplayedMessage]
+        }
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

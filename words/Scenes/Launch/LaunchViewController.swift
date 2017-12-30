@@ -12,8 +12,8 @@
 
 import UIKit
 
-class LaunchViewController: UIViewController
-{
+class LaunchViewController: UIViewController {
+    
     var router: (NSObjectProtocol & LaunchRoutingLogic)?
 
     // MARK: Object lifecycle

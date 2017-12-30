@@ -12,14 +12,13 @@
 
 import UIKit
 
-protocol LaunchRoutingLogic
-{
+@objc protocol LaunchRoutingLogic {
     func routeToWelcome()
     func routeToListMessages()
 }
 
-class LaunchRouter: NSObject, LaunchRoutingLogic
-{
+class LaunchRouter: NSObject, LaunchRoutingLogic {
+    
     weak var viewController: LaunchViewController?
   
     func routeToWelcome() {

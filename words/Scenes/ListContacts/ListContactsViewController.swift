@@ -12,78 +12,128 @@
 
 import UIKit
 
-protocol ListContactsDisplayLogic: class
-{
-  func displaySomething(viewModel: ListContacts.Something.ViewModel)
+protocol ListContactsDisplayLogic: class {
+    func displayFetchedContacts(viewModel: ListContacts.FetchContacts.ViewModel)
 }
 
-class ListContactsViewController: UITableViewController, ListContactsDisplayLogic
-{
-  var interactor: ListContactsBusinessLogic?
-  var router: (NSObjectProtocol & ListContactsRoutingLogic & ListContactsDataPassing)?
+class ListContactsViewController: UITableViewController, ListContactsDisplayLogic {
 
-  // MARK: Object lifecycle
+    // MARK: Properties
+    
+    var interactor: ListContactsBusinessLogic?
+    var router: (NSObjectProtocol & ListContactsRoutingLogic & ListContactsDataPassing)?
+    var displayedContacts : [ListContacts.FetchContacts.ViewModel.DisplayedContact] = []
+
+    // MARK: Object lifecycle
   
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = ListContactsInteractor()
-    let presenter = ListContactsPresenter()
-    let router = ListContactsRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
   
-  // MARK: View lifecycle
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
   
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
+    // MARK: Setup
   
-  // MARK: Do something
+    private func setup() {
+        let viewController = self
+        let interactor = ListContactsInteractor()
+        let presenter = ListContactsPresenter()
+        let router = ListContactsRouter()
+        
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
   
-  //@IBOutlet weak var nameTextField: UITextField!
+    // MARK: Routing
   
-  func doSomething()
-  {
-    let request = ListContacts.Something.Request()
-    interactor?.doSomething(request: request)
-  }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
   
-  func displaySomething(viewModel: ListContacts.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    // MARK: View lifecycle
+  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Update the titlebar
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tabBarController?.navigationItem.title = "Contacts"
+        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addContactPopup))
+        
+        fetchContacts()
+    }
+    
+    // MARK: Add contact
+    
+    var emailTextField: UITextField?
+    
+    @objc func addContactPopup(_ sender: Any) {
+        let popup = UIAlertController(title: "Add", message: "Add a new contact", preferredStyle: .alert)
+        
+        popup.addTextField { email in
+            self.emailTextField = email
+            email.placeholder = "Enter email address"
+        }
+        
+        popup.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        popup.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
+            let user_id: String = self.emailTextField!.text!
+            let request = ListContacts.AddContact.Request(user_id: user_id)
+            self.interactor?.addContact(request: request)
+        }))
+        
+        present(popup, animated: true, completion: nil)
+    }
+    
+    // MARK: Fetch contacts
+    
+    private func fetchContacts() {
+        let request = ListContacts.FetchContacts.Request()
+        interactor?.fetchContacts(request: request)
+    }
+  
+    func displayFetchedContacts(viewModel: ListContacts.FetchContacts.ViewModel) {
+        displayedContacts = viewModel.displayedContacts
+        tableView.reloadData()
+    }
+    
+    // MARK: - Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayedContacts.count
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let displayedContact = displayedContacts[indexPath.row]
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell")
+        
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ContactTableViewCell")
+        }
+        
+        cell?.textLabel?.text = displayedContact.name
+        cell?.detailTextLabel?.text = displayedContact.isOnline ? "online" : "offline"
+        
+        return cell!
+    }
 }

@@ -14,28 +14,29 @@ import UIKit
 
 protocol ChatroomBusinessLogic
 {
-  func doSomething(request: Chatroom.Something.Request)
+    func doSomething(request: Chatroom.Something.Request)
 }
 
 protocol ChatroomDataStore
 {
-  //var name: String { get set }
+    var room_id: String? { get set }
 }
 
 class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore
 {
-  var presenter: ChatroomPresentationLogic?
-  var worker: ChatroomWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: Chatroom.Something.Request)
-  {
-    worker = ChatroomWorker()
-    worker?.doSomeWork()
+    var room_id: String?
     
-    let response = Chatroom.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var presenter: ChatroomPresentationLogic?
+    var worker: ChatroomWorker?
+  
+    // MARK: Do something
+  
+    func doSomething(request: Chatroom.Something.Request)
+    {
+        worker = ChatroomWorker()
+        worker?.doSomeWork()
+    
+        let response = Chatroom.Something.Response()
+        presenter?.presentSomething(response: response)
+    }
 }

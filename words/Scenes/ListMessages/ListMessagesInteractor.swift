@@ -12,32 +12,29 @@
 
 import UIKit
 
-protocol ListMessagesBusinessLogic
-{
-  func doSomething(request: ListMessages.Something.Request)
+protocol ListMessagesBusinessLogic {
+    func fetchMessages(request: ListMessages.FetchMessages.Request)
 }
 
-protocol ListMessagesDataStore
-{
-    var account: [String : Any?] { get set }
+protocol ListMessagesDataStore {
+    var messages: [Message]? { get }
 }
 
-class ListMessagesInteractor: ListMessagesBusinessLogic, ListMessagesDataStore
-{
-    var account: [String : Any?] = [:]
+class ListMessagesInteractor: ListMessagesBusinessLogic, ListMessagesDataStore {
+
+    // MARK: Properties
     
-  var presenter: ListMessagesPresentationLogic?
-  var worker: ListMessagesWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: ListMessages.Something.Request)
-  {
-    worker = ListMessagesWorker()
-    worker?.doSomeWork()
-    
-    let response = ListMessages.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var messages: [Message]?
+    var presenter: ListMessagesPresentationLogic?
+    var worker = MessagesWorker(messagesStore: MessageAPI())
+
+    // MARK: Fetch Messages
+
+    func fetchMessages(request: ListMessages.FetchMessages.Request) {
+        worker.fetchMessages { messages in
+            self.messages = messages
+            let response = ListMessages.FetchMessages.Response(messages: messages)
+            self.presenter?.presentFetchedMessages(response: response)
+        }
+    }
 }

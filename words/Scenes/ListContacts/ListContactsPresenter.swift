@@ -12,20 +12,41 @@
 
 import UIKit
 
-protocol ListContactsPresentationLogic
-{
-  func presentSomething(response: ListContacts.Something.Response)
+protocol ListContactsPresentationLogic {
+    func presentFetchedContacts(response: ListContacts.FetchContacts.Response)
+    func presentAddedContact(response: ListContacts.AddContact.Response)
 }
 
-class ListContactsPresenter: ListContactsPresentationLogic
-{
-  weak var viewController: ListContactsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: ListContacts.Something.Response)
-  {
-    let viewModel = ListContacts.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+class ListContactsPresenter: ListContactsPresentationLogic {
+    
+    // MARK: Properties
+    
+    var displayedContacts: [ListContacts.FetchContacts.ViewModel.DisplayedContact] = []
+    weak var viewController: ListContactsDisplayLogic?
+    
+    // MARK: Present Contacts
+
+    func presentFetchedContacts(response: ListContacts.FetchContacts.Response) {
+        for contact in response.contacts {
+            let contact = ListContacts.FetchContacts.ViewModel.DisplayedContact(name: contact.user.name, isOnline: false)
+            displayedContacts.append(contact)
+        }
+            
+        displayContacts()
+    }
+    
+    func presentAddedContact(response: ListContacts.AddContact.Response) {
+        let name = response.contact?.user.name
+        
+        displayedContacts.append(
+            ListContacts.FetchContacts.ViewModel.DisplayedContact(name: name!, isOnline: false)
+        )
+        
+        displayContacts()
+    }
+    
+    private func displayContacts() {
+        let viewModel = ListContacts.FetchContacts.ViewModel(displayedContacts: displayedContacts)
+        viewController?.displayFetchedContacts(viewModel: viewModel)
+    }
 }
