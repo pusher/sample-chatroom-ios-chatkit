@@ -10,17 +10,12 @@ import UIKit
 import Alamofire
 
 class UsersAPI: UsersStoreProtocol {
-    static var contacts = [
-        Contact(user: User(id: 1, name: "John Doe", email: "john@doe.com", chatkit_id: "john-at-cco"), room: Room(id: "sample", name:"john@doe.co")),
-        Contact(user: User(id: 2, name: "Jane Doe", email: "jane@doe.com", chatkit_id: "john-at-cco"), room: Room(id: "sample", name:"john@doe.co")),
-        Contact(user: User(id: 1, name: "Mary Doe", email: "mary@doe.com", chatkit_id: "john-at-cco"), room: Room(id: "sample", name:"john@doe.co"))
-    ]
     
     // MARK: - Contacts
     
     func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
         let url = self.url("/api/contacts")
-        let headers = authorizationHeader(token: UserTokenDataStore().getToken().access_token!)
+        let headers = authorizationHeader(token: nil)
         
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
             .validate()
@@ -32,19 +27,20 @@ class UsersAPI: UsersStoreProtocol {
                     
                     completionHandler(res.contacts, nil)
                 case .failure(_):
-                    completionHandler(nil, ContactsError.CannotFetch("Unable to fetcg contacts"))
+                    completionHandler(nil, ContactsError.CannotFetch("Unable to fetch contacts"))
                 }
             }
     }
     
     func addContact(request: ListContacts.AddContact.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
         let params: Parameters = ["user_id": request.user_id]
+        let headers = authorizationHeader(token: nil)
         
-        makeRequest("/api/contacts", method: .post, params: params, headers: nil) { data in
+        makeRequest("/api/contacts", method: .post, params: params, headers: headers) { data in
             if data == nil {
                 return completionHandler(nil, ContactsError.CannotAdd("Unable to add contact"))
             }
-            
+
             let response = ListContacts.AddContact.Response(data: data!)
 
             completionHandler(response.contact, nil)
@@ -144,7 +140,13 @@ class UsersAPI: UsersStoreProtocol {
         return AppConstants.ENDPOINT + path
     }
     
-    private func authorizationHeader(token: String) -> HTTPHeaders {
-        return ["Authorization": "Bearer \(token)"]
+    private func authorizationHeader(token: String?) -> HTTPHeaders {
+        var access_token = token
+
+        if access_token == nil {
+            access_token = UserTokenDataStore().getToken().access_token
+        }
+
+        return ["Authorization": "Bearer \(access_token!)"]
     }
 }

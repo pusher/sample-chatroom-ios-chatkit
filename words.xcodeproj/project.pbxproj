@@ -29,11 +29,6 @@
 		B50A69341FDC3AE200A4989C /* ListContactsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A692E1FDC3AE200A4989C /* ListContactsModels.swift */; };
 		B50A69351FDC3AE200A4989C /* ListContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A692F1FDC3AE200A4989C /* ListContactsViewController.swift */; };
 		B50A69361FDC3AE200A4989C /* ListContactsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69301FDC3AE200A4989C /* ListContactsInteractor.swift */; };
-		B50A693F1FDC3B1200A4989C /* ListMessagesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69391FDC3B1200A4989C /* ListMessagesPresenter.swift */; };
-		B50A69411FDC3B1200A4989C /* ListMessagesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A693B1FDC3B1200A4989C /* ListMessagesRouter.swift */; };
-		B50A69421FDC3B1200A4989C /* ListMessagesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A693C1FDC3B1200A4989C /* ListMessagesModels.swift */; };
-		B50A69431FDC3B1200A4989C /* ListMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A693D1FDC3B1200A4989C /* ListMessagesViewController.swift */; };
-		B50A69441FDC3B1200A4989C /* ListMessagesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A693E1FDC3B1200A4989C /* ListMessagesInteractor.swift */; };
 		B5134C181FF020CA00C7F52A /* UsersWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5134C171FF020CA00C7F52A /* UsersWorker.swift */; };
 		B5134C1E1FF11D1000C7F52A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5134C1D1FF11D1000C7F52A /* User.swift */; };
 		B520350A1FEBDB060028D7FB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52035041FEBDB060028D7FB /* WelcomeViewController.swift */; };
@@ -52,8 +47,6 @@
 		B5B048C61FE8E76800DDD1F6 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B048C51FE8E76800DDD1F6 /* RoundButton.swift */; };
 		B5B048C81FE8F32100DDD1F6 /* AuthTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B048C71FE8F32100DDD1F6 /* AuthTextField.swift */; };
 		B5C1DFC61FEFAC1700B076F7 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C1DFC51FEFAC1700B076F7 /* Message.swift */; };
-		B5C1DFC91FEFBC9F00B076F7 /* MessagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C1DFC81FEFBC9F00B076F7 /* MessagesAPI.swift */; };
-		B5C1DFCE1FEFBE5400B076F7 /* MessagesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C1DFCD1FEFBE5400B076F7 /* MessagesWorker.swift */; };
 		B5C1DFD01FF01B2A00B076F7 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C1DFCF1FF01B2A00B076F7 /* Contact.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,11 +74,6 @@
 		B50A692E1FDC3AE200A4989C /* ListContactsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsModels.swift; sourceTree = "<group>"; };
 		B50A692F1FDC3AE200A4989C /* ListContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsViewController.swift; sourceTree = "<group>"; };
 		B50A69301FDC3AE200A4989C /* ListContactsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContactsInteractor.swift; sourceTree = "<group>"; };
-		B50A69391FDC3B1200A4989C /* ListMessagesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesPresenter.swift; sourceTree = "<group>"; };
-		B50A693B1FDC3B1200A4989C /* ListMessagesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesRouter.swift; sourceTree = "<group>"; };
-		B50A693C1FDC3B1200A4989C /* ListMessagesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesModels.swift; sourceTree = "<group>"; };
-		B50A693D1FDC3B1200A4989C /* ListMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesViewController.swift; sourceTree = "<group>"; };
-		B50A693E1FDC3B1200A4989C /* ListMessagesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListMessagesInteractor.swift; sourceTree = "<group>"; };
 		B5134C171FF020CA00C7F52A /* UsersWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersWorker.swift; sourceTree = "<group>"; };
 		B5134C1D1FF11D1000C7F52A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B52035041FEBDB060028D7FB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
@@ -106,8 +94,6 @@
 		B5B048C51FE8E76800DDD1F6 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		B5B048C71FE8F32100DDD1F6 /* AuthTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextField.swift; sourceTree = "<group>"; };
 		B5C1DFC51FEFAC1700B076F7 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		B5C1DFC81FEFBC9F00B076F7 /* MessagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesAPI.swift; sourceTree = "<group>"; };
-		B5C1DFCD1FEFBE5400B076F7 /* MessagesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesWorker.swift; sourceTree = "<group>"; };
 		B5C1DFCF1FF01B2A00B076F7 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		D4DE87E228382FB3CC3F0027 /* Pods-words.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-words.debug.xcconfig"; path = "Pods/Target Support Files/Pods-words/Pods-words.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -138,7 +124,6 @@
 			children = (
 				B50A69101FDC395F00A4989C /* Launch */,
 				B5B048C91FE94C9B00DDD1F6 /* Welcome */,
-				B50A69381FDC3AFF00A4989C /* ListMessages */,
 				B50A692A1FDC3ACF00A4989C /* ListContacts */,
 				B50A69031FDC38E400A4989C /* Chatroom */,
 				B50A68F61FDC38C900A4989C /* Signup */,
@@ -201,18 +186,6 @@
 				B50A69301FDC3AE200A4989C /* ListContactsInteractor.swift */,
 			);
 			path = ListContacts;
-			sourceTree = "<group>";
-		};
-		B50A69381FDC3AFF00A4989C /* ListMessages */ = {
-			isa = PBXGroup;
-			children = (
-				B50A69391FDC3B1200A4989C /* ListMessagesPresenter.swift */,
-				B50A693B1FDC3B1200A4989C /* ListMessagesRouter.swift */,
-				B50A693C1FDC3B1200A4989C /* ListMessagesModels.swift */,
-				B50A693D1FDC3B1200A4989C /* ListMessagesViewController.swift */,
-				B50A693E1FDC3B1200A4989C /* ListMessagesInteractor.swift */,
-			);
-			path = ListMessages;
 			sourceTree = "<group>";
 		};
 		B559E10A1FDADE7C002A59CD = {
@@ -283,9 +256,9 @@
 				B5C1DFC51FEFAC1700B076F7 /* Message.swift */,
 				B5C1DFCF1FF01B2A00B076F7 /* Contact.swift */,
 				B5134C1D1FF11D1000C7F52A /* User.swift */,
+				B54934461FF7B2400087034B /* Room.swift */,
 				B537E4C91FF1217B00C8B58E /* UserToken.swift */,
 				B537E4CD1FF3C33D00C8B58E /* ChatkitToken.swift */,
-				B54934461FF7B2400087034B /* Room.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -293,7 +266,6 @@
 		B5C1DFC71FEFBC7500B076F7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B5C1DFC81FEFBC9F00B076F7 /* MessagesAPI.swift */,
 				B537E4CB1FF148F900C8B58E /* UsersAPI.swift */,
 				B54934421FF406E20087034B /* UserTokenDataStore.swift */,
 				B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */,
@@ -304,7 +276,6 @@
 		B5C1DFCC1FEFBE3D00B076F7 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
-				B5C1DFCD1FEFBE5400B076F7 /* MessagesWorker.swift */,
 				B5134C171FF020CA00C7F52A /* UsersWorker.swift */,
 			);
 			path = Workers;
@@ -452,26 +423,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B50A69431FDC3B1200A4989C /* ListMessagesViewController.swift in Sources */,
 				B50A68F21FDB554E00A4989C /* LoginViewController.swift in Sources */,
-				B5C1DFC91FEFBC9F00B076F7 /* MessagesAPI.swift in Sources */,
 				B54ECF921FEEB0CB00A0F131 /* Authenticator.swift in Sources */,
 				B54934471FF7B2400087034B /* Room.swift in Sources */,
-				B50A693F1FDC3B1200A4989C /* ListMessagesPresenter.swift in Sources */,
 				B5B048C61FE8E76800DDD1F6 /* RoundButton.swift in Sources */,
 				B50A68F31FDB554E00A4989C /* LoginInteractor.swift in Sources */,
 				B50A68F11FDB554E00A4989C /* LoginModels.swift in Sources */,
 				B50A69191FDC396400A4989C /* LaunchRouter.swift in Sources */,
-				B5C1DFCE1FEFBE5400B076F7 /* MessagesWorker.swift in Sources */,
 				B537E4CA1FF1217B00C8B58E /* UserToken.swift in Sources */,
 				B50A69361FDC3AE200A4989C /* ListContactsInteractor.swift in Sources */,
 				B5C1DFC61FEFAC1700B076F7 /* Message.swift in Sources */,
 				B54934431FF406E20087034B /* UserTokenDataStore.swift in Sources */,
 				B50A68FF1FDC38DE00A4989C /* SignupRouter.swift in Sources */,
-				B50A69441FDC3B1200A4989C /* ListMessagesInteractor.swift in Sources */,
 				B50A691B1FDC396400A4989C /* LaunchViewController.swift in Sources */,
 				B50A690E1FDC38F900A4989C /* ChatroomViewController.swift in Sources */,
-				B50A69421FDC3B1200A4989C /* ListMessagesModels.swift in Sources */,
 				B50A69351FDC3AE200A4989C /* ListContactsViewController.swift in Sources */,
 				B50A69021FDC38DE00A4989C /* SignupInteractor.swift in Sources */,
 				B5134C1E1FF11D1000C7F52A /* User.swift in Sources */,
@@ -493,7 +458,6 @@
 				B50A68F01FDB554E00A4989C /* LoginRouter.swift in Sources */,
 				B50A690B1FDC38F900A4989C /* ChatroomWorker.swift in Sources */,
 				B50A690C1FDC38F900A4989C /* ChatroomRouter.swift in Sources */,
-				B50A69411FDC3B1200A4989C /* ListMessagesRouter.swift in Sources */,
 				B50A69001FDC38DE00A4989C /* SignupModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

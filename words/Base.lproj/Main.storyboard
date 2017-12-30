@@ -249,82 +249,14 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="qqT-KI-STg" kind="relationship" relationship="rootViewController" id="dUm-dL-qP8"/>
                         <segue destination="lQw-Vw-DI2" kind="presentation" identifier="MainNavigator" id="8Jl-uo-EMn"/>
                         <segue destination="hkp-Ea-zNZ" kind="presentation" identifier="MainNavigator" id="0ic-pc-9I0"/>
+                        <segue destination="P1P-nd-Bc4" kind="relationship" relationship="rootViewController" id="zx4-0e-aDP"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ya-Gg-QSt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1284" y="-454"/>
-        </scene>
-        <!--ListParent-->
-        <scene sceneID="wLQ-8e-lEd">
-            <objects>
-                <tabBarController title="ListParent" id="qqT-KI-STg" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="sCP-8g-wZd"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="SAo-CR-diX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="0.0" green="0.65098039215686276" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="vb5-hP-WvW" kind="relationship" relationship="viewControllers" id="vEj-gJ-7zQ"/>
-                        <segue destination="P1P-nd-Bc4" kind="relationship" relationship="viewControllers" id="WxM-wY-Kwv"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GZl-zL-vGc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2098" y="-455"/>
-        </scene>
-        <!--ListMessages-->
-        <scene sceneID="vL2-wf-18y">
-            <objects>
-                <tableViewController title="ListMessages" id="vb5-hP-WvW" customClass="ListMessagesViewController" customModule="words" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Idl-OQ-CqM">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageTableViewCell" textLabel="tiV-WN-Zdd" detailTextLabel="xeA-Vq-mXX" style="IBUITableViewCellStyleSubtitle" id="qzR-ln-aRb">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qzR-ln-aRb" id="se1-fs-jGY">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tiV-WN-Zdd">
-                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.2784313725" green="0.32156862749999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xeA-Vq-mXX">
-                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.51433295759999997" green="0.54734961000000004" blue="0.56930343380000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="nEx-nh-lSy" kind="show" identifier="Chatroom" id="r0G-hC-Ie3"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="vb5-hP-WvW" id="rF7-nL-OX4"/>
-                            <outlet property="delegate" destination="vb5-hP-WvW" id="QEk-fa-tsw"/>
-                        </connections>
-                    </tableView>
-                    <tabBarItem key="tabBarItem" title="Messages" image="msg" landscapeImage="msg" largeContentSizeImage="msg" selectedImage="msg" id="dpu-Lh-ENv"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CSM-6d-f4p" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2890" y="-787"/>
         </scene>
         <!--Chatroom-->
         <scene sceneID="wwz-Rj-rJb">
@@ -339,7 +271,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MNc-fc-PHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3682" y="-454"/>
+            <point key="canvasLocation" x="3023" y="-456"/>
         </scene>
         <!--ListContacts-->
         <scene sceneID="xPN-aP-qoA">
@@ -384,10 +316,11 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Contacts" image="contact" landscapeImage="contact" largeContentSizeImage="contact" selectedImage="contact" id="DnZ-uU-tDp"/>
+                    <navigationItem key="navigationItem" id="W0x-qs-Pxc"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2b-6V-NdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2889" y="-95"/>
+            <point key="canvasLocation" x="2135" y="-455"/>
         </scene>
         <!--Launch-->
         <scene sceneID="4my-ft-IQf">
@@ -559,11 +492,9 @@
     <resources>
         <image name="contact" width="20" height="20"/>
         <image name="logo" width="369" height="152"/>
-        <image name="msg" width="24" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8Jl-uo-EMn"/>
-        <segue reference="r0G-hC-Ie3"/>
-        <segue reference="gzL-hA-pby"/>
+        <segue reference="0ic-pc-9I0"/>
     </inferredMetricsTieBreakers>
 </document>

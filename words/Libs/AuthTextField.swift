@@ -9,9 +9,9 @@
 import UIKit
 
 class AuthTextField: UITextField {
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         borderStyle = .roundedRect
         layer.borderColor = UIColor.lightGray.cgColor
     }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Contact;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -18,18 +17,12 @@ class ContactController extends Controller
     {
         $contacts = [];
 
-        $user = Auth::user();
+        $user = request()->user();
 
+        // Loop through the contacts and format each one
         Contact::for($user->id)->get()->each(function ($contact) use ($user, &$contacts) {
             $friend = $contact->user1_id === $user->id ? $contact->user2 : $contact->user1;
-
-            $contacts[] = array_merge($friend->toArray(), [
-                'room' => [
-                    'id' => $contact->room_id,
-                    'name' => $friend->name,
-                    'members' => [$user->chatkit_id, $friend->chatkit_id],
-                ]
-            ]);
+            $contacts[] = $this->formatContact($contact, $friend, $user);
         });
 
         return response()->json($contacts);
@@ -43,17 +36,32 @@ class ContactController extends Controller
      */
     public function create(Request $request)
     {
-        $user = Auth::user();
-        $friend = User::find($request->get('user_id'));
+        $user = $request->user();
 
-        $request->validate(['user_id' => "required|exists:users,id|not_in:{$user->id}|unique_contact"]);
+        $data = $request->validate(['user_id' => "required|not_in:{$user->email}|valid_contact"]);
 
-        return response()->json(
-            Contact::create([
-                'user1_id' => $user->id,
-                'user2_id' => $friend->id,
-                'room_id' => generate_room_id($user, $friend),
-            ])
-        );
+        $friend = User::whereEmail($data['user_id'])->first();
+
+        $createdContact = Contact::create([
+            'user1_id' => $user->id,
+            'user2_id' => $friend->id,
+            'room_id' => generate_room_id($user, $friend),
+        ]);
+
+        return response()->json($this->formatContact($createdContact, $friend, $user));
+    }
+
+    /**
+     * Format a contact array
+     */
+    protected function formatContact(Contact $contact, User $friend, User $me) : array
+    {
+        return array_merge($friend->toArray(), [
+            'room' => [
+                'id' => $contact->room_id,
+                'name' => $friend->name,
+                'members' => [$me->chatkit_id, $friend->chatkit_id],
+            ]
+        ]);
     }
 }

@@ -7,8 +7,8 @@
 
 import UIKit
 
-class Authenticator
-{
+class Authenticator {
+
     func isLoggedIn() -> Bool {
         return getAccessToken().count > 0
     }

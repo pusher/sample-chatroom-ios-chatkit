@@ -21,8 +21,8 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
     // MARK: Properties
     
     var interactor: ListContactsBusinessLogic?
+    var displayedContacts: [ListContacts.FetchContacts.ViewModel.DisplayedContact] = []
     var router: (NSObjectProtocol & ListContactsRoutingLogic & ListContactsDataPassing)?
-    var displayedContacts : [ListContacts.FetchContacts.ViewModel.DisplayedContact] = []
 
     // MARK: Object lifecycle
   
@@ -70,33 +70,38 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         
         // Update the titlebar
         navigationController?.navigationBar.prefersLargeTitles = true
-        tabBarController?.navigationItem.title = "Contacts"
-        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addContactPopup))
+        navigationItem.title = "Contacts"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(showAddContactPopup))
         
         fetchContacts()
     }
     
-    // MARK: Add contact
+    // MARK: - Add contact
     
     var emailTextField: UITextField?
     
-    @objc func addContactPopup(_ sender: Any) {
-        let popup = UIAlertController(title: "Add", message: "Add a new contact", preferredStyle: .alert)
+    @objc func showAddContactPopup(_ sender: Any) {
+        let alertController = UIAlertController(
+            title: "Add",
+            message: "Enter the email address to add user to your contacts list",
+            preferredStyle: .alert
+        )
+
+        // Add text field to alert controller
+        alertController.addTextField(configurationHandler: { emailTextField in
+            emailTextField.placeholder = "Enter email address"
+            self.emailTextField = emailTextField
+        })
         
-        popup.addTextField { email in
-            self.emailTextField = email
-            email.placeholder = "Enter email address"
-        }
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
-        popup.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        popup.addAction(UIAlertAction(title: "Add", style: .default, handler: { action in
-            let user_id: String = self.emailTextField!.text!
-            let request = ListContacts.AddContact.Request(user_id: user_id)
+        // Add contact when action button is pressed
+        alertController.addAction(UIAlertAction(title: "Add Contact", style: .default) { action in
+            let request = ListContacts.AddContact.Request(user_id: self.emailTextField!.text!)
             self.interactor?.addContact(request: request)
-        }))
+        })
         
-        present(popup, animated: true, completion: nil)
+        self.present(alertController, animated: true, completion: nil)
     }
     
     // MARK: Fetch contacts
@@ -130,10 +135,10 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ContactTableViewCell")
         }
-        
+
         cell?.textLabel?.text = displayedContact.name
         cell?.detailTextLabel?.text = displayedContact.isOnline ? "online" : "offline"
-        
+
         return cell!
     }
 }

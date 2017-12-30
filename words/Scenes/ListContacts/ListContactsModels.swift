@@ -36,7 +36,12 @@ enum ListContacts
                     chatkit_id: data["chatkit_id"] as! String
                 )
                 
-                let room = Room(id: data["room_id"] as! String, name: data["room_name"] as! String)
+                let roomObject = data["room"] as! [String:Any]
+                
+                let room = Room(
+                    id: roomObject["id"] as! String,
+                    name: roomObject["name"] as! String
+                )
                 
                 self.contact = Contact(user: user, room: room)
             }
@@ -70,11 +75,11 @@ enum ListContacts
                         chatkit_id: contact!["chatkit_id"] as! String
                     )
                     
-                    let roomObject = contact!["room"] as! [String:Any]?
+                    let roomObject = contact!["room"] as! [String:Any]
                     
                     let room = Room(
-                        id: roomObject!["id"] as! String,
-                        name: roomObject!["name"] as! String
+                        id: roomObject["id"] as! String,
+                        name: roomObject["name"] as! String
                     )
                     
                     self.contacts?.append(Contact(user: user, room: room))

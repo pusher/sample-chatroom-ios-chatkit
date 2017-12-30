@@ -14,10 +14,10 @@
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/chatkit/token', 'ChatkitController@getToken');
-    Route::get('/contacts', 'ContactController@index');
     Route::post('/contacts', 'ContactController@create');
-    Route::put('/messages/{id}', 'MessageController@update');
-    Route::post('/messages', 'MessageController@create');
+    Route::get('/contacts', 'ContactController@index');
+    // Route::put('/messages/{id}', 'MessageController@update');
+    // Route::post('/messages', 'MessageController@create');
 });
 
 Route::post('/users/signup', 'UserController@create');

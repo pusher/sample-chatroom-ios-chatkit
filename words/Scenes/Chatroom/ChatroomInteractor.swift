@@ -19,12 +19,12 @@ protocol ChatroomBusinessLogic
 
 protocol ChatroomDataStore
 {
-    var room_id: String? { get set }
+    var contact: Contact? { get set }
 }
 
 class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore
 {
-    var room_id: String?
+    var contact: Contact?
     
     var presenter: ChatroomPresentationLogic?
     var worker: ChatroomWorker?

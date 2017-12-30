@@ -33,7 +33,7 @@ class Contact extends Model
     }
 
     /**
-     * Get the contacts list.
+     * Get the contacts list for a user.
      */
     public function scopeFor($query, $user_id)
     {

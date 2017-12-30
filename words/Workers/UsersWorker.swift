@@ -27,10 +27,10 @@ class UsersWorker {
         }
     }
     
-    func addContact(request: ListContacts.AddContact.Request, completionHandler: @escaping (ListContacts.AddContact.Response?, ContactsError?) -> Void) {
-        usersStore.addContact(request: request) { (response, error) in
+    func addContact(request: ListContacts.AddContact.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
+        usersStore.addContact(request: request) { (contact, error) in
             DispatchQueue.main.async {
-//                completionHandler(response, error)
+                completionHandler(contact, error)
             }
         }
     }

@@ -71,6 +71,12 @@ class ChatroomViewController: UIViewController, ChatroomDisplayLogic
     super.viewDidLoad()
     doSomething()
   }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationItem.title = router?.dataStore?.contact?.user.name
+    }
   
   // MARK: Do something
   

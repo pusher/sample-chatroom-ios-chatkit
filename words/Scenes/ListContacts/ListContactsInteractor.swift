@@ -33,6 +33,7 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
   
     func fetchContacts(request: ListContacts.FetchContacts.Request) {
         worker.fetchContacts { (contacts, error) in
+            self.contacts = contacts
             if contacts != nil {
                 self.presenter?.presentContacts(contacts!)
             }
@@ -43,9 +44,9 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
     
     func addContact(request: ListContacts.AddContact.Request) {
         worker.addContact(request: request) { (contact, error) in
-            if error == nil {
-            } else {
-                print("Error adding contact")
+            self.contacts?.append(contact!)
+            if contact != nil {
+                self.presenter?.presentAddedContact(contact: contact!)
             }
         }
     }
