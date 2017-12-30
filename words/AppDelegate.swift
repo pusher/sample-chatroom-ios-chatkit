@@ -20,9 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let ud = UserDefaults.standard
-        ud.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-        ud.synchronize()
+//        let ud = UserDefaults.standard
+//        ud.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+//        ud.synchronize()
         return true
     }
 }

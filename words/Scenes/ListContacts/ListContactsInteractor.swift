@@ -32,9 +32,10 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
     // MARK: Fetch Contacts
   
     func fetchContacts(request: ListContacts.FetchContacts.Request) {
-        worker.fetchContacts { contacts in
-            let response = ListContacts.FetchContacts.Response(contacts: contacts)
-            self.presenter?.presentFetchedContacts(response: response)
+        worker.fetchContacts { (contacts, error) in
+            if contacts != nil {
+                self.presenter?.presentContacts(contacts!)
+            }
         }
     }
     

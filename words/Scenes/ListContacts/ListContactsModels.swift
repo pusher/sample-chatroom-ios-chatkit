@@ -56,7 +56,30 @@ enum ListContacts
     
         struct Response
         {
-            var contacts: [Contact]
+            var contacts: [Contact]? = []
+            var data: [[String: Any]?]?
+            
+            init(data: [[String: Any]?]?) {
+                self.data = data!
+                
+                for contact in data! {
+                    let user = User(
+                        id: contact!["id"] as! Int,
+                        name: contact!["name"] as! String,
+                        email: contact!["email"] as! String,
+                        chatkit_id: contact!["chatkit_id"] as! String
+                    )
+                    
+                    let roomObject = contact!["room"] as! [String:Any]?
+                    
+                    let room = Room(
+                        id: roomObject!["id"] as! String,
+                        name: roomObject!["name"] as! String
+                    )
+                    
+                    self.contacts?.append(Contact(user: user, room: room))
+                }
+            }
         }
     
         struct ViewModel

@@ -19,10 +19,10 @@ class UsersWorker {
     
     // MARK: - Contacts
     
-    func fetchContacts(completionHandler: @escaping ([Contact]) -> Void) {
-        usersStore.fetchContacts { contacts in
+    func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
+        usersStore.fetchContacts { (contacts, error) in
             DispatchQueue.main.async {
-                completionHandler(contacts)
+                completionHandler(contacts, error)
             }
         }
     }
@@ -30,7 +30,7 @@ class UsersWorker {
     func addContact(request: ListContacts.AddContact.Request, completionHandler: @escaping (ListContacts.AddContact.Response?, ContactsError?) -> Void) {
         usersStore.addContact(request: request) { (response, error) in
             DispatchQueue.main.async {
-                completionHandler(response, error)
+//                completionHandler(response, error)
             }
         }
     }
@@ -65,8 +65,8 @@ class UsersWorker {
 // MARK: Users API
 
 protocol UsersStoreProtocol {
-    func fetchContacts(completionHandler: @escaping ([Contact]) -> Void)
-    func addContact(request: ListContacts.AddContact.Request, completionHandler: @escaping (ListContacts.AddContact.Response?, ContactsError?) -> Void)
+    func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void)
+    func addContact(request: ListContacts.AddContact.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void)
     func login(request: Login.Account.Request, completionHandler: @escaping(UserToken?, UsersStoreError?) -> Void)
     func signup(request: Signup.Request, completionHandler: @escaping(User?, UsersStoreError?) -> Void)
     func fetchChatkitToken(request: Login.Chatkit.Request, completionHandler: @escaping(ChatkitToken?, UsersStoreError?) -> Void)
@@ -76,6 +76,7 @@ protocol UsersStoreProtocol {
 
 enum ContactsError: Error {
     case CannotAdd(String)
+    case CannotFetch(String)
 }
 
 // MARK: Users Error

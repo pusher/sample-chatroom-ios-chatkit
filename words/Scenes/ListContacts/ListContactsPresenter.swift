@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ListContactsPresentationLogic {
-    func presentFetchedContacts(response: ListContacts.FetchContacts.Response)
+    func presentContacts(_ contacts: [Contact])
     func presentAddedContact(response: ListContacts.AddContact.Response)
 }
 
@@ -26,8 +26,10 @@ class ListContactsPresenter: ListContactsPresentationLogic {
     
     // MARK: Present Contacts
 
-    func presentFetchedContacts(response: ListContacts.FetchContacts.Response) {
-        for contact in response.contacts {
+    func presentContacts(_ contacts: [Contact]) {
+        displayedContacts = []
+        
+        for contact in contacts {
             let contact = ListContacts.FetchContacts.ViewModel.DisplayedContact(name: contact.user.name, isOnline: false)
             displayedContacts.append(contact)
         }
@@ -37,11 +39,9 @@ class ListContactsPresenter: ListContactsPresentationLogic {
     
     func presentAddedContact(response: ListContacts.AddContact.Response) {
         let name = response.contact?.user.name
+        let contact = ListContacts.FetchContacts.ViewModel.DisplayedContact(name: name!, isOnline: false)
         
-        displayedContacts.append(
-            ListContacts.FetchContacts.ViewModel.DisplayedContact(name: name!, isOnline: false)
-        )
-        
+        displayedContacts.append(contact)
         displayContacts()
     }
     

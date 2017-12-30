@@ -30,7 +30,7 @@ class UserToken: NSObject, NSCoding
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let expires_in = aDecoder.decodeInteger(forKey: "expires_in")
+        let expires_in = aDecoder.decodeObject(forKey: "expires_in") as! Int
         let token_type = aDecoder.decodeObject(forKey: "token_type") as! String
         let access_token = aDecoder.decodeObject(forKey: "access_token") as! String
         let refresh_token = aDecoder.decodeObject(forKey: "refresh_token") as! String

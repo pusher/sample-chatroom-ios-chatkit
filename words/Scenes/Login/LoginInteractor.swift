@@ -28,23 +28,10 @@ class LoginInteractor: LoginBusinessLogic {
     
     func login(request: Login.Account.Request) {
         self.worker.login(request: Login.Account.Request(email: request.email, password: request.password)) { (userToken, loginError) in
-            if loginError != nil {
-                self.viewController?.showValidationError("An error occurred while logging in.")
-                return
-            }
-
-            UserTokenDataStore().setToken(userToken!)
-            
-            let chatkitTokenRequest = Login.Chatkit.Request(username: request.email, password: request.password, token: userToken!)
-            
-            self.worker.fetchChatkitToken(request: chatkitTokenRequest) { (chatkitToken, chatkitTokenError) in
-                if chatkitTokenError != nil {
-                    self.viewController?.showValidationError("An error occurred while logging in.")
-                    return
-                }
-                
-                ChatkitTokenDataStore().setToken(chatkitToken!)
+            if loginError == nil {
                 self.router?.routeToListMessages()
+            } else {
+                self.viewController?.showValidationError("An error occurred while logging in.")
             }
         }
     }

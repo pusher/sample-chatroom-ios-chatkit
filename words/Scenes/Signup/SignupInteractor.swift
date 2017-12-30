@@ -28,26 +28,10 @@ class SignupInteractor: SignupBusinessLogic {
     
     func createAccount(request: Signup.Request) -> Void {
         self.worker.signup(request: request) { (user, signupError) in
-            if signupError != nil {
+            if signupError == nil {
+                self.router?.routeToListMessages()
+            } else {
                 self.viewController?.showValidationError("Unable to create account, try again later!")
-                return
-            }
-            
-            let loginRequest = Login.Account.Request(email: request.email, password: request.password)
-            
-            self.worker.login(request: loginRequest) { (userToken, loginError) in
-                UserTokenDataStore().setToken(userToken!)
-                
-                let chatkitTokenRequest = Login.Chatkit.Request(username: request.email, password: request.password, token: userToken!)
-                
-                self.worker.fetchChatkitToken(request: chatkitTokenRequest) { (chatkitToken, chatkitTokenError) in
-                    if chatkitTokenError == nil {
-                        ChatkitTokenDataStore().setToken(chatkitToken!)
-                        self.router?.routeToListMessages()
-                    } else {
-                        self.viewController?.showValidationError("An error occurred while logging in.")
-                    }
-                }
             }
         }
     }

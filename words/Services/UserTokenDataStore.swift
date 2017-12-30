@@ -15,7 +15,7 @@ class UserTokenDataStore {
         if let token = UserDefaults.standard.object(forKey: type(of: self).DATA_KEY) as! Data? {
             return NSKeyedUnarchiver.unarchiveObject(with: token) as! UserToken
         }
-        
+
         return UserToken(token_type: nil, access_token: nil, refresh_token: nil, expires_in: nil)
     }
     

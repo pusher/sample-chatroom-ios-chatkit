@@ -25,8 +25,8 @@ class ContactController extends Controller
 
             $contacts[] = array_merge($friend->toArray(), [
                 'room' => [
-                    'room_id' => $contact->room_id,
-                    'room_name' => $friend->name,
+                    'id' => $contact->room_id,
+                    'name' => $friend->name,
                     'members' => [$user->chatkit_id, $friend->chatkit_id],
                 ]
             ]);
