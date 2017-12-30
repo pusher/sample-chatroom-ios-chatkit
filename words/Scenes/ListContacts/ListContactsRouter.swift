@@ -55,6 +55,6 @@ class ListContactsRouter: NSObject, ListContactsRoutingLogic, ListContactsDataPa
     
     func passDataToChatroom(source: ListContactsDataStore, destination: inout ChatroomDataStore) {
         let selectedRow = viewController?.tableView.indexPathForSelectedRow?.row
-        destination.room_id = source.contacts?[selectedRow!].room_id
+        destination.room_id = source.contacts?[selectedRow!].room.id
     }
 }

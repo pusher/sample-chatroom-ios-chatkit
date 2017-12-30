@@ -12,9 +12,9 @@ import Alamofire
 class UsersAPI: UsersStoreProtocol {    
     
     static var contacts = [
-        Contact(user: User(id: 1, name: "John Doe", email: "john@doe.com", chatkit_id: "john-at-cco"), room_id: "john@doe.co"),
-        Contact(user: User(id: 2, name: "Jane Doe", email: "jane@doe.com", chatkit_id: "john-at-cco"), room_id: "Sample@room.co"),
-        Contact(user: User(id: 1, name: "Mary Doe", email: "mary@doe.com", chatkit_id: "john-at-cco"), room_id: "sample@emailrooma mifoo.co")
+        Contact(user: User(id: 1, name: "John Doe", email: "john@doe.com", chatkit_id: "john-at-cco"), room: Room(id: "sample", name:"john@doe.co")),
+        Contact(user: User(id: 2, name: "Jane Doe", email: "jane@doe.com", chatkit_id: "john-at-cco"), room: Room(id: "sample", name:"john@doe.co")),
+        Contact(user: User(id: 1, name: "Mary Doe", email: "mary@doe.com", chatkit_id: "john-at-cco"), room: Room(id: "sample", name:"john@doe.co"))
     ]
     
     // MARK: - Contacts

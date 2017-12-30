@@ -51,11 +51,11 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
         ]);
 
-        $data['chatkit_id'] = str_slug($data['email']);
+        $data['chatkit_id'] = str_slug($data['email'], '_');
 
         $response = $this->chatkit->create_user($data['chatkit_id'], $data['name']);
 
-        $user = ($response['status'] == 200 or $response['status'] == 201) ? User::create($data) : false;
+        $user = $response['status'] == 201 ? User::create($data) : false;
 
         if (!$user) {
             $user = ['status' => 'error'];

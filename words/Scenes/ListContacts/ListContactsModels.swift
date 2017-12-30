@@ -36,7 +36,9 @@ enum ListContacts
                     chatkit_id: data["chatkit_id"] as! String
                 )
                 
-                self.contact = Contact(user: user, room_id: data["room_id"] as! String)
+                let room = Room(id: data["room_id"] as! String, name: data["room_name"] as! String)
+                
+                self.contact = Contact(user: user, room: room)
             }
         }
         

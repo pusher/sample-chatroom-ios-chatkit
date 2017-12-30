@@ -11,5 +11,5 @@ import UIKit
 struct Contact
 {
     var user: User
-    var room_id: String
+    var room: Room
 }

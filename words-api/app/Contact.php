@@ -14,15 +14,7 @@ class Contact extends Model
     /**
      * {@inheritDoc}
      */
-    protected $with = ['room', 'user1', 'user2'];
-
-    /**
-     * Get the room relationship
-     */
-    public function room()
-    {
-        return $this->hasOne(Room::class);
-    }
+    protected $with = ['user1', 'user2'];
 
     /**
     * Get the user1 relationship
@@ -43,7 +35,7 @@ class Contact extends Model
     /**
      * Get the contacts list.
      */
-    public function scopeContacts($query, $user_id)
+    public function scopeFor($query, $user_id)
     {
         return $query->where('user1_id', $user_id)->orWhere('user2_id', $user_id);
     }
