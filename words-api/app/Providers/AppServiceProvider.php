@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Chatkit;
 use App\User;
 use App\Contact;
+use App\Chatkit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
