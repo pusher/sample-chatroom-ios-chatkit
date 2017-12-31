@@ -17,7 +17,7 @@ class CreateContactsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user1_id');
             $table->unsignedInteger('user2_id');
-            $table->string('room_id', 40)->unique();
+            $table->unsignedInteger('room_id')->unique();
             $table->timestamps();
 
             $table->foreign('user1_id')->references('id')->on('users');

@@ -9,6 +9,21 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     /**
+     * Chatkit Instance
+     *
+     * @var \App\Chatkit
+     */
+    protected $chatkit;
+
+    /**
+     * Class constructor
+     */
+    public function __construct()
+    {
+        $this->chatkit = app('chatkit');
+    }
+
+    /**
      * Return contacts for the authenticated user.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -42,10 +57,20 @@ class ContactController extends Controller
 
         $friend = User::whereEmail($data['user_id'])->first();
 
+        $response = $this->chatkit->create_room([
+            'private' => true,
+            'name' => generate_room_id($user, $friend),
+            'user_ids' => [$user->chatkit_id, $friend->chatkit_id],
+        ]);
+
+        if ($response['status'] !== 201 or !$room = json_decode($response['body'], true)) {
+            return response()->json(['status' => 'error'], 400);
+        }
+
         $createdContact = Contact::create([
             'user1_id' => $user->id,
             'user2_id' => $friend->id,
-            'room_id' => generate_room_id($user, $friend),
+            'room_id' => $room['id'],
         ]);
 
         return response()->json($this->formatContact($createdContact, $friend, $user));
