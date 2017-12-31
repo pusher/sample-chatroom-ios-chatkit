@@ -4,25 +4,11 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Contact;
+use App\Chatkit;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    /**
-     * Chatkit Instance
-     *
-     * @var \App\Chatkit
-     */
-    protected $chatkit;
-
-    /**
-     * Class constructor
-     */
-    public function __construct()
-    {
-        $this->chatkit = app('chatkit');
-    }
-
     /**
      * Return contacts for the authenticated user.
      *
@@ -47,9 +33,10 @@ class ContactController extends Controller
      * Create a new contact.
      *
      * @param  \Illuminate\Http\Request $request
+     * @param  \App\Chatkit $chatkit
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function create(Request $request, Chatkit $chatkit)
     {
         $user = $request->user();
 
@@ -57,7 +44,7 @@ class ContactController extends Controller
 
         $friend = User::whereEmail($data['user_id'])->first();
 
-        $response = $this->chatkit->create_room([
+        $response = $chatkit->create_room([
             'private' => true,
             'name' => generate_room_id($user, $friend),
             'user_ids' => [$user->chatkit_id, $friend->chatkit_id],
@@ -79,7 +66,7 @@ class ContactController extends Controller
     /**
      * Format a contact array
      */
-    protected function formatContact(Contact $contact, User $friend, User $me) : array
+    private function formatContact(Contact $contact, User $friend, User $me) : array
     {
         return array_merge($friend->toArray(), [
             'room' => [

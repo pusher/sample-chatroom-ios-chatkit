@@ -5,45 +5,17 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Chatkit;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     /**
-     * Chatkit instance
-     *
-     * @var \App\Chatkit
-     */
-    protected $chatkit;
-
-    /**
-     * Class constructor
-     */
-    public function __construct()
-    {
-        $this->chatkit = app('chatkit');
-    }
-
-    /**
-     * Get all the registered users.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(Request $request)
-    {
-        return response()->json(
-            User::where('id', '!=', Auth::user()->id)->get()
-        );
-    }
-
-    /**
      * Create a new user
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Chatkit $chatkit
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function create(Request $request, Chatkit $chatkit)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -53,15 +25,12 @@ class UserController extends Controller
 
         $data['chatkit_id'] = str_slug($data['email'], '_');
 
-        $response = $this->chatkit->create_user($data['chatkit_id'], $data['name']);
+        $response = $chatkit->create_user($data['chatkit_id'], $data['name']);
 
-        $user = $response['status'] == 201 ? User::create($data) : false;
-
-        if (!$user) {
-            $user = ['status' => 'error'];
-            $statusCode = 400;
+        if ($response['status'] !== 201) {
+            return response()->json(['status' => 'error'], 400);
         }
 
-        return response()->json($user, $statusCode ?? 200);
+        return response()->json(User::create($data));
     }
 }

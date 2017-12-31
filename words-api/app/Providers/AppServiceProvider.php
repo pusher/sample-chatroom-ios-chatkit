@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('chatkit', function () {
+        $this->app->singleton('App\Chatkit', function () {
             $instanceLocator = config('services.chatkit.instanceLocator');
             $secret = config('services.chatkit.secret');
 
