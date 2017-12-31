@@ -43,8 +43,7 @@ class Chatkit extends PusherChatkit
             $body
         );
 
-        $response = $this->exec_curl($ch);
-        return $response;
+        return $this->exec_curl($ch);
     }
 
     /**
