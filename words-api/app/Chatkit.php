@@ -47,6 +47,11 @@ class Chatkit extends PusherChatkit
         return $response;
     }
 
+    /**
+     * Generates an admin access token.
+     *
+     * @return string
+     */
     protected function get_server_token()
     {
         return $this->generate_access_token([

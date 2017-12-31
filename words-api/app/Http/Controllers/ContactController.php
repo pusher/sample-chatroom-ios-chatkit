@@ -67,13 +67,13 @@ class ContactController extends Controller
             return response()->json(['status' => 'error'], 400);
         }
 
-        $createdContact = Contact::create([
+        $contact = Contact::create([
             'user1_id' => $user->id,
             'user2_id' => $friend->id,
             'room_id' => $room['id'],
         ]);
 
-        return response()->json($this->formatContact($createdContact, $friend, $user));
+        return response()->json($this->formatContact($contact, $friend, $user));
     }
 
     /**
