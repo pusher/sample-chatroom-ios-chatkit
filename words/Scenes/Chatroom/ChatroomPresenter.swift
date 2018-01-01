@@ -23,9 +23,6 @@ class ChatroomPresenter: ChatroomPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: Chatroom.Something.Response)
-  {
-    let viewModel = Chatroom.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
+  func presentSomething(response: Chatroom.Something.Response) {
   }
 }

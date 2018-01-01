@@ -37,6 +37,7 @@
 		B54934431FF406E20087034B /* UserTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934421FF406E20087034B /* UserTokenDataStore.swift */; };
 		B54934451FF70F9D0087034B /* ChatkitTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */; };
 		B54934471FF7B2400087034B /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934461FF7B2400087034B /* Room.swift */; };
+		B54DDA501FFA421700E85635 /* ChatkitRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54DDA4F1FFA421700E85635 /* ChatkitRouter.swift */; };
 		B54ECF921FEEB0CB00A0F131 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */; };
 		B559E1171FDADE7C002A59CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B559E1161FDADE7C002A59CD /* AppDelegate.swift */; };
 		B559E11C1FDADE7C002A59CD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B559E11A1FDADE7C002A59CD /* Main.storyboard */; };
@@ -81,6 +82,7 @@
 		B54934421FF406E20087034B /* UserTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenDataStore.swift; sourceTree = "<group>"; };
 		B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatkitTokenDataStore.swift; sourceTree = "<group>"; };
 		B54934461FF7B2400087034B /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		B54DDA4F1FFA421700E85635 /* ChatkitRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatkitRouter.swift; sourceTree = "<group>"; };
 		B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		B559E1131FDADE7C002A59CD /* words.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = words.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B559E1161FDADE7C002A59CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				B50A69071FDC38F900A4989C /* ChatroomModels.swift */,
 				B50A69081FDC38F900A4989C /* ChatroomViewController.swift */,
 				B50A69091FDC38F900A4989C /* ChatroomInteractor.swift */,
+				B54DDA4F1FFA421700E85635 /* ChatkitRouter.swift */,
 			);
 			path = Chatroom;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				B50A690A1FDC38F900A4989C /* ChatroomPresenter.swift in Sources */,
 				B5134C181FF020CA00C7F52A /* UsersWorker.swift in Sources */,
 				B50A69311FDC3AE200A4989C /* ListContactsPresenter.swift in Sources */,
+				B54DDA501FFA421700E85635 /* ChatkitRouter.swift in Sources */,
 				B50A69011FDC38DE00A4989C /* SignupViewController.swift in Sources */,
 				B50A69341FDC3AE200A4989C /* ListContactsModels.swift in Sources */,
 				B50A690F1FDC38F900A4989C /* ChatroomInteractor.swift in Sources */,

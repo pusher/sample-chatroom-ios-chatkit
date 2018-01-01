@@ -11,85 +11,242 @@
 //
 
 import UIKit
+import MessageKit
 
-protocol ChatroomDisplayLogic: class
-{
-  func displaySomething(viewModel: Chatroom.Something.ViewModel)
+protocol ChatroomDisplayLogic: class {
 }
 
-class ChatroomViewController: UIViewController, ChatroomDisplayLogic
+class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
 {
-  var interactor: ChatroomBusinessLogic?
-  var router: (NSObjectProtocol & ChatroomRoutingLogic & ChatroomDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = ChatroomInteractor()
-    let presenter = ChatroomPresenter()
-    let router = ChatroomRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
+    var interactor: ChatroomBusinessLogic?
+    var router: (NSObjectProtocol & ChatroomRoutingLogic & ChatroomDataPassing)?
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    var isTyping = false
+    var messages: [Message] = []
+    let refreshControl = UIRefreshControl()
+
+    // MARK: Object lifecycle
+  
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+  
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+  
+    // MARK: Setup
+  
+    private func setup() {
+        let viewController = self
+        let interactor = ChatroomInteractor()
+        let presenter = ChatroomPresenter()
+        let router = ChatroomRouter()
         
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+  
+    // MARK: Routing
+  
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+  
+    // MARK: View lifecycle
+  
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loadChatMessages()
+        configureMessageKit()
+
         navigationItem.title = router?.dataStore?.contact?.user.name
     }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = Chatroom.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: Chatroom.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+
+    // MARK: Configure MessageKit
+    
+    private func configureMessageKit() {
+        // Assign delegates
+        messagesCollectionView.messagesDataSource = self
+        messagesCollectionView.messagesLayoutDelegate = self
+        messagesCollectionView.messagesDisplayDelegate = self
+
+        // Input bar
+        messageInputBar = MessageInputBar()
+        messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+        messageInputBar.delegate = self
+        messageInputBar.backgroundView.backgroundColor = .white
+        messageInputBar.isTranslucent = false
+        messageInputBar.inputTextView.backgroundColor = UIColor(red: 249/255, green: 250/255, blue: 252/255, alpha: 1)
+        messageInputBar.inputTextView.layer.borderColor = UIColor(red: 192/255, green: 204/255, blue: 218/255, alpha: 1).cgColor
+        messageInputBar.inputTextView.layer.borderWidth = 0
+        reloadInputViews()
+
+        // Keyboard and send btn
+        messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+        scrollsToBottomOnKeybordBeginsEditing = true
+        maintainPositionOnKeyboardFrameChanged = true
+        
+        // Load more messages
+        messagesCollectionView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(loadMoreMessages), for: .valueChanged)
+    }
+    
+    // MARK: Load Messages
+    
+    private func loadChatMessages() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            //SampleData.shared.getMessages(count: 10) { messages in
+                DispatchQueue.main.async {
+                    self.messages = []
+                    self.messagesCollectionView.reloadData()
+                    self.messagesCollectionView.scrollToBottom()
+                }
+            //}
+        }
+    }
+    
+    @objc private func loadMoreMessages() {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: DispatchTime.now() + 4) {
+            //SampleData.shared.getMessages(count: 10) { messages in
+                DispatchQueue.main.async {
+                    let messages: [Message] = []
+                    self.messages.insert(contentsOf: messages, at: 0)
+                    self.messagesCollectionView.reloadDataAndKeepOffset()
+                    self.refreshControl.endRefreshing()
+                }
+            //}
+        }
+    }
+}
+
+
+// MARK: - MessagesDataSource
+
+extension ChatroomViewController: MessagesDataSource {
+    
+    func currentSender() -> Sender {
+        return Sender(id: "foo", displayName: "Neo Ighodaro")
+    }
+    
+    func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
+        return self.messages.count
+    }
+    
+    func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
+        return self.messages[indexPath.section]
+    }
+    
+    func avatar(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Avatar {
+        return Avatar(image: nil, initials: "NI")
+    }
+    
+    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        return NSAttributedString(
+            string: message.sender.displayName,
+            attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption1)]
+        )
+    }
+    
+    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        struct ConversationDateFormatter {
+            static let formatter: DateFormatter = {
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                return formatter
+            }()
+        }
+
+        return NSAttributedString(
+            string: ConversationDateFormatter.formatter.string(from: message.sentDate),
+            attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption2)]
+        )
+    }
+}
+
+
+// MARK: - MessagesLayoutDelegate
+
+extension ChatroomViewController: MessagesLayoutDelegate {
+    
+    func avatarPosition(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> AvatarPosition {
+        return AvatarPosition(horizontal: .natural, vertical: .messageBottom)
+    }
+    
+    func messagePadding(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
+        return isFromCurrentSender(message: message)
+            ? UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 4)
+            : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 30)
+    }
+    
+    func cellTopLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
+        return isFromCurrentSender(message: message)
+            ? .messageTrailing(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
+            : .messageLeading(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
+    }
+    
+    func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
+        return isFromCurrentSender(message: message)
+            ? .messageLeading(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
+            : .messageTrailing(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
+    }
+    
+    func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
+        return CGSize(width: messagesCollectionView.bounds.width, height: 10)
+    }
+    
+    func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 200
+    }
+}
+
+
+// MARK: - MessagesDisplayDelegate
+
+extension ChatroomViewController: MessagesDisplayDelegate {
+    
+    // MARK: - Text Messages
+    
+    func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return isFromCurrentSender(message: message) ? .white : .darkText
+    }
+    
+    // MARK: - All Messages
+    
+    func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
+        return isFromCurrentSender(message: message)
+            ? UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
+            : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+    }
+    
+    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+        let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
+        return .bubbleTail(corner, .curved)
+    }
+}
+
+
+// MARK: - MessageInputBarDelegate
+
+extension ChatroomViewController: MessageInputBarDelegate {
+    
+    func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+        let message = Message(text: text, sender: currentSender(), messageId: UUID().uuidString, date: Date())
+        messages.append(message)
+        inputBar.inputTextView.text = String()
+        messagesCollectionView.insertSections([messages.count - 1])
+        messagesCollectionView.scrollToBottom()
+    }
 }
