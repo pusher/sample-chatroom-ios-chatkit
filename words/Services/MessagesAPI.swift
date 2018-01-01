@@ -24,7 +24,7 @@ class MessagesAPI: MessagesStoreProtocol {
     ]
     
     func fetchMessages(completionHandler: @escaping (Chatroom.Messages.Fetch.Response?, MessagesError?) -> Void) {
-        let response = Chatroom.Messages.Fetch.Response(data: type(of: self).messages)
-        completionHandler(response, nil)
+//        let response = Chatroom.Messages.Fetch.Response(data: type(of: self).messages)
+//        completionHandler(response, nil)
     }
 }

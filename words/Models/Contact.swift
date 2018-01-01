@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import PusherChatkit
 
 struct Contact
 {
     var user: User
-    var room: Room
+    var room: PCRoom
 }

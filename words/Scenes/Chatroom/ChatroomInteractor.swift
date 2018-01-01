@@ -10,33 +10,65 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
+import PusherChatkit
 
-protocol ChatroomBusinessLogic {
-    func fetchChatMessages(request: Chatroom.Messages.Fetch.Request)
+protocol ChatroomBusinessLogic: PCRoomDelegate {
+    var currentUser: PCCurrentUser? { get set }
+
+    func subscribeToRoom(room: PCRoom)
+    func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, ChatroomError?) -> Void)
 }
 
 protocol ChatroomDataStore {
     var contact: Contact? { get set }
 }
 
+enum ChatroomError: Error {
+    case CannotAdd(String)
+}
+
 class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore {
     
     var contact: Contact?
+    var currentUser: PCCurrentUser?
     var presenter: ChatroomPresentationLogic?
+    
+    var messages: [PCMessage] = []
+    
     var worker = MessagesWorker(messagesStore: MessagesAPI())
   
     // MARK: Fetch Messages
     
-    func fetchChatMessages(request: Chatroom.Messages.Fetch.Request) {
-        worker.fetchMessages { (response, error) in
-            if error == nil {
-                self.presenter?.presentMessages(response: response!)
-            }
+    func subscribeToRoom(room: PCRoom) {
+        currentUser?.subscribeToRoom(room: room, roomDelegate: self)
+    }
+    
+    func newMessage(message: PCMessage) {
+        DispatchQueue.main.async {
+            self.messages.append(message)
+            let response = Chatroom.Messages.Fetch.Response(messages: self.messages)
+            self.presenter?.presentMessages(response: response)
         }
     }
     
-    func addChatMessage(request: Chatroom.Messages.Create.Request) {
+    func userStartedTyping(user: PCUser) {
         
+    }
+
+    func userStoppedTyping(user: PCUser) {
+        
+    }
+    
+    func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, ChatroomError?) -> Void) {
+        currentUser?.addMessage(text: request.text, to: request.room) { (messageId, error) in
+            guard error == nil else {
+                return completionHandler(nil, ChatroomError.CannotAdd((error?.localizedDescription)!))
+            }
+
+            DispatchQueue.main.async {
+                completionHandler(messageId, nil)
+            }
+        }
     }
 }

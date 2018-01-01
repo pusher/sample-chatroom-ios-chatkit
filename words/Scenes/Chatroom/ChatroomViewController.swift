@@ -12,19 +12,19 @@
 
 import UIKit
 import MessageKit
+import PusherChatkit
 
 protocol ChatroomDisplayLogic: class {
     func displayChatMessages(response: Chatroom.Messages.Fetch.Response)
 }
 
-class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
+class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic, PCChatManagerDelegate
 {
     var interactor: ChatroomBusinessLogic?
     var router: (NSObjectProtocol & ChatroomDataPassing)?
     
     var isTyping = false
     var messages: [Message] = []
-    let refreshControl = UIRefreshControl()
 
     // MARK: Object lifecycle
   
@@ -59,10 +59,26 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadChatMessages()
         configureMessageKit()
 
         navigationItem.title = router?.dataStore?.contact?.user.name
+        
+        
+        let chatManager = ChatManager(
+            instanceId: AppConstants.CHATKIT_INSTANCE_ID,
+            tokenProvider: ChatkitTokenDataStore()
+        )
+        
+        chatManager.connect(delegate: self) { currentUser, error in
+            guard error == nil else {
+                return
+            }
+
+            self.interactor?.currentUser = currentUser
+            
+            let room = self.router?.dataStore?.contact?.room
+            self.interactor?.subscribeToRoom(room: room!)
+        }
     }
 
     // MARK: Configure MessageKit
@@ -88,10 +104,6 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
         messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
         scrollsToBottomOnKeybordBeginsEditing = true
         maintainPositionOnKeyboardFrameChanged = true
-        
-        // Load more messages
-        messagesCollectionView.addSubview(refreshControl)
-        refreshControl.addTarget(self, action: #selector(loadMoreMessages), for: .valueChanged)
     }
     
     // MARK: Chat Messages
@@ -101,24 +113,6 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
         self.messagesCollectionView.reloadData()
         self.messagesCollectionView.scrollToBottom()
     }
-    
-    private func loadChatMessages() {
-        let request = Chatroom.Messages.Fetch.Request()
-        interactor?.fetchChatMessages(request: request)
-    }
-    
-    @objc private func loadMoreMessages() {
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: DispatchTime.now() + 4) {
-            //SampleData.shared.getMessages(count: 10) { messages in
-                DispatchQueue.main.async {
-//                    let messages: [Message] = []
-                    self.messages.insert(contentsOf: [], at: 0)
-                    self.messagesCollectionView.reloadDataAndKeepOffset()
-                    self.refreshControl.endRefreshing()
-                }
-            //}
-        }
-    }
 }
 
 
@@ -127,7 +121,7 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
 extension ChatroomViewController: MessagesDataSource {
     
     func currentSender() -> Sender {
-        return Sender(id: "foo", displayName: "Neo Ighodaro")
+        return Sender(id: (interactor?.currentUser?.id)!, displayName: (interactor?.currentUser?.name)!)
     }
     
     func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
@@ -139,7 +133,7 @@ extension ChatroomViewController: MessagesDataSource {
     }
     
     func avatar(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Avatar {
-        return Avatar(image: nil, initials: "NI")
+        return Avatar(image: nil, initials: initials(fromName: message.sender.displayName))
     }
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
@@ -162,6 +156,29 @@ extension ChatroomViewController: MessagesDataSource {
             string: ConversationDateFormatter.formatter.string(from: message.sentDate),
             attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption2)]
         )
+    }
+    
+    // MARK: Helpers
+    
+    func initials(fromName name: String?) -> String {
+        var initials = ""
+        
+        if let initialsArray = name?.components(separatedBy: " ") {
+            if let firstWord = initialsArray.first {
+                if let firstLetter = firstWord.first {
+                    initials += String(firstLetter).capitalized
+                }
+            }
+            if initialsArray.count > 1, let secondWord = initialsArray.last {
+                if let secondLetter = secondWord.first {
+                    initials += String(secondLetter).capitalized
+                }
+            }
+        } else {
+            initials = "?"
+        }
+        
+        return initials
     }
 }
 
@@ -232,13 +249,24 @@ extension ChatroomViewController: MessagesDisplayDelegate {
 extension ChatroomViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+        guard interactor?.currentUser != nil else {
+            return
+        }
+        
+        let room = router?.dataStore?.contact?.room
+        let request = Chatroom.Messages.Create.Request(text: text, sender: currentSender(), room: room!)
 
-        
-        
-        let message = Message(text: text, sender: currentSender(), messageId: UUID().uuidString, date: Date())
-        messages.append(message)
-        inputBar.inputTextView.text = String()
-        messagesCollectionView.insertSections([messages.count - 1])
-        messagesCollectionView.scrollToBottom()
+        self.interactor?.addChatMessage(request: request) { (messageId, error) in
+            guard error == nil else {
+                print("Error sending message!")
+                return
+            }
+            
+            inputBar.inputTextView.text = String()
+            
+//            self.messages.append(response!.message)
+//            self.messagesCollectionView.insertSections([self.messages.count - 1])
+//            self.messagesCollectionView.scrollToBottom()
+        }
     }
 }

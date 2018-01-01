@@ -122,7 +122,7 @@ class UsersAPI: UsersStoreProtocol {
     
     // MARK: - Helpers
     
-    private func makeRequest(_ url: String, method: HTTPMethod, params: Parameters?, headers: HTTPHeaders?, completion: @escaping([String: Any?]?) -> Void) {
+    private func makeRequest(_ url: String, method: HTTPMethod, params: Parameters?, headers: HTTPHeaders?, completion: @escaping([String:Any]?) -> Void) {
         let url = AppConstants.ENDPOINT + url
         let enc = JSONEncoding.default
         
@@ -130,7 +130,7 @@ class UsersAPI: UsersStoreProtocol {
                  .validate()
                  .responseJSON { response in
                      switch (response.result) {
-                         case .success(let data): completion((data as! [String:Any?]))
+                         case .success(let data): completion((data as! [String:Any]))
                          case .failure(_): completion(nil)
                      }
                  }

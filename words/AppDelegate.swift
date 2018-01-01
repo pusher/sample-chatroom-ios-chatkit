@@ -9,9 +9,10 @@
 import UIKit
 
 struct AppConstants {
-    static let ENDPOINT: String = "http://127.0.0.1:8000"
-    static let CLIENT_ID: Int = 2
-    static let CLIENT_SECRET: String = "nneBZLH70o0Ez9rtpOYCBOzbarrcYpDVLCjnUTdn"
+    static let ENDPOINT = "http://127.0.0.1:8000"
+    static let CLIENT_ID = 2
+    static let CLIENT_SECRET = "RqoE72h8UqoLcsUijFDrqUvHKJNxyEVpuS88Vt0A"
+    static let CHATKIT_INSTANCE_ID = "v1:us1:4fa1659f-30e3-41d8-832e-ade625a326fe"
 }
 
 @UIApplicationMain

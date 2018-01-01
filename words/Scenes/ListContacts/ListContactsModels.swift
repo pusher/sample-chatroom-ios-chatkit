@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import PusherChatkit
 
 enum ListContacts
 {
@@ -23,27 +24,10 @@ enum ListContacts
         
         struct Response
         {
-            var data: [String: Any?]
-            var contact: Contact?
+            var contact: Contact
             
-            init(data: [String: Any?]) {
-                self.data = data
-                
-                let user = User(
-                    id: data["id"] as! Int,
-                    name: data["name"] as! String,
-                    email: data["email"] as! String,
-                    chatkit_id: data["chatkit_id"] as! String
-                )
-                
-                let roomObject = data["room"] as! [String:Any]
-                
-                let room = Room(
-                    id: roomObject["id"] as! Int,
-                    name: roomObject["name"] as! String
-                )
-                    
-                self.contact = Contact(user: user, room: room)
+            init(data: [String:Any]) {
+                self.contact = ParseContact(data: data).contact
             }
         }
         
@@ -61,28 +45,11 @@ enum ListContacts
     
         struct Response
         {
-            var contacts: [Contact]? = []
-            var data: [[String: Any]?]?
+            var contacts: [Contact] = []
             
             init(data: [[String: Any]?]?) {
-                self.data = data!
-                
-                for contact in data! {
-                    let user = User(
-                        id: contact!["id"] as! Int,
-                        name: contact!["name"] as! String,
-                        email: contact!["email"] as! String,
-                        chatkit_id: contact!["chatkit_id"] as! String
-                    )
-                    
-                    let roomObject = contact!["room"] as! [String:Any]
-                    
-                    let room = Room(
-                        id: roomObject["id"] as! Int,
-                        name: roomObject["name"] as! String
-                    )
-                    
-                    self.contacts?.append(Contact(user: user, room: room))
+                for datum in data! {
+                    self.contacts.append(ParseContact(data: datum!).contact)
                 }
             }
         }
@@ -96,6 +63,33 @@ enum ListContacts
             }
             
             var displayedContacts: [DisplayedContact]
+        }
+    }
+    
+    struct ParseContact
+    {
+        var contact: Contact
+        
+        init(data: [String:Any]) {
+            let user = User(
+                id: data["id"] as! Int,
+                name: data["name"] as! String,
+                email: data["email"] as! String,
+                chatkit_id: data["chatkit_id"] as! String
+            )
+            
+            let roomObject = data["room"] as! [String:Any]
+            
+            let room = PCRoom(
+                id: roomObject["id"] as! Int,
+                name: roomObject["name"] as! String,
+                isPrivate: roomObject["private"] as! Bool,
+                createdByUserId: roomObject["created_by_id"] as! String,
+                createdAt: roomObject["created_at"] as! String,
+                updatedAt: roomObject["updated_at"] as! String
+            )
+            
+            self.contact = Contact(user: user, room: room)
         }
     }
 }

@@ -12,6 +12,7 @@
 
 import UIKit
 import MessageKit
+import PusherChatkit
 
 enum Chatroom
 {
@@ -23,16 +24,21 @@ enum Chatroom
         {
             struct Request
             {
+                var room: PCRoom
             }
             
             struct Response
             {
                 var messages: [Message] = []
-
-                init(data: [[String:Any]?]) {
-                    for rawMessage in data {
-                        let parsed = Chatroom.Messages.Parser(data: rawMessage)
-                        self.messages.append(parsed.message)
+                
+                init(messages: [PCMessage]) {
+                    for message in messages {
+                        self.messages.append(Message(
+                            text: message.text,
+                            sender: Sender(id: message.sender.id, displayName: message.sender.displayName),
+                            messageId: String(describing:message.id),
+                            date: Date()
+                        ))
                     }
                 }
             }
@@ -45,37 +51,22 @@ enum Chatroom
             struct Request
             {
                 var text: String
-                var sender: User
+                var sender: Sender
+                var room: PCRoom
             }
             
             struct Response
             {
                 var message: Message
                 
-                init(data: [String:Any]) {
-                    self.message = Chatroom.Messages.Parser(data: data).message
+                init(message: PCMessage) {
+                    self.message = Message(
+                        text: message.text,
+                        sender: Sender(id: message.sender.id, displayName: message.sender.displayName),
+                        messageId: String(describing:message.id),
+                        date: Date()
+                    )
                 }
-            }
-        }
-        
-        struct Parser
-        {
-            var message: Message
-            
-            init(data: [String:Any]?) {
-                let user = data!["user"] as! [String:Any]
-                
-                let sender = Sender(
-                    id: user["chatkit_id"] as! String,
-                    displayName: user["name"] as! String
-                )
-                
-                self.message = Message(
-                    text: data!["text"] as! String,
-                    sender: sender,
-                    messageId: String(describing: data!["id"]),
-                    date: Date()
-                )
             }
         }
     }
