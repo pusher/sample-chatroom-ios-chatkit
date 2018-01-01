@@ -18,7 +18,6 @@
 		B50A69021FDC38DE00A4989C /* SignupInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A68FC1FDC38DE00A4989C /* SignupInteractor.swift */; };
 		B50A690A1FDC38F900A4989C /* ChatroomPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69041FDC38F900A4989C /* ChatroomPresenter.swift */; };
 		B50A690B1FDC38F900A4989C /* ChatroomWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69051FDC38F900A4989C /* ChatroomWorker.swift */; };
-		B50A690C1FDC38F900A4989C /* ChatroomRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69061FDC38F900A4989C /* ChatroomRouter.swift */; };
 		B50A690D1FDC38F900A4989C /* ChatroomModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69071FDC38F900A4989C /* ChatroomModels.swift */; };
 		B50A690E1FDC38F900A4989C /* ChatroomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69081FDC38F900A4989C /* ChatroomViewController.swift */; };
 		B50A690F1FDC38F900A4989C /* ChatroomInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A69091FDC38F900A4989C /* ChatroomInteractor.swift */; };
@@ -63,7 +62,6 @@
 		B50A68FC1FDC38DE00A4989C /* SignupInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInteractor.swift; sourceTree = "<group>"; };
 		B50A69041FDC38F900A4989C /* ChatroomPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomPresenter.swift; sourceTree = "<group>"; };
 		B50A69051FDC38F900A4989C /* ChatroomWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomWorker.swift; sourceTree = "<group>"; };
-		B50A69061FDC38F900A4989C /* ChatroomRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomRouter.swift; sourceTree = "<group>"; };
 		B50A69071FDC38F900A4989C /* ChatroomModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomModels.swift; sourceTree = "<group>"; };
 		B50A69081FDC38F900A4989C /* ChatroomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomViewController.swift; sourceTree = "<group>"; };
 		B50A69091FDC38F900A4989C /* ChatroomInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomInteractor.swift; sourceTree = "<group>"; };
@@ -159,7 +157,6 @@
 			children = (
 				B50A69041FDC38F900A4989C /* ChatroomPresenter.swift */,
 				B50A69051FDC38F900A4989C /* ChatroomWorker.swift */,
-				B50A69061FDC38F900A4989C /* ChatroomRouter.swift */,
 				B50A69071FDC38F900A4989C /* ChatroomModels.swift */,
 				B50A69081FDC38F900A4989C /* ChatroomViewController.swift */,
 				B50A69091FDC38F900A4989C /* ChatroomInteractor.swift */,
@@ -402,12 +399,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-words/Pods-words-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework",
 				"${BUILT_PRODUCTS_DIR}/PusherChatkit/PusherChatkit.framework",
 				"${BUILT_PRODUCTS_DIR}/PusherPlatform/PusherPlatform.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MessageKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PusherChatkit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PusherPlatform.framework",
 			);
@@ -457,7 +456,6 @@
 				B520350A1FEBDB060028D7FB /* WelcomeViewController.swift in Sources */,
 				B50A68F01FDB554E00A4989C /* LoginRouter.swift in Sources */,
 				B50A690B1FDC38F900A4989C /* ChatroomWorker.swift in Sources */,
-				B50A690C1FDC38F900A4989C /* ChatroomRouter.swift in Sources */,
 				B50A69001FDC38DE00A4989C /* SignupModels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

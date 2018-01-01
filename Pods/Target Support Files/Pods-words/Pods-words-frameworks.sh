@@ -103,11 +103,13 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PusherChatkit/PusherChatkit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PusherPlatform/PusherPlatform.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/MessageKit/MessageKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PusherChatkit/PusherChatkit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PusherPlatform/PusherPlatform.framework"
 fi

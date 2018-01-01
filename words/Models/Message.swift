@@ -10,12 +10,32 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
+import MessageKit
 
-struct Message
+struct Message: MessageType
 {
-    var id: Int
-    var room_id: String?
-    var message: String
-    var created_at: Date
+    var messageId: String
+    var sender: Sender
+    var sentDate: Date
+    var data: MessageData
+    
+    init(data: MessageData, sender: Sender, messageId: String, date: Date) {
+        self.data = data
+        self.sender = sender
+        self.messageId = messageId
+        self.sentDate = date
+    }
+    
+    init(text: String, sender: Sender, messageId: String, date: Date) {
+        self.init(data: .text(text), sender: sender, messageId: messageId, date: date)
+    }
+    
+    init(attributedText: NSAttributedString, sender: Sender, messageId: String, date: Date) {
+        self.init(data: .attributedText(attributedText), sender: sender, messageId: messageId, date: date)
+    }
+    
+    init(emoji: String, sender: Sender, messageId: String, date: Date) {
+        self.init(data: .emoji(emoji), sender: sender, messageId: messageId, date: date)
+    }
 }

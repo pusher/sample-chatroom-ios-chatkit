@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '005A39C57E0767F2911FEC743910A230'
+               BlueprintIdentifier = 'C9774F8C3FFDE7CB6BF6972BED916FA2'
                BlueprintName = 'PusherChatkit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'PusherChatkit.framework'>
