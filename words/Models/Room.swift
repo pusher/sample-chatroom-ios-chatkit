@@ -10,6 +10,6 @@ import UIKit
 
 struct Room
 {
-    var id: String
+    var id: Int
     var name: String
 }

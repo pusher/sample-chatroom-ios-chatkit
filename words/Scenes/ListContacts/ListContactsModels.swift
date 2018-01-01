@@ -39,10 +39,10 @@ enum ListContacts
                 let roomObject = data["room"] as! [String:Any]
                 
                 let room = Room(
-                    id: roomObject["id"] as! String,
+                    id: roomObject["id"] as! Int,
                     name: roomObject["name"] as! String
                 )
-                
+                    
                 self.contact = Contact(user: user, room: room)
             }
         }
@@ -78,7 +78,7 @@ enum ListContacts
                     let roomObject = contact!["room"] as! [String:Any]
                     
                     let room = Room(
-                        id: roomObject["id"] as! String,
+                        id: roomObject["id"] as! Int,
                         name: roomObject["name"] as! String
                     )
                     
