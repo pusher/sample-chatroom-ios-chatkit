@@ -14,7 +14,7 @@ class Contact extends Model
     /**
      * {@inheritDoc}
      */
-    protected $with = ['user1', 'user2'];
+    protected $with = ['user1', 'user2', 'room'];
 
     /**
     * Get the user1 relationship
@@ -30,6 +30,14 @@ class Contact extends Model
     public function user2()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relationship with room
+     */
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
     }
 
     /**

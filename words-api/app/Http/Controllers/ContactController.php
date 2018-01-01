@@ -6,6 +6,7 @@ use App\User;
 use App\Contact;
 use App\Chatkit;
 use Illuminate\Http\Request;
+use App\Room;
 
 class ContactController extends Controller
 {
@@ -23,7 +24,7 @@ class ContactController extends Controller
         // Loop through the contacts and format each one
         Contact::for($user->id)->get()->each(function ($contact) use ($user, &$contacts) {
             $friend = $contact->user1_id === $user->id ? $contact->user2 : $contact->user1;
-            $contacts[] = $this->formatContact($contact, $friend, $user);
+            $contacts[] = $friend->toArray() + ['room' => $contact->room->toArray()];
         });
 
         return response()->json($contacts);
@@ -54,26 +55,14 @@ class ContactController extends Controller
             return response()->json(['status' => 'error'], 400);
         }
 
+        $room = Room::create($room);
+
         $contact = Contact::create([
             'user1_id' => $user->id,
             'user2_id' => $friend->id,
-            'room_id' => $room['id'],
+            'room_id' => $room->id
         ]);
 
-        return response()->json($this->formatContact($contact, $friend, $user));
-    }
-
-    /**
-     * Format a contact array
-     */
-    private function formatContact(Contact $contact, User $friend, User $me) : array
-    {
-        return array_merge($friend->toArray(), [
-            'room' => [
-                'id' => $contact->room_id,
-                'name' => $friend->name,
-                'members' => [$me->chatkit_id, $friend->chatkit_id],
-            ]
-        ]);
+        return response()->json($friend->toArray() + ['room' => $contact->room->toArray()]);
     }
 }
