@@ -11,21 +11,72 @@
 //
 
 import UIKit
+import MessageKit
 
 enum Chatroom
 {
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
+    struct Messages
     {
+        // MARK: Fetch Messages
+        
+        struct Fetch
+        {
+            struct Request
+            {
+            }
+            
+            struct Response
+            {
+                var messages: [Message] = []
+
+                init(data: [[String:Any]?]) {
+                    for rawMessage in data {
+                        let parsed = Chatroom.Messages.Parser(data: rawMessage)
+                        self.messages.append(parsed.message)
+                    }
+                }
+            }
+        }
+        
+        // MARK: Create Messages
+        
+        struct Create
+        {
+            struct Request
+            {
+                var text: String
+                var sender: User
+            }
+            
+            struct Response
+            {
+                var message: Message
+                
+                init(data: [String:Any]) {
+                    self.message = Chatroom.Messages.Parser(data: data).message
+                }
+            }
+        }
+        
+        struct Parser
+        {
+            var message: Message
+            
+            init(data: [String:Any]?) {
+                let user = data!["user"] as! [String:Any]
+                
+                let sender = Sender(
+                    id: user["chatkit_id"] as! String,
+                    displayName: user["name"] as! String
+                )
+                
+                self.message = Message(
+                    text: data!["text"] as! String,
+                    sender: sender,
+                    messageId: String(describing: data!["id"]),
+                    date: Date()
+                )
+            }
+        }
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

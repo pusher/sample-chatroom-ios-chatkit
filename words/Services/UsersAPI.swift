@@ -14,7 +14,7 @@ class UsersAPI: UsersStoreProtocol {
     // MARK: - Contacts
     
     func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
-        let url = self.url("/api/contacts")
+        let url = AppConstants.ENDPOINT + "/api/contacts"
         let headers = authorizationHeader(token: nil)
         
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers)
@@ -123,7 +123,7 @@ class UsersAPI: UsersStoreProtocol {
     // MARK: - Helpers
     
     private func makeRequest(_ url: String, method: HTTPMethod, params: Parameters?, headers: HTTPHeaders?, completion: @escaping([String: Any?]?) -> Void) {
-        let url = self.url(url)
+        let url = AppConstants.ENDPOINT + url
         let enc = JSONEncoding.default
         
         Alamofire.request(url, method: .post, parameters: params, encoding: enc, headers: headers)
@@ -134,10 +134,6 @@ class UsersAPI: UsersStoreProtocol {
                          case .failure(_): completion(nil)
                      }
                  }
-    }
-    
-    private func url(_ path: String) -> String {
-        return AppConstants.ENDPOINT + path
     }
     
     private func authorizationHeader(token: String?) -> HTTPHeaders {

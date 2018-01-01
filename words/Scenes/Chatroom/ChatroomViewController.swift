@@ -14,12 +14,13 @@ import UIKit
 import MessageKit
 
 protocol ChatroomDisplayLogic: class {
+    func displayChatMessages(response: Chatroom.Messages.Fetch.Response)
 }
 
 class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
 {
     var interactor: ChatroomBusinessLogic?
-    var router: (NSObjectProtocol & ChatroomRoutingLogic & ChatroomDataPassing)?
+    var router: (NSObjectProtocol & ChatroomDataPassing)?
     
     var isTyping = false
     var messages: [Message] = []
@@ -51,17 +52,6 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
         presenter.viewController = viewController
         router.viewController = viewController
         router.dataStore = interactor
-    }
-  
-    // MARK: Routing
-  
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            if let router = router, router.responds(to: selector) {
-                router.perform(selector, with: segue)
-            }
-        }
     }
   
     // MARK: View lifecycle
@@ -104,26 +94,25 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic
         refreshControl.addTarget(self, action: #selector(loadMoreMessages), for: .valueChanged)
     }
     
-    // MARK: Load Messages
+    // MARK: Chat Messages
+    
+    func displayChatMessages(response: Chatroom.Messages.Fetch.Response) {
+        self.messages = response.messages
+        self.messagesCollectionView.reloadData()
+        self.messagesCollectionView.scrollToBottom()
+    }
     
     private func loadChatMessages() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            //SampleData.shared.getMessages(count: 10) { messages in
-                DispatchQueue.main.async {
-                    self.messages = []
-                    self.messagesCollectionView.reloadData()
-                    self.messagesCollectionView.scrollToBottom()
-                }
-            //}
-        }
+        let request = Chatroom.Messages.Fetch.Request()
+        interactor?.fetchChatMessages(request: request)
     }
     
     @objc private func loadMoreMessages() {
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: DispatchTime.now() + 4) {
             //SampleData.shared.getMessages(count: 10) { messages in
                 DispatchQueue.main.async {
-                    let messages: [Message] = []
-                    self.messages.insert(contentsOf: messages, at: 0)
+//                    let messages: [Message] = []
+                    self.messages.insert(contentsOf: [], at: 0)
                     self.messagesCollectionView.reloadDataAndKeepOffset()
                     self.refreshControl.endRefreshing()
                 }
@@ -243,6 +232,9 @@ extension ChatroomViewController: MessagesDisplayDelegate {
 extension ChatroomViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
+
+        
+        
         let message = Message(text: text, sender: currentSender(), messageId: UUID().uuidString, date: Date())
         messages.append(message)
         inputBar.inputTextView.text = String()

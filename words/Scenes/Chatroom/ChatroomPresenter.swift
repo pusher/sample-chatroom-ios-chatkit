@@ -12,17 +12,14 @@
 
 import UIKit
 
-protocol ChatroomPresentationLogic
-{
-  func presentSomething(response: Chatroom.Something.Response)
+protocol ChatroomPresentationLogic {
+    func presentMessages(response: Chatroom.Messages.Fetch.Response)
 }
 
-class ChatroomPresenter: ChatroomPresentationLogic
-{
-  weak var viewController: ChatroomDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: Chatroom.Something.Response) {
-  }
+class ChatroomPresenter: ChatroomPresentationLogic {
+    weak var viewController: ChatroomDisplayLogic?
+    
+    func presentMessages(response: Chatroom.Messages.Fetch.Response) {
+        viewController?.displayChatMessages(response: response)
+    }
 }

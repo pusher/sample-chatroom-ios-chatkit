@@ -12,31 +12,31 @@
 
 import UIKit
 
-protocol ChatroomBusinessLogic
-{
-    func doSomething(request: Chatroom.Something.Request)
+protocol ChatroomBusinessLogic {
+    func fetchChatMessages(request: Chatroom.Messages.Fetch.Request)
 }
 
-protocol ChatroomDataStore
-{
+protocol ChatroomDataStore {
     var contact: Contact? { get set }
 }
 
-class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore
-{
+class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore {
+    
     var contact: Contact?
-    
     var presenter: ChatroomPresentationLogic?
-    var worker: ChatroomWorker?
+    var worker = MessagesWorker(messagesStore: MessagesAPI())
   
-    // MARK: Do something
-  
-    func doSomething(request: Chatroom.Something.Request)
-    {
-        worker = ChatroomWorker()
-        worker?.doSomeWork()
+    // MARK: Fetch Messages
     
-        let response = Chatroom.Something.Response()
-        presenter?.presentSomething(response: response)
+    func fetchChatMessages(request: Chatroom.Messages.Fetch.Request) {
+        worker.fetchMessages { (response, error) in
+            if error == nil {
+                self.presenter?.presentMessages(response: response!)
+            }
+        }
+    }
+    
+    func addChatMessage(request: Chatroom.Messages.Create.Request) {
+        
     }
 }
