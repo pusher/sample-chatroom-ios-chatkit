@@ -36,8 +36,6 @@
 		B54934431FF406E20087034B /* UserTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934421FF406E20087034B /* UserTokenDataStore.swift */; };
 		B54934451FF70F9D0087034B /* ChatkitTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */; };
 		B54934471FF7B2400087034B /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934461FF7B2400087034B /* Room.swift */; };
-		B54DDA521FFA688F00E85635 /* MessagesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54DDA511FFA688F00E85635 /* MessagesWorker.swift */; };
-		B54DDA541FFA69A800E85635 /* MessagesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54DDA531FFA69A800E85635 /* MessagesAPI.swift */; };
 		B54DDA561FFA6E2100E85635 /* ChatroomRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54DDA551FFA6E2100E85635 /* ChatroomRouter.swift */; };
 		B54ECF921FEEB0CB00A0F131 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */; };
 		B559E1171FDADE7C002A59CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B559E1161FDADE7C002A59CD /* AppDelegate.swift */; };
@@ -82,8 +80,6 @@
 		B54934421FF406E20087034B /* UserTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenDataStore.swift; sourceTree = "<group>"; };
 		B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatkitTokenDataStore.swift; sourceTree = "<group>"; };
 		B54934461FF7B2400087034B /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
-		B54DDA511FFA688F00E85635 /* MessagesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesWorker.swift; sourceTree = "<group>"; };
-		B54DDA531FFA69A800E85635 /* MessagesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesAPI.swift; sourceTree = "<group>"; };
 		B54DDA551FFA6E2100E85635 /* ChatroomRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomRouter.swift; sourceTree = "<group>"; };
 		B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		B559E1131FDADE7C002A59CD /* words.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = words.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,10 +120,10 @@
 		B50A68F41FDB555600A4989C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				B50A69031FDC38E400A4989C /* Chatroom */,
 				B50A69101FDC395F00A4989C /* Launch */,
 				B5B048C91FE94C9B00DDD1F6 /* Welcome */,
 				B50A692A1FDC3ACF00A4989C /* ListContacts */,
-				B50A69031FDC38E400A4989C /* Chatroom */,
 				B50A68F61FDC38C900A4989C /* Signup */,
 				B50A68F51FDB556800A4989C /* Login */,
 			);
@@ -268,7 +264,6 @@
 			isa = PBXGroup;
 			children = (
 				B537E4CB1FF148F900C8B58E /* UsersAPI.swift */,
-				B54DDA531FFA69A800E85635 /* MessagesAPI.swift */,
 				B54934421FF406E20087034B /* UserTokenDataStore.swift */,
 				B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */,
 			);
@@ -279,7 +274,6 @@
 			isa = PBXGroup;
 			children = (
 				B5134C171FF020CA00C7F52A /* UsersWorker.swift */,
-				B54DDA511FFA688F00E85635 /* MessagesWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -430,7 +424,6 @@
 			files = (
 				B50A68F21FDB554E00A4989C /* LoginViewController.swift in Sources */,
 				B54ECF921FEEB0CB00A0F131 /* Authenticator.swift in Sources */,
-				B54DDA541FFA69A800E85635 /* MessagesAPI.swift in Sources */,
 				B54934471FF7B2400087034B /* Room.swift in Sources */,
 				B5B048C61FE8E76800DDD1F6 /* RoundButton.swift in Sources */,
 				B50A68F31FDB554E00A4989C /* LoginInteractor.swift in Sources */,
@@ -456,7 +449,6 @@
 				B50A69341FDC3AE200A4989C /* ListContactsModels.swift in Sources */,
 				B50A690F1FDC38F900A4989C /* ChatroomInteractor.swift in Sources */,
 				B5C1DFD01FF01B2A00B076F7 /* Contact.swift in Sources */,
-				B54DDA521FFA688F00E85635 /* MessagesWorker.swift in Sources */,
 				B50A69331FDC3AE200A4989C /* ListContactsRouter.swift in Sources */,
 				B559E1171FDADE7C002A59CD /* AppDelegate.swift in Sources */,
 				B54934451FF70F9D0087034B /* ChatkitTokenDataStore.swift in Sources */,

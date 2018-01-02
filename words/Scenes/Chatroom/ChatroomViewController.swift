@@ -18,14 +18,14 @@ protocol ChatroomDisplayLogic: class {
     func displayChatMessages(response: Chatroom.Messages.Fetch.Response)
 }
 
-class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic, PCChatManagerDelegate
-{
+class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic {
+    
+    // MARK: Properties
+    
+    var messages: [Message] = []
     var interactor: ChatroomBusinessLogic?
     var router: (NSObjectProtocol & ChatroomDataPassing)?
     
-    var isTyping = false
-    var messages: [Message] = []
-
     // MARK: Object lifecycle
   
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -59,28 +59,30 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic, PCCh
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureMessageKit()
+        self.initialiseChatkit()
+        self.configureMessageKit()
 
-        navigationItem.title = router?.dataStore?.contact?.user.name
-        
-        
+        self.navigationItem.title = router?.dataStore?.contact?.user.name
+    }
+
+    // MARK: Initialise Chatkit
+    
+    private func initialiseChatkit() {
         let chatManager = ChatManager(
             instanceId: AppConstants.CHATKIT_INSTANCE_ID,
             tokenProvider: ChatkitTokenDataStore()
         )
         
-        chatManager.connect(delegate: self) { currentUser, error in
-            guard error == nil else {
-                return
-            }
-
-            self.interactor?.currentUser = currentUser
+        chatManager.connect(delegate: self) { user, error in
+            guard error == nil else { return }
             
             let room = self.router?.dataStore?.contact?.room
+            
+            self.interactor?.currentUser = user
             self.interactor?.subscribeToRoom(room: room!)
         }
     }
-
+    
     // MARK: Configure MessageKit
     
     private func configureMessageKit() {
@@ -99,19 +101,33 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic, PCCh
         messageInputBar.inputTextView.layer.borderColor = UIColor(red: 192/255, green: 204/255, blue: 218/255, alpha: 1).cgColor
         messageInputBar.inputTextView.layer.borderWidth = 0
         reloadInputViews()
-
+        
         // Keyboard and send btn
         messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
         scrollsToBottomOnKeybordBeginsEditing = true
         maintainPositionOnKeyboardFrameChanged = true
     }
     
-    // MARK: Chat Messages
+    // MARK: Display Messages
     
     func displayChatMessages(response: Chatroom.Messages.Fetch.Response) {
         self.messages = response.messages
         self.messagesCollectionView.reloadData()
         self.messagesCollectionView.scrollToBottom()
+    }
+}
+
+
+// MARK: - PCChatManagerDelegate
+
+extension ChatroomViewController: PCChatManagerDelegate {
+    
+    func userCameOnline(user: PCUser) {
+        print("User \(String(describing: user.name)) came online")
+    }
+    
+    func userWentOffline(user: PCUser) {
+        print("User \(String(describing: user.name)) went offline")
     }
 }
 
@@ -133,7 +149,7 @@ extension ChatroomViewController: MessagesDataSource {
     }
     
     func avatar(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Avatar {
-        return Avatar(image: nil, initials: initials(fromName: message.sender.displayName))
+        return Avatar(image: nil, initials: self.initials(fromName: message.sender.displayName))
     }
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
@@ -147,7 +163,7 @@ extension ChatroomViewController: MessagesDataSource {
         struct ConversationDateFormatter {
             static let formatter: DateFormatter = {
                 let formatter = DateFormatter()
-                formatter.dateStyle = .medium
+                formatter.dateStyle = .short
                 return formatter
             }()
         }
@@ -249,24 +265,14 @@ extension ChatroomViewController: MessagesDisplayDelegate {
 extension ChatroomViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
-        guard interactor?.currentUser != nil else {
-            return
-        }
+        guard interactor?.currentUser != nil else { return }
         
         let room = router?.dataStore?.contact?.room
         let request = Chatroom.Messages.Create.Request(text: text, sender: currentSender(), room: room!)
 
         self.interactor?.addChatMessage(request: request) { (messageId, error) in
-            guard error == nil else {
-                print("Error sending message!")
-                return
-            }
-            
+            guard error != nil else { return }
             inputBar.inputTextView.text = String()
-            
-//            self.messages.append(response!.message)
-//            self.messagesCollectionView.insertSections([self.messages.count - 1])
-//            self.messagesCollectionView.scrollToBottom()
         }
     }
 }

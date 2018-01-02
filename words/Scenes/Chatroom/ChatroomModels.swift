@@ -10,35 +10,29 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
 import MessageKit
 import PusherChatkit
 
-enum Chatroom
-{
-    struct Messages
-    {
+enum Chatroom {
+
+    struct Messages {
+        
         // MARK: Fetch Messages
         
-        struct Fetch
-        {
-            struct Request
-            {
+        struct Fetch {
+            
+            struct Request {
                 var room: PCRoom
             }
             
-            struct Response
-            {
+            struct Response {
                 var messages: [Message] = []
                 
                 init(messages: [PCMessage]) {
                     for message in messages {
-                        self.messages.append(Message(
-                            text: message.text,
-                            sender: Sender(id: message.sender.id, displayName: message.sender.displayName),
-                            messageId: String(describing:message.id),
-                            date: Date()
-                        ))
+                        let response = Chatroom.Messages.Create.Response(message: message)
+                        self.messages.append(response.message)
                     }
                 }
             }
@@ -46,24 +40,22 @@ enum Chatroom
         
         // MARK: Create Messages
         
-        struct Create
-        {
-            struct Request
-            {
+        struct Create {
+
+            struct Request {
                 var text: String
                 var sender: Sender
                 var room: PCRoom
             }
             
-            struct Response
-            {
+            struct Response {
                 var message: Message
                 
                 init(message: PCMessage) {
                     self.message = Message(
                         text: message.text,
                         sender: Sender(id: message.sender.id, displayName: message.sender.displayName),
-                        messageId: String(describing:message.id),
+                        messageId: String(describing: message.id),
                         date: Date()
                     )
                 }
