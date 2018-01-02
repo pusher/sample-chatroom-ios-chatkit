@@ -10,7 +10,10 @@ import UIKit
 import PusherPlatform
 
 class ChatkitTokenDataStore: PPTokenProvider {
+    
     static var DATA_KEY = "WORDS_CHATKIT_TOKEN"
+    
+    // MARK: Fetch and Save
     
     func getToken() -> ChatkitToken {
         if let token = UserDefaults.standard.object(forKey: type(of: self).DATA_KEY) as! Data? {
@@ -25,6 +28,8 @@ class ChatkitTokenDataStore: PPTokenProvider {
         UserDefaults.standard.set(encodedData, forKey: type(of: self).DATA_KEY)
     }
     
+    // MARK: PPTokenProvider
+
     func fetchToken(completionHandler: @escaping (PPTokenProviderResult) -> Void) {
         guard let access_token = getToken().access_token, access_token.count > 0 else {
             return completionHandler(PPTokenProviderResult.error(error: ChatkitTokenDataStoreError.validAccessTokenNotPresentInDatastore))

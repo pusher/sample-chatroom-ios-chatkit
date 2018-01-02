@@ -8,8 +8,7 @@
 
 import UIKit
 
-struct Room
-{
+struct Room {
     var id: Int
     var name: String
 }

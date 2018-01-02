@@ -13,17 +13,15 @@
 import UIKit
 import PusherChatkit
 
-enum ListContacts
-{
-    enum AddContact
-    {
-        struct Request
-        {
+enum ListContacts {
+    
+    enum Create {
+        
+        struct Request {
             var user_id: String
         }
         
-        struct Response
-        {
+        struct Response {
             var contact: Contact
             
             init(data: [String:Any]) {
@@ -31,43 +29,37 @@ enum ListContacts
             }
         }
         
-        struct ViewModel
-        {
-            var contact: FetchContacts.ViewModel.DisplayedContact
+        struct ViewModel {
+            var contact: Fetch.ViewModel.DisplayedContact
         }
     }
     
-    enum FetchContacts
-    {
-        struct Request
-        {
+    enum Fetch {
+
+        struct Request {
         }
     
-        struct Response
-        {
+        struct Response {
             var contacts: [Contact] = []
             
-            init(data: [[String: Any]?]?) {
-                for datum in data! {
+            init(data: [[String: Any]?]) {
+                for datum in data {
                     self.contacts.append(ParseContact(data: datum!).contact)
                 }
             }
         }
     
-        struct ViewModel
-        {
-            struct DisplayedContact
-            {
+        struct ViewModel {
+            var displayedContacts: [DisplayedContact]
+
+            struct DisplayedContact {
                 var name: String
                 var isOnline: Bool
             }
-            
-            var displayedContacts: [DisplayedContact]
         }
     }
     
-    struct ParseContact
-    {
+    struct ParseContact {
         var contact: Contact
         
         init(data: [String:Any]) {

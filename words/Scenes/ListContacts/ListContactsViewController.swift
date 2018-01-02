@@ -13,7 +13,7 @@
 import UIKit
 
 protocol ListContactsDisplayLogic: class {
-    func displayFetchedContacts(viewModel: ListContacts.FetchContacts.ViewModel)
+    func displayFetchedContacts(viewModel: ListContacts.Fetch.ViewModel)
 }
 
 class ListContactsViewController: UITableViewController, ListContactsDisplayLogic {
@@ -21,7 +21,7 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
     // MARK: Properties
     
     var interactor: ListContactsBusinessLogic?
-    var displayedContacts: [ListContacts.FetchContacts.ViewModel.DisplayedContact] = []
+    var displayedContacts: [ListContacts.Fetch.ViewModel.DisplayedContact] = []
     var router: (NSObjectProtocol & ListContactsRoutingLogic & ListContactsDataPassing)?
 
     // MARK: Object lifecycle
@@ -69,8 +69,8 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         super.viewWillAppear(animated)
         
         // Update the titlebar
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Contacts"
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(showAddContactPopup))
         
         fetchContacts()
@@ -87,36 +87,36 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
             preferredStyle: .alert
         )
 
-        // Add text field to alert controller
-        alertController.addTextField(configurationHandler: { emailTextField in
+        alertController.addTextField { emailTextField in
             emailTextField.placeholder = "Enter email address"
             self.emailTextField = emailTextField
-        })
+        }
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        // Add contact when action button is pressed
         alertController.addAction(UIAlertAction(title: "Add Contact", style: .default) { action in
-            let request = ListContacts.AddContact.Request(user_id: self.emailTextField!.text!)
+            let request = ListContacts.Create.Request(user_id: self.emailTextField!.text!)
             self.interactor?.addContact(request: request)
         })
         
-        self.present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
     
     // MARK: Fetch contacts
     
     private func fetchContacts() {
-        let request = ListContacts.FetchContacts.Request()
-        interactor?.fetchContacts(request: request)
+        interactor?.fetchContacts(request: ListContacts.Fetch.Request())
     }
   
-    func displayFetchedContacts(viewModel: ListContacts.FetchContacts.ViewModel) {
+    func displayFetchedContacts(viewModel: ListContacts.Fetch.ViewModel) {
         displayedContacts = viewModel.displayedContacts
         tableView.reloadData()
     }
-    
-    // MARK: - Table view data source
+}
+
+
+// MARK: UITableViewDelegate
+
+extension ListContactsViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -126,18 +126,17 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         return displayedContacts.count
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let displayedContact = displayedContacts[indexPath.row]
-        
         var cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell")
         
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ContactTableViewCell")
         }
 
-        cell?.textLabel?.text = displayedContact.name
-        cell?.detailTextLabel?.text = displayedContact.isOnline ? "online" : "offline"
+        let contact = displayedContacts[indexPath.row]
+
+        cell?.textLabel?.text = contact.name
+        cell?.detailTextLabel?.text = contact.isOnline ? "online" : "offline"
 
         return cell!
     }

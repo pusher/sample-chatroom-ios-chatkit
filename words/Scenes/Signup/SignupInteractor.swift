@@ -27,12 +27,13 @@ class SignupInteractor: SignupBusinessLogic {
     // MARK: Create Account
     
     func createAccount(request: Signup.Request) -> Void {
-        self.worker.signup(request: request) { (user, signupError) in
-            if signupError == nil {
-                self.router?.routeToListMessages()
-            } else {
-                self.viewController?.showValidationError("Unable to create account, try again later!")
+        self.worker.signup(request: request) { user, error in
+            guard error == nil else {
+                self.viewController?.showValidationError("Error creating account!")
+                return
             }
+            
+            self.router?.routeToListMessages()
         }
     }
 }

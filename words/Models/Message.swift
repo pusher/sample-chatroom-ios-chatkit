@@ -13,8 +13,8 @@
 import Foundation
 import MessageKit
 
-struct Message: MessageType
-{
+struct Message: MessageType {
+    
     var messageId: String
     var sender: Sender
     var sentDate: Date

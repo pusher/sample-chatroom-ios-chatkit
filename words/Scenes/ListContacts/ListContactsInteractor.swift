@@ -13,8 +13,8 @@
 import UIKit
 
 protocol ListContactsBusinessLogic {
-    func fetchContacts(request: ListContacts.FetchContacts.Request)
-    func addContact(request: ListContacts.AddContact.Request)
+    func fetchContacts(request: ListContacts.Fetch.Request)
+    func addContact(request: ListContacts.Create.Request)
 }
 
 protocol ListContactsDataStore {
@@ -31,23 +31,23 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
 
     // MARK: Fetch Contacts
   
-    func fetchContacts(request: ListContacts.FetchContacts.Request) {
-        worker.fetchContacts { (contacts, error) in
+    func fetchContacts(request: ListContacts.Fetch.Request) {
+        worker.fetchContacts { contacts, error in
+            guard error == nil else { return }
+
             self.contacts = contacts
-            if contacts != nil {
-                self.presenter?.presentContacts(contacts!)
-            }
+            self.presenter?.presentContacts(contacts!)
         }
     }
     
     // MARK: Add contact
     
-    func addContact(request: ListContacts.AddContact.Request) {
-        worker.addContact(request: request) { (contact, error) in
+    func addContact(request: ListContacts.Create.Request) {
+        worker.addContact(request: request) { contact, error in
+            guard error == nil else { return }
+
             self.contacts?.append(contact!)
-            if contact != nil {
-                self.presenter?.presentAddedContact(contact: contact!)
-            }
+            self.presenter?.presentAddedContact(contact!)
         }
     }
 }

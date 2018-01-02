@@ -65,7 +65,7 @@ class LoginViewController: UIViewController, LoginFormErrorLogic {
         interactor?.login(request: request)
     }
     
-    func showValidationError(_ message: String) {
+    func showValidationError(_ message: String) -> Void {
         let alert = UIAlertController(title: "Error logging in", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
         self.show(alert, sender: self)

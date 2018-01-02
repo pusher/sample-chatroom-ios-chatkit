@@ -12,50 +12,41 @@
 
 import UIKit
 
-enum Login
-{
-    struct Account
-    {
-        struct Request
-        {
+enum Login {
+    
+    struct Account {
+        
+        struct Request {
             var email: String
             var password: String
         }
         
-        struct Response
-        {
-            var userToken: UserToken?
-            var data: [String: Any?]?
+        struct Response {
+            var userToken: UserToken
             
-            init(data: [String:Any?]?) {
-                self.data = data
-                
+            init(data: [String:Any]) {
                 self.userToken = UserToken(
-                    token_type: (data!["token_type"] as? String)!,
-                    access_token: (data!["access_token"] as? String)!,
-                    refresh_token: (data!["refresh_token"] as? String)!,
-                    expires_in: (data!["expires_in"] as? Int)!
+                    token_type: data["token_type"] as? String,
+                    access_token: data["access_token"] as? String,
+                    refresh_token: data["refresh_token"] as? String,
+                    expires_in: data["expires_in"] as? Int
                 )
             }
         }
     }
 
-    struct Chatkit
-    {
-        struct Request
-        {
+    struct Chatkit {
+        
+        struct Request {
             var username: String
             var password: String
             var token: UserToken
         }
         
-        struct Response
-        {
-            var token: ChatkitToken?
-            var data: [String:Any?]
+        struct Response {
+            var token: ChatkitToken
             
-            init(data: [String:Any?]) {
-                self.data = data
+            init(data: [String:Any]) {
                 self.token = ChatkitToken(
                     access_token: data["access_token"] as? String,
                     refresh_token: data["refresh_token"] as? String

@@ -12,28 +12,23 @@
 
 import UIKit
 
-enum Signup
-{
-    struct Request
-    {
+enum Signup {
+    
+    struct Request {
         var name: String
         var email: String
         var password: String
     }
 
-    struct Response
-    {
+    struct Response {
         var user: User?
-        var data: [String : Any?]?
         
-        init(data: [String:Any?]?) {
-            self.data = data
-            
+        init(data: [String:Any]) {
             self.user = User(
-                id: (data!["id"] as? Int)!,
-                name: (data!["name"] as? String)!,
-                email: (data!["email"] as? String)!,
-                chatkit_id: (data!["chatkit_id"] as? String)!
+                id: data["id"] as! Int,
+                name: data["name"] as! String,
+                email: data["email"] as! String,
+                chatkit_id: data["chatkit_id"] as! String
             )
         }
     }

@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ChatkitToken: NSObject, NSCoding
-{
+class ChatkitToken: NSObject, NSCoding {
+    
     var access_token: String?
     var refresh_token: String?
     
@@ -24,8 +24,9 @@ class ChatkitToken: NSObject, NSCoding
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let access_token = aDecoder.decodeObject(forKey: "access_token") as! String
-        let refresh_token = aDecoder.decodeObject(forKey: "refresh_token") as! String
-        self.init(access_token: access_token, refresh_token: refresh_token)
+        let accessToken = aDecoder.decodeObject(forKey: "access_token") as! String
+        let refreshToken = aDecoder.decodeObject(forKey: "refresh_token") as! String
+        
+        self.init(access_token: accessToken, refresh_token: refreshToken)
     }
 }

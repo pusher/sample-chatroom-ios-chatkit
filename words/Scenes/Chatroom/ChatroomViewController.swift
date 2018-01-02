@@ -270,8 +270,8 @@ extension ChatroomViewController: MessageInputBarDelegate {
         let room = router?.dataStore?.contact?.room
         let request = Chatroom.Messages.Create.Request(text: text, sender: currentSender(), room: room!)
 
-        self.interactor?.addChatMessage(request: request) { (messageId, error) in
-            guard error != nil else { return }
+        self.interactor?.addChatMessage(request: request) { messageId, error in
+            guard error == nil else { return }
             inputBar.inputTextView.text = String()
         }
     }

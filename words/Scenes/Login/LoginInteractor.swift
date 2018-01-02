@@ -27,12 +27,13 @@ class LoginInteractor: LoginBusinessLogic {
     // MARK: Login
     
     func login(request: Login.Account.Request) {
-        self.worker.login(request: Login.Account.Request(email: request.email, password: request.password)) { (userToken, loginError) in
-            if loginError == nil {
-                self.router?.routeToListMessages()
-            } else {
-                self.viewController?.showValidationError("An error occurred while logging in.")
+        self.worker.login(request: request) { token, error in
+            guard error == nil else {
+                self.viewController?.showValidationError("Error logging in.")
+                return
             }
+
+            self.router?.routeToListMessages()
         }
     }
 }

@@ -14,14 +14,14 @@ import UIKit
 
 protocol ListContactsPresentationLogic {
     func presentContacts(_ contacts: [Contact])
-    func presentAddedContact(contact: Contact)
+    func presentAddedContact(_ contact: Contact)
 }
 
 class ListContactsPresenter: ListContactsPresentationLogic {
     
     // MARK: Properties
     
-    var displayedContacts: [ListContacts.FetchContacts.ViewModel.DisplayedContact] = []
+    var displayedContacts: [ListContacts.Fetch.ViewModel.DisplayedContact] = []
     weak var viewController: ListContactsDisplayLogic?
     
     // MARK: Present Contacts
@@ -30,23 +30,21 @@ class ListContactsPresenter: ListContactsPresentationLogic {
         displayedContacts = []
         
         for contact in contacts {
-            let contact = ListContacts.FetchContacts.ViewModel.DisplayedContact(name: contact.user.name, isOnline: false)
+            let contact = ListContacts.Fetch.ViewModel.DisplayedContact(name: contact.user.name, isOnline: false)
             displayedContacts.append(contact)
         }
             
         displayContacts()
     }
     
-    func presentAddedContact(contact: Contact) {
-        let name = contact.user.name
-        let contact = ListContacts.FetchContacts.ViewModel.DisplayedContact(name: name, isOnline: false)
-        
+    func presentAddedContact(_ contact: Contact) {
+        let contact = ListContacts.Fetch.ViewModel.DisplayedContact(name: contact.user.name, isOnline: false)
         displayedContacts.append(contact)
         displayContacts()
     }
     
     private func displayContacts() {
-        let viewModel = ListContacts.FetchContacts.ViewModel(displayedContacts: displayedContacts)
+        let viewModel = ListContacts.Fetch.ViewModel(displayedContacts: displayedContacts)
         viewController?.displayFetchedContacts(viewModel: viewModel)
     }
 }

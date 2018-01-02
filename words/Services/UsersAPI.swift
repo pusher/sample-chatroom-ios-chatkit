@@ -23,7 +23,7 @@ class UsersAPI: UsersStoreProtocol {
                 switch (response.result) {
                 case .success(let data):
                     let data = data as! [[String:Any]?]
-                    let res = ListContacts.FetchContacts.Response(data: data)
+                    let res = ListContacts.Fetch.Response(data: data)
                     
                     completionHandler(res.contacts, nil)
                 case .failure(_):
@@ -32,17 +32,16 @@ class UsersAPI: UsersStoreProtocol {
             }
     }
     
-    func addContact(request: ListContacts.AddContact.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
-        let params: Parameters = ["user_id": request.user_id]
+    func addContact(request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
+        let params = ["user_id": request.user_id]
         let headers = authorizationHeader(token: nil)
-        
+
         makeRequest("/api/contacts", method: .post, params: params, headers: headers) { data in
-            if data == nil {
+            guard data != nil else {
                 return completionHandler(nil, ContactsError.CannotAdd("Unable to add contact"))
             }
 
-            let response = ListContacts.AddContact.Response(data: data!)
-
+            let response = ListContacts.Create.Response(data: data!)
             completionHandler(response.contact, nil)
         }
     }
@@ -59,25 +58,23 @@ class UsersAPI: UsersStoreProtocol {
         ]
         
         makeRequest("/oauth/token", method: .post, params: params, headers: nil) { data in
-            if data == nil {
+            guard data != nil else {
                 return completionHandler(nil, UsersStoreError.CannotLogin("Invalid username or password."))
             }
             
-            let response = Login.Account.Response(data: data)
-            let request = Login.Chatkit.Request(username: request.email, password: request.password, token: response.userToken!)
+            let response = Login.Account.Response(data: data!)
+            let request = Login.Chatkit.Request(username: request.email, password: request.password, token: response.userToken)
             
-            // Fetch the Chatkit token
-            self.fetchChatkitToken(request: request, completionHandler: { (token, error) in
-                if token == nil {
-                    return completionHandler(nil, UsersStoreError.CannotFetchChatkitToken("Error fetching chatkit token."))
+            self.fetchChatkitToken(request: request) { token, error in
+                guard error == nil else {
+                    return completionHandler(nil, UsersStoreError.CannotFetchChatkitToken)
                 }
 
-                // Set tokens...
                 ChatkitTokenDataStore().setToken(token!)
-                UserTokenDataStore().setToken(response.userToken!)
+                UserTokenDataStore().setToken(response.userToken)
 
                 completionHandler(response.userToken, nil)
-            })
+            }
         }
     }
     
@@ -89,21 +86,20 @@ class UsersAPI: UsersStoreProtocol {
         ]
 
         makeRequest("/api/users/signup", method: .post, params: params, headers: nil) { data in
-            if data == nil {
-                return completionHandler(nil, UsersStoreError.CannotSignup("Unable to create account."))
+            guard data != nil else {
+                return completionHandler(nil, UsersStoreError.CannotSignup("Can't create account."))
             }
             
-            let response = Signup.Response(data: data)
+            let response = Signup.Response(data: data!)
             let request = Login.Account.Request(email: request.email, password: request.password)
             
-            // Login to the application
-            self.login(request: request, completionHandler: { (userToken, loginError) in
-                if userToken == nil {
-                    return completionHandler(nil, UsersStoreError.CannotLogin("Unable to login."))
+            self.login(request: request) { token, error in
+                guard error == nil else {
+                    return completionHandler(nil, UsersStoreError.CannotLogin("Can't login."))
                 }
                 
                 completionHandler(response.user, nil)
-            })
+            }
         }
     }
     
@@ -111,8 +107,8 @@ class UsersAPI: UsersStoreProtocol {
         let headers = authorizationHeader(token: request.token.access_token!)
         
         makeRequest("/api/chatkit/token", method: .post, params: nil, headers: headers) { data in
-            if data == nil {
-                return completionHandler(nil, UsersStoreError.CannotFetchChatkitToken("Unable to fetch chatkit token"))
+            guard data != nil else {
+                return completionHandler(nil, UsersStoreError.CannotFetchChatkitToken)
             }
             
             let response = Login.Chatkit.Response(data: data!)
@@ -123,9 +119,9 @@ class UsersAPI: UsersStoreProtocol {
     // MARK: - Helpers
     
     private func makeRequest(_ url: String, method: HTTPMethod, params: Parameters?, headers: HTTPHeaders?, completion: @escaping([String:Any]?) -> Void) {
-        let url = AppConstants.ENDPOINT + url
         let enc = JSONEncoding.default
-        
+        let url = AppConstants.ENDPOINT + url
+
         Alamofire.request(url, method: .post, parameters: params, encoding: enc, headers: headers)
                  .validate()
                  .responseJSON { response in
@@ -137,12 +133,7 @@ class UsersAPI: UsersStoreProtocol {
     }
     
     private func authorizationHeader(token: String?) -> HTTPHeaders {
-        var access_token = token
-
-        if access_token == nil {
-            access_token = UserTokenDataStore().getToken().access_token
-        }
-
-        return ["Authorization": "Bearer \(access_token!)"]
+        let accessToken = (token == nil) ? UserTokenDataStore().getToken().access_token : token
+        return ["Authorization": "Bearer \(accessToken!)"]
     }
 }

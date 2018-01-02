@@ -120,12 +120,12 @@
 		B50A68F41FDB555600A4989C /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				B50A69031FDC38E400A4989C /* Chatroom */,
 				B50A69101FDC395F00A4989C /* Launch */,
 				B5B048C91FE94C9B00DDD1F6 /* Welcome */,
-				B50A692A1FDC3ACF00A4989C /* ListContacts */,
 				B50A68F61FDC38C900A4989C /* Signup */,
 				B50A68F51FDB556800A4989C /* Login */,
+				B50A692A1FDC3ACF00A4989C /* ListContacts */,
+				B50A69031FDC38E400A4989C /* Chatroom */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -210,7 +210,7 @@
 				B5C1DFC71FEFBC7500B076F7 /* Services */,
 				B5C1DFC41FEFABF300B076F7 /* Models */,
 				B5B048C01FE8E41F00DDD1F6 /* Fonts */,
-				B5B048C41FE8E75000DDD1F6 /* Libs */,
+				B5B048C41FE8E75000DDD1F6 /* Utils */,
 				B50A68F41FDB555600A4989C /* Scenes */,
 				B559E1161FDADE7C002A59CD /* AppDelegate.swift */,
 				B559E11A1FDADE7C002A59CD /* Main.storyboard */,
@@ -229,14 +229,13 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
-		B5B048C41FE8E75000DDD1F6 /* Libs */ = {
+		B5B048C41FE8E75000DDD1F6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */,
 				B5B048C51FE8E76800DDD1F6 /* RoundButton.swift */,
 				B5B048C71FE8F32100DDD1F6 /* AuthTextField.swift */,
 			);
-			path = Libs;
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		B5B048C91FE94C9B00DDD1F6 /* Welcome */ = {
@@ -263,6 +262,7 @@
 		B5C1DFC71FEFBC7500B076F7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */,
 				B537E4CB1FF148F900C8B58E /* UsersAPI.swift */,
 				B54934421FF406E20087034B /* UserTokenDataStore.swift */,
 				B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */,

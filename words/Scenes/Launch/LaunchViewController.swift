@@ -42,11 +42,6 @@ class LaunchViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if Authenticator().isLoggedIn() {
-            router?.routeToListMessages()
-        } else {
-            router?.routeToWelcome()
-        }
+        Authenticator().isLoggedIn() ? router?.routeToListMessages() : router?.routeToWelcome()
     }
 }
