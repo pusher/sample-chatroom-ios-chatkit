@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import PusherChatkit
 
 protocol ListContactsDisplayLogic: class {
     func displayFetchedContacts(viewModel: ListContacts.Fetch.ViewModel)
@@ -65,15 +66,30 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
   
     // MARK: View lifecycle
   
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         // Update the titlebar
         navigationItem.title = "Contacts"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(showAddContactPopup))
         
+        initialiseChatkit()
         fetchContacts()
+    }
+    
+    // MARK: Initialise Chatkit
+    
+    private func initialiseChatkit() {
+        let chatManager = ChatManager(
+            instanceId: AppConstants.CHATKIT_INSTANCE_ID,
+            tokenProvider: ChatkitTokenDataStore()
+        )
+        
+        chatManager.connect(delegate: self) { user, error in
+            guard error == nil else { return }
+            self.interactor?.currentUser = user
+        }
     }
     
     // MARK: - Add contact
@@ -141,3 +157,18 @@ extension ListContactsViewController {
         return cell!
     }
 }
+
+
+// MARK: Extension
+
+extension ListContactsViewController: PCChatManagerDelegate {
+    
+    func userCameOnline(user: PCUser) {
+        print("User \(user.displayName) came online...")
+    }
+    
+    func userWentOffline(user: PCUser) {
+        print("User \(user.displayName) went offline...")
+    }
+}
+

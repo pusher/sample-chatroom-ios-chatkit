@@ -14,6 +14,7 @@ import Foundation
 
 protocol ChatroomPresentationLogic {
     func presentMessages(response: Chatroom.Messages.Fetch.Response)
+    func toggleUserIsTyping(for name: String)
 }
 
 class ChatroomPresenter: ChatroomPresentationLogic {
@@ -21,5 +22,9 @@ class ChatroomPresenter: ChatroomPresentationLogic {
     
     func presentMessages(response: Chatroom.Messages.Fetch.Response) {
         viewController?.displayChatMessages(response: response)
+    }
+    
+    func toggleUserIsTyping(for name: String) {
+        viewController?.handleTyping(by: name)
     }
 }

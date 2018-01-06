@@ -15,12 +15,15 @@ import PusherChatkit
 
 protocol ChatroomBusinessLogic {
     var currentUser: PCCurrentUser? { get set }
+    
     func subscribeToRoom(room: PCRoom)
     func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, Error?) -> Void)
+    func userStartedTyping(inRoom room: PCRoom)
 }
 
 protocol ChatroomDataStore {
     var contact: Contact? { get set }
+    var currentUser: PCCurrentUser? { get set }
 }
 
 class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore {
@@ -43,6 +46,10 @@ class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore {
             }
         }
     }
+    
+    func userStartedTyping(inRoom room: PCRoom) {
+        currentUser?.typing(in: room)
+    }
 }
 
 
@@ -56,5 +63,13 @@ extension ChatroomInteractor: PCRoomDelegate {
             let response = Chatroom.Messages.Fetch.Response(messages: self.messages)
             self.presenter?.presentMessages(response: response)
         }
+    }
+
+    func userStartedTyping(user: PCUser) {
+        presenter?.toggleUserIsTyping(for: user.displayName)
+    }
+    
+    func userStoppedTyping(user: PCUser) {
+        presenter?.toggleUserIsTyping(for: user.displayName)
     }
 }

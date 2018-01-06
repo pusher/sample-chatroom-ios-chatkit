@@ -15,6 +15,7 @@ import MessageKit
 import PusherChatkit
 
 protocol ChatroomDisplayLogic: class {
+    func handleTyping(by username: String)
     func displayChatMessages(response: Chatroom.Messages.Fetch.Response)
 }
 
@@ -22,9 +23,11 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic {
     
     // MARK: Properties
     
+    var isTyping = false
     var messages: [Message] = []
     var interactor: ChatroomBusinessLogic?
     var router: (NSObjectProtocol & ChatroomDataPassing)?
+
     
     // MARK: Object lifecycle
   
@@ -61,30 +64,23 @@ extension ChatroomViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         self.initialiseChatkit()
         self.configureMessageKit()
-
+        
         self.navigationItem.title = router?.dataStore?.contact?.user.name
     }
-
+    
     // MARK: Initialise Chatkit
     
     private func initialiseChatkit() {
-        let chatManager = ChatManager(
-            instanceId: AppConstants.CHATKIT_INSTANCE_ID,
-            tokenProvider: ChatkitTokenDataStore()
-        )
-        
-        chatManager.connect(delegate: self) { user, error in
-            guard error == nil else { return }
-            
-            let room = self.router?.dataStore?.contact?.room
-            
-            self.interactor?.currentUser = user
-            self.interactor?.subscribeToRoom(room: room!)
-        }
+        guard let room = router?.dataStore?.contact?.room else { return }
+        guard let currentUser = router?.dataStore?.currentUser else { return }
+
+        self.interactor?.currentUser = currentUser
+        self.interactor?.subscribeToRoom(room: room)
     }
+
     
     // MARK: Configure MessageKit
     
@@ -117,6 +113,27 @@ extension ChatroomViewController {
         self.messages = response.messages
         self.messagesCollectionView.reloadData()
         self.messagesCollectionView.scrollToBottom()
+    }
+    
+    // MARK: Handle Typing
+    
+    func handleTyping(by username: String) {
+        defer {
+            isTyping = !isTyping
+        }
+        
+        if isTyping {
+            messageInputBar.topStackView.arrangedSubviews.first?.removeFromSuperview()
+            messageInputBar.topStackViewPadding = .zero
+        } else {
+            let label = UILabel()
+            label.text = "\(username) is typing..."
+            label.font = UIFont.boldSystemFont(ofSize: 13)
+            messageInputBar.topStackView.addArrangedSubview(label)
+            messageInputBar.topStackViewPadding.top = 6
+            messageInputBar.topStackViewPadding.left = 12
+            messageInputBar.backgroundColor = messageInputBar.backgroundView.backgroundColor
+        }
     }
 }
 
@@ -166,7 +183,7 @@ extension ChatroomViewController: MessagesDataSource {
         struct ConversationDateFormatter {
             static let formatter: DateFormatter = {
                 let formatter = DateFormatter()
-                formatter.dateStyle = .short
+                formatter.dateStyle = .medium
                 return formatter
             }()
         }
@@ -269,13 +286,19 @@ extension ChatroomViewController: MessageInputBarDelegate {
     
     func messageInputBar(_ inputBar: MessageInputBar, didPressSendButtonWith text: String) {
         guard interactor?.currentUser != nil else { return }
+        guard let room = router?.dataStore?.contact?.room else { return }
         
-        let room = router?.dataStore?.contact?.room
-        let request = Chatroom.Messages.Create.Request(text: text, sender: currentSender(), room: room!)
+        let request = Chatroom.Messages.Create.Request(text: text, sender: currentSender(), room: room)
 
-        self.interactor?.addChatMessage(request: request) { messageId, error in
+        self.interactor?.addChatMessage(request: request) { id, error in
             guard error == nil else { return }
             inputBar.inputTextView.text = String()
         }
+    }
+    
+    func messageInputBar(_ inputBar: MessageInputBar, textViewTextDidChangeTo text: String) {
+        guard interactor?.currentUser != nil else { return }
+        guard let room = router?.dataStore?.contact?.room else { return }
+        self.interactor?.userStartedTyping(inRoom: room)
     }
 }

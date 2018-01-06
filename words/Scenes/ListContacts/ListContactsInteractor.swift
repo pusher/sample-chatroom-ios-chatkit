@@ -11,14 +11,17 @@
 //
 
 import Foundation
+import PusherChatkit
 
 protocol ListContactsBusinessLogic {
+    var currentUser: PCCurrentUser? { get set }
     func fetchContacts(request: ListContacts.Fetch.Request)
     func addContact(request: ListContacts.Create.Request)
 }
 
 protocol ListContactsDataStore {
     var contacts: [Contact]? { get }
+    var currentUser: PCCurrentUser? { get set }
 }
 
 class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
@@ -26,6 +29,7 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
     // MARK: Properties
     
     var contacts: [Contact]?
+    var currentUser: PCCurrentUser?
     var presenter: ListContactsPresentationLogic?
     var worker: UsersWorker = UsersWorker(usersStore: UsersAPI())
 
