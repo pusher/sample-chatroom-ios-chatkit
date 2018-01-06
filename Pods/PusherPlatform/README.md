@@ -81,10 +81,10 @@ TODO
 
 ### Getting started
 
-First we need to have an instance of an `Instance`. To create an `Instance` we need to pass in `instanceId`, `serviceName`, and `serviceVersion`. You can get your instance ID from the dashboard.
+First we need to have an instance of an `Instance`. To create an `Instance` we need to pass in a `locator`, `serviceName`, and `serviceVersion`. You can get your instance locator from the dashboard.
 
 ```swift
-let instance = Instance(instanceId: "instance-id", serviceName: "service-name", serviceVersion: "service-version")
+let instance = Instance(locator: "instanceLocator", serviceName: "service-name", serviceVersion: "service-version")
 ```
 
 The `Instance` instance allows you to interact with the service using the Elements protocol. The high level methods it exposes are:

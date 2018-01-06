@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -199,7 +199,7 @@
 		1F09ED00D4CD6DBD08BACCE5C3AEA0DF /* Timeline.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Timeline.swift; path = Source/Timeline.swift; sourceTree = "<group>"; };
 		200BD2131AC0A7BD9C1C85818B131A38 /* Notifications.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Notifications.swift; path = Source/Notifications.swift; sourceTree = "<group>"; };
 		20F0C506CB0AA25D479B1BB24AA0DBAA /* PusherChatkit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PusherChatkit-dummy.m"; sourceTree = "<group>"; };
-		24268C7E3B7023DF095B14EB959B631A /* MessageKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MessageKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24268C7E3B7023DF095B14EB959B631A /* MessageKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MessageKit.framework; path = MessageKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		25049FD41B2C7F9700BB7501DFF29034 /* MessageIntermediateLayoutAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageIntermediateLayoutAttributes.swift; path = Sources/Layout/MessageIntermediateLayoutAttributes.swift; sourceTree = "<group>"; };
 		25E6C948DD3ABE1365496EAB7215B8E8 /* Sender.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Sender.swift; path = Sources/Models/Sender.swift; sourceTree = "<group>"; };
 		265A3243A442F65A6A20DD6EB421B736 /* LocationMessageCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LocationMessageCell.swift; path = Sources/Views/Cells/LocationMessageCell.swift; sourceTree = "<group>"; };
@@ -212,9 +212,9 @@
 		35E82EF31741BDF3283AA9BE110F8667 /* MessageFooterView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageFooterView.swift; path = "Sources/Views/Headers & Footers/MessageFooterView.swift"; sourceTree = "<group>"; };
 		370A8E9228B37872DE3E9818A3C33934 /* ChatManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChatManager.swift; path = Source/ChatManager.swift; sourceTree = "<group>"; };
 		3A219A50EBB0390B4185AB45772AEC7E /* Alamofire.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Alamofire.xcconfig; sourceTree = "<group>"; };
-		3A8532E2A32DC445BE1FEBF178621254 /* MessageKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = MessageKit.modulemap; sourceTree = "<group>"; };
+		3A8532E2A32DC445BE1FEBF178621254 /* MessageKit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = MessageKit.modulemap; sourceTree = "<group>"; };
 		3BF3A07101022F989335A53AEEE64D3D /* PCCurrentUser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCCurrentUser.swift; path = Source/PCCurrentUser.swift; sourceTree = "<group>"; };
-		3EAEDD7BA0A460DFA20A4B7A162C2AFF /* Pods-words.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-words.modulemap"; sourceTree = "<group>"; };
+		3EAEDD7BA0A460DFA20A4B7A162C2AFF /* Pods-words.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-words.modulemap"; sourceTree = "<group>"; };
 		3F0960852A905BB3B428E969E2B9E8FD /* Avatar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Avatar.swift; path = Sources/Models/Avatar.swift; sourceTree = "<group>"; };
 		3FD110E758AF6E910A709611E23872DD /* PCPresencePayload.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCPresencePayload.swift; path = Source/PCPresencePayload.swift; sourceTree = "<group>"; };
 		4046D2540DA64659F90E162281E3C184 /* PPHTTPEndpointTokenProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPHTTPEndpointTokenProvider.swift; path = Source/PPHTTPEndpointTokenProvider.swift; sourceTree = "<group>"; };
@@ -227,8 +227,8 @@
 		52C8D0A5F86843B238873C093F21E3E8 /* PusherPlatform-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PusherPlatform-dummy.m"; sourceTree = "<group>"; };
 		52FDAE5936256C8C16D5A70DC09C2EA8 /* MessageKit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MessageKit-umbrella.h"; sourceTree = "<group>"; };
 		53AE2B35FB54149615CA573B095037F8 /* InputBarItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InputBarItem.swift; path = Sources/Views/InputBarItem.swift; sourceTree = "<group>"; };
-		54BFB800C9DD3722D62959B5478A06FB /* MessageKitAssets.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MessageKitAssets.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		554AB04478259BA154E6763B1EB23FFA /* PusherPlatform.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PusherPlatform.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		54BFB800C9DD3722D62959B5478A06FB /* MessageKitAssets.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MessageKitAssets.bundle; path = MessageKitAssets.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		554AB04478259BA154E6763B1EB23FFA /* PusherPlatform.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PusherPlatform.framework; path = PusherPlatform.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56566FD8E9417E157CBF4BB5AB08AC09 /* MessagesCollectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessagesCollectionView.swift; path = Sources/Views/MessagesCollectionView.swift; sourceTree = "<group>"; };
 		5727BA285EEB42EB8FB9A347A9FB7476 /* LocationMessageSnapshotOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LocationMessageSnapshotOptions.swift; path = Sources/Models/LocationMessageSnapshotOptions.swift; sourceTree = "<group>"; };
 		5C7F11C0444055B98E9B42C516938503 /* PCBasicUser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCBasicUser.swift; path = Source/PCBasicUser.swift; sourceTree = "<group>"; };
@@ -240,12 +240,12 @@
 		613745ECFA15B57976EC043C4E2E6207 /* Pods-words-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-words-acknowledgements.plist"; sourceTree = "<group>"; };
 		6201F4A5F47424207FEB039126FC49E7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64C1E3F033D75F04A213991EF76BB73F /* PPMessage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPMessage.swift; path = Source/PPMessage.swift; sourceTree = "<group>"; };
-		674C78B8C6858BC8B1CE4DEB17B3E3B1 /* PusherPlatform.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = PusherPlatform.modulemap; sourceTree = "<group>"; };
+		674C78B8C6858BC8B1CE4DEB17B3E3B1 /* PusherPlatform.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = PusherPlatform.modulemap; sourceTree = "<group>"; };
 		67EBCAB626A10C829BC8B2E150DF2815 /* MessageKit+Availability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "MessageKit+Availability.swift"; path = "Sources/Supporting/MessageKit+Availability.swift"; sourceTree = "<group>"; };
 		6865AD237D77338E660512063FA19F60 /* MessageKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MessageKit.xcconfig; sourceTree = "<group>"; };
 		6A782E6CED31A630589D628495AFE943 /* PPRequest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPRequest.swift; path = Source/PPRequest.swift; sourceTree = "<group>"; };
 		6C47575AC4C05E3AEE9C07F7B4C6D127 /* PusherChatkit-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PusherChatkit-umbrella.h"; sourceTree = "<group>"; };
-		6F7065DCE821E183482C657F9A5EE948 /* PusherChatkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PusherChatkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F7065DCE821E183482C657F9A5EE948 /* PusherChatkit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PusherChatkit.framework; path = PusherChatkit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F967D68F481A3213B984C030E57B588 /* Request.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Request.swift; path = Source/Request.swift; sourceTree = "<group>"; };
 		70D7031DA3FFF59A6D546863DD4CAB35 /* PPRetryStrategy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPRetryStrategy.swift; path = Source/PPRetryStrategy.swift; sourceTree = "<group>"; };
 		7279A53D0751FE293B353D6B56CCC505 /* ResponseSerialization.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ResponseSerialization.swift; path = Source/ResponseSerialization.swift; sourceTree = "<group>"; };
@@ -265,9 +265,9 @@
 		8E97631CB945527899C9442CD5C81150 /* MessageHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageHeaderView.swift; path = "Sources/Views/Headers & Footers/MessageHeaderView.swift"; sourceTree = "<group>"; };
 		8E9FC2CDF5FE48BA15B94D41BDC37806 /* MessagesCollectionViewLayoutAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessagesCollectionViewLayoutAttributes.swift; path = Sources/Layout/MessagesCollectionViewLayoutAttributes.swift; sourceTree = "<group>"; };
 		8F0B241F43D380AD52BA71AF33487A17 /* CGRect+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "CGRect+Extensions.swift"; path = "Sources/Extensions/CGRect+Extensions.swift"; sourceTree = "<group>"; };
-		91BD8B2D74E4F3C9293D6CC9C7FDEAFB /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Alamofire.modulemap; sourceTree = "<group>"; };
-		933CB534B0F37593AB98E241A8C1C0DF /* Pods_words.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_words.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		91BD8B2D74E4F3C9293D6CC9C7FDEAFB /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Alamofire.modulemap; sourceTree = "<group>"; };
+		933CB534B0F37593AB98E241A8C1C0DF /* Pods_words.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_words.framework; path = "Pods-words.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9A6298BA86A95B12D6DB577275207C52 /* TextMessageCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TextMessageCell.swift; path = Sources/Views/Cells/TextMessageCell.swift; sourceTree = "<group>"; };
 		9A7266F29BF95A6E2D93FF78A53E77F0 /* MultipartFormData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MultipartFormData.swift; path = Source/MultipartFormData.swift; sourceTree = "<group>"; };
 		9AE266D4259B358F896A2E60285374B8 /* PCRoomUserStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCRoomUserStore.swift; path = Source/PCRoomUserStore.swift; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 		A9512D5A27F8B8DDE05924CF0BBCD390 /* PCTokenProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCTokenProvider.swift; path = Source/PCTokenProvider.swift; sourceTree = "<group>"; };
 		AABCC515B66FD0E9CFBF918601FAB344 /* PCRoomSubscription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCRoomSubscription.swift; path = Source/PCRoomSubscription.swift; sourceTree = "<group>"; };
 		AB8F629DF1F5BDABAFAF4A889B2BA8F3 /* MessageLabelDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageLabelDelegate.swift; path = Sources/Protocols/MessageLabelDelegate.swift; sourceTree = "<group>"; };
-		B03CB9625CA1279AC4AD7D1E96B673C4 /* Images */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Images; path = Assets/MessageKitAssets.bundle/Images; sourceTree = "<group>"; };
+		B03CB9625CA1279AC4AD7D1E96B673C4 /* Images */ = {isa = PBXFileReference; includeInIndex = 1; name = Images; path = Assets/MessageKitAssets.bundle/Images; sourceTree = "<group>"; };
 		B24E610CAC22A7498E8881C1A6F033D6 /* PPLogger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPLogger.swift; path = Source/PPLogger.swift; sourceTree = "<group>"; };
 		B24F55566B4EA7829B29AE15F292921B /* PPMessageParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPMessageParser.swift; path = Source/PPMessageParser.swift; sourceTree = "<group>"; };
 		B605D974F4034E500818A74E69A421B0 /* PPRequestTaskDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPRequestTaskDelegate.swift; path = Source/PPRequestTaskDelegate.swift; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 		BFB84C0165742908D6601E032CD9AE9F /* MessageInputBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessageInputBar.swift; path = Sources/Views/MessageInputBar.swift; sourceTree = "<group>"; };
 		C0801F8461AEE555527407D51339F729 /* PPBaseClient.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPBaseClient.swift; path = Source/PPBaseClient.swift; sourceTree = "<group>"; };
 		C20855B016E5404462C9778DDC81DC92 /* PusherChatkit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PusherChatkit-prefix.pch"; sourceTree = "<group>"; };
-		C2FCE1092DE9192513F221456BAC2F76 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2FCE1092DE9192513F221456BAC2F76 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Alamofire.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3B6B63C6211F18AC3AD061C736B1910 /* InputTextView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = InputTextView.swift; path = Sources/Views/InputTextView.swift; sourceTree = "<group>"; };
 		C4533A0F01D557AB416D53328D640293 /* PusherChatkit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PusherChatkit.xcconfig; sourceTree = "<group>"; };
 		C8DFB6FD1AD817203802245ED8EBCBA0 /* PCHTTPTokenProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PCHTTPTokenProvider.swift; path = Source/PCHTTPTokenProvider.swift; sourceTree = "<group>"; };
@@ -309,7 +309,7 @@
 		D56AD6E42498156D8F361F759E9D2F41 /* String+Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "String+Extensions.swift"; path = "Sources/Extensions/String+Extensions.swift"; sourceTree = "<group>"; };
 		D79FAB704AC524105B217731FF14C89E /* AFError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AFError.swift; path = Source/AFError.swift; sourceTree = "<group>"; };
 		D8153F2525516F5E878EC4674D6BC64A /* MessagesDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MessagesDataSource.swift; path = Sources/Protocols/MessagesDataSource.swift; sourceTree = "<group>"; };
-		D8E1492916397663AFD65B54FDB608BF /* PusherChatkit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = PusherChatkit.modulemap; sourceTree = "<group>"; };
+		D8E1492916397663AFD65B54FDB608BF /* PusherChatkit.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = PusherChatkit.modulemap; sourceTree = "<group>"; };
 		DC056EFD398A9DA4681FF6BAE8FEF232 /* PPDefaultRetryStrategy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPDefaultRetryStrategy.swift; path = Source/PPDefaultRetryStrategy.swift; sourceTree = "<group>"; };
 		DEB6B25A37B26F812C892FF0BD5518B8 /* PPResumableSubscription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPResumableSubscription.swift; path = Source/PPResumableSubscription.swift; sourceTree = "<group>"; };
 		E03DE082C8DA1CF539EC4A2075B84553 /* PPRequestOptions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PPRequestOptions.swift; path = Source/PPRequestOptions.swift; sourceTree = "<group>"; };
@@ -406,6 +406,7 @@
 				B8CD741C1F58A3DF90A54630E2CFFC1A /* Validation.swift */,
 				CBD5176FD88472AB40810A8F6876C22D /* Support Files */,
 			);
+			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -438,6 +439,7 @@
 				D2F36F2D2E86EE5BD182B7823BE3A835 /* PCUserSubscription.swift */,
 				6D90CF9F09D23EFCCA28E69D18A890B4 /* Support Files */,
 			);
+			name = PusherChatkit;
 			path = PusherChatkit;
 			sourceTree = "<group>";
 		};
@@ -465,6 +467,7 @@
 				5EF2C8E95D5D7BBE6951C60D432EF9C6 /* PPURLSessionDelegate.swift */,
 				3D1659CA82E0838C6DBB5F627196EDC6 /* Support Files */,
 			);
+			name = PusherPlatform;
 			path = PusherPlatform;
 			sourceTree = "<group>";
 		};
@@ -626,6 +629,7 @@
 				47EF4953062A6ED433FD48512BF85E4B /* Resources */,
 				AF6FCB89016E23612CBB208CABD7775C /* Support Files */,
 			);
+			name = MessageKit;
 			path = MessageKit;
 			sourceTree = "<group>";
 		};
@@ -828,7 +832,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1150,7 +1154,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
