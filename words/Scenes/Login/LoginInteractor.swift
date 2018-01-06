@@ -33,7 +33,7 @@ class LoginInteractor: LoginBusinessLogic {
                 return
             }
 
-            self.router?.routeToListMessages()
+            self.router?.routeToListContacts()
         }
     }
 }

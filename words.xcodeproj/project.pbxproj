@@ -30,9 +30,9 @@
 		B5134C181FF020CA00C7F52A /* UsersWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5134C171FF020CA00C7F52A /* UsersWorker.swift */; };
 		B5134C1E1FF11D1000C7F52A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5134C1D1FF11D1000C7F52A /* User.swift */; };
 		B520350A1FEBDB060028D7FB /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52035041FEBDB060028D7FB /* WelcomeViewController.swift */; };
-		B537E4CA1FF1217B00C8B58E /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537E4C91FF1217B00C8B58E /* UserToken.swift */; };
 		B537E4CC1FF148F900C8B58E /* UsersAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537E4CB1FF148F900C8B58E /* UsersAPI.swift */; };
 		B537E4CE1FF3C33D00C8B58E /* ChatkitToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537E4CD1FF3C33D00C8B58E /* ChatkitToken.swift */; };
+		B538952A2000B07C0043C46F /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53895292000B07C0043C46F /* UserToken.swift */; };
 		B54934431FF406E20087034B /* UserTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934421FF406E20087034B /* UserTokenDataStore.swift */; };
 		B54934451FF70F9D0087034B /* ChatkitTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */; };
 		B54934471FF7B2400087034B /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934461FF7B2400087034B /* Room.swift */; };
@@ -74,9 +74,9 @@
 		B5134C171FF020CA00C7F52A /* UsersWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersWorker.swift; sourceTree = "<group>"; };
 		B5134C1D1FF11D1000C7F52A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B52035041FEBDB060028D7FB /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		B537E4C91FF1217B00C8B58E /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		B537E4CB1FF148F900C8B58E /* UsersAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersAPI.swift; sourceTree = "<group>"; };
 		B537E4CD1FF3C33D00C8B58E /* ChatkitToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatkitToken.swift; sourceTree = "<group>"; };
+		B53895292000B07C0043C46F /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		B54934421FF406E20087034B /* UserTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenDataStore.swift; sourceTree = "<group>"; };
 		B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatkitTokenDataStore.swift; sourceTree = "<group>"; };
 		B54934461FF7B2400087034B /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -122,8 +122,8 @@
 			children = (
 				B50A69101FDC395F00A4989C /* Launch */,
 				B5B048C91FE94C9B00DDD1F6 /* Welcome */,
-				B50A68F61FDC38C900A4989C /* Signup */,
 				B50A68F51FDB556800A4989C /* Login */,
+				B50A68F61FDC38C900A4989C /* Signup */,
 				B50A692A1FDC3ACF00A4989C /* ListContacts */,
 				B50A69031FDC38E400A4989C /* Chatroom */,
 			);
@@ -253,8 +253,8 @@
 				B5C1DFCF1FF01B2A00B076F7 /* Contact.swift */,
 				B5134C1D1FF11D1000C7F52A /* User.swift */,
 				B54934461FF7B2400087034B /* Room.swift */,
-				B537E4C91FF1217B00C8B58E /* UserToken.swift */,
 				B537E4CD1FF3C33D00C8B58E /* ChatkitToken.swift */,
+				B53895292000B07C0043C46F /* UserToken.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -429,7 +429,6 @@
 				B50A68F31FDB554E00A4989C /* LoginInteractor.swift in Sources */,
 				B50A68F11FDB554E00A4989C /* LoginModels.swift in Sources */,
 				B50A69191FDC396400A4989C /* LaunchRouter.swift in Sources */,
-				B537E4CA1FF1217B00C8B58E /* UserToken.swift in Sources */,
 				B50A69361FDC3AE200A4989C /* ListContactsInteractor.swift in Sources */,
 				B5C1DFC61FEFAC1700B076F7 /* Message.swift in Sources */,
 				B54934431FF406E20087034B /* UserTokenDataStore.swift in Sources */,
@@ -455,6 +454,7 @@
 				B54DDA561FFA6E2100E85635 /* ChatroomRouter.swift in Sources */,
 				B50A690D1FDC38F900A4989C /* ChatroomModels.swift in Sources */,
 				B520350A1FEBDB060028D7FB /* WelcomeViewController.swift in Sources */,
+				B538952A2000B07C0043C46F /* UserToken.swift in Sources */,
 				B50A68F01FDB554E00A4989C /* LoginRouter.swift in Sources */,
 				B50A69001FDC38DE00A4989C /* SignupModels.swift in Sources */,
 			);

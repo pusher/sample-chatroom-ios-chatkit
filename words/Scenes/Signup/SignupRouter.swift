@@ -13,14 +13,14 @@
 import UIKit
 
 @objc protocol SignupRoutingLogic {
-    func routeToListMessages()
+    func routeToListContacts()
 }
 
 class SignupRouter: NSObject, SignupRoutingLogic {
     
     weak var viewController: SignupViewController?
     
-    func routeToListMessages() {
+    func routeToListContacts() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "MainNavigator") as! UINavigationController
         

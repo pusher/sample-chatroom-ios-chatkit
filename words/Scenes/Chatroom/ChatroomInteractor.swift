@@ -15,7 +15,6 @@ import PusherChatkit
 
 protocol ChatroomBusinessLogic {
     var currentUser: PCCurrentUser? { get set }
-    
     func subscribeToRoom(room: PCRoom)
     func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, Error?) -> Void)
 }

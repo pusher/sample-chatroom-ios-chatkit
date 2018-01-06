@@ -53,7 +53,10 @@ class ChatroomViewController: MessagesViewController, ChatroomDisplayLogic {
         router.viewController = viewController
         router.dataStore = interactor
     }
-  
+}
+
+extension ChatroomViewController {
+    
     // MARK: View lifecycle
   
     override func viewDidLoad() {
@@ -193,7 +196,7 @@ extension ChatroomViewController: MessagesDataSource {
         } else {
             initials = "?"
         }
-        
+
         return initials
     }
 }
@@ -202,33 +205,33 @@ extension ChatroomViewController: MessagesDataSource {
 // MARK: - MessagesLayoutDelegate
 
 extension ChatroomViewController: MessagesLayoutDelegate {
-    
+
     func avatarPosition(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> AvatarPosition {
         return AvatarPosition(horizontal: .natural, vertical: .messageBottom)
     }
-    
+
     func messagePadding(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
         return isFromCurrentSender(message: message)
             ? UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 4)
             : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 30)
     }
-    
+
     func cellTopLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
         return isFromCurrentSender(message: message)
             ? .messageTrailing(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
             : .messageLeading(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
     }
-    
+
     func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
         return isFromCurrentSender(message: message)
             ? .messageLeading(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
             : .messageTrailing(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
     }
-    
+
     func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
         return CGSize(width: messagesCollectionView.bounds.width, height: 10)
     }
-    
+
     func heightForLocation(message: MessageType, at indexPath: IndexPath, with maxWidth: CGFloat, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 200
     }
@@ -238,21 +241,21 @@ extension ChatroomViewController: MessagesLayoutDelegate {
 // MARK: - MessagesDisplayDelegate
 
 extension ChatroomViewController: MessagesDisplayDelegate {
-    
+
     // MARK: - Text Messages
-    
+
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message) ? .white : .darkText
     }
-    
+
     // MARK: - All Messages
-    
+
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
         return isFromCurrentSender(message: message)
             ? UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
             : UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
     }
-    
+
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
         let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
         return .bubbleTail(corner, .curved)

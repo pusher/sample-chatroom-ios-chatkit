@@ -10,7 +10,7 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
 
 protocol ChatroomPresentationLogic {
     func presentMessages(response: Chatroom.Messages.Fetch.Response)

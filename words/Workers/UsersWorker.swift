@@ -6,7 +6,8 @@
 //  Copyright © 2017 CreativityKills Co. All rights reserved.
 //
 
-import UIKit
+import Alamofire
+import Foundation
 
 class UsersWorker {
 
@@ -19,7 +20,7 @@ class UsersWorker {
     // MARK: - Contacts
     
     func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
-        usersStore.fetchContacts { (contacts, error) in
+        usersStore.fetchContacts { contacts, error in
             DispatchQueue.main.async {
                 completionHandler(contacts, error)
             }

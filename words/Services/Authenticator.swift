@@ -5,7 +5,7 @@
 //  Created by Neo Ighodaro on 23/12/2017.
 //
 
-import UIKit
+import Foundation
 
 class Authenticator {
 

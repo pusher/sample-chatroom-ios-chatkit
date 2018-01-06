@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="33" width="375" height="446"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awg-m9-uCK">
-                                        <rect key="frame" x="47" y="25" width="280" height="35"/>
+                                        <rect key="frame" x="47" y="25" width="280" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="Zsc-C4-xNW"/>
                                         </constraints>
@@ -53,7 +53,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y4f-05-tdw" customClass="RoundButton" customModule="words" customModuleProvider="target">
                                         <rect key="frame" x="37" y="299" width="300" height="46"/>
@@ -131,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSX-wB-t1j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1284" y="376"/>
+            <point key="canvasLocation" x="1284" y="115"/>
         </scene>
         <!--Welcome-->
         <scene sceneID="tne-QT-ifu">
@@ -166,7 +166,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Words helps you connect easily with friends from around the world" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGz-UC-TIO">
-                                <rect key="frame" x="63.5" y="489" width="248.5" height="35"/>
+                                <rect key="frame" x="44" y="488" width="288" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="288" id="zMJ-7b-dnn"/>
                                 </constraints>
@@ -175,7 +175,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr7-wt-A4p">
-                                <rect key="frame" x="43" y="444" width="288" height="35"/>
+                                <rect key="frame" x="43" y="442" width="288" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="288" id="ITK-nH-QLM"/>
                                 </constraints>
@@ -184,10 +184,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BmA-Zu-jtj">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="424"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="422"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="bNC-hi-jP3">
-                                        <rect key="frame" x="105" y="169" width="164" height="87"/>
+                                        <rect key="frame" x="105" y="168" width="164" height="87"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="164" id="8Va-KO-4Ty"/>
                                             <constraint firstAttribute="height" constant="87" id="kwB-Zp-tt1"/>
@@ -202,7 +202,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgw-F1-h2q">
-                                <rect key="frame" x="79.5" y="620" width="216" height="27"/>
+                                <rect key="frame" x="86" y="620" width="203" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="203" id="2vP-ny-EQp"/>
                                     <constraint firstAttribute="height" constant="27" id="nql-PE-HVU"/>
@@ -238,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="530" y="-454"/>
+            <point key="canvasLocation" x="529" y="-683"/>
         </scene>
         <!--ParentNavigation-->
         <scene sceneID="nHv-8V-vC5">
@@ -256,7 +256,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Ya-Gg-QSt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1284" y="-454"/>
+            <point key="canvasLocation" x="1284" y="-683"/>
         </scene>
         <!--Chatroom-->
         <scene sceneID="wwz-Rj-rJb">
@@ -271,7 +271,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MNc-fc-PHQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3023" y="-456"/>
+            <point key="canvasLocation" x="3022" y="-685"/>
         </scene>
         <!--ListContacts-->
         <scene sceneID="xPN-aP-qoA">
@@ -320,7 +320,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2b-6V-NdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2135" y="-455"/>
+            <point key="canvasLocation" x="2134" y="-684"/>
         </scene>
         <!--Launch-->
         <scene sceneID="4my-ft-IQf">
@@ -340,7 +340,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBJ-YF-QTa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="908" y="-1311"/>
+            <point key="canvasLocation" x="908" y="-1459"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nza-Wf-2JZ">
@@ -355,7 +355,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V6X-kX-f3D" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="908" y="-2175"/>
+            <point key="canvasLocation" x="94" y="-1460"/>
         </scene>
         <!--Signup-->
         <scene sceneID="2uS-He-Rkq">
@@ -369,7 +369,7 @@
                                 <rect key="frame" x="0.0" y="33" width="375" height="446"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdI-kg-0WT">
-                                        <rect key="frame" x="47" y="25" width="280" height="35"/>
+                                        <rect key="frame" x="47" y="25" width="280" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="dRO-cm-hj9"/>
                                         </constraints>
@@ -406,7 +406,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Lato-Regular" family="Lato" pointSize="20"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="password"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyI-iZ-9Qr" customClass="RoundButton" customModule="words" customModuleProvider="target">
                                         <rect key="frame" x="37" y="353" width="300" height="46"/>
@@ -486,7 +486,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAq-Uj-Egd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="530" y="376"/>
+            <point key="canvasLocation" x="529" y="115"/>
         </scene>
     </scenes>
     <resources>
@@ -495,6 +495,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8Jl-uo-EMn"/>
-        <segue reference="0ic-pc-9I0"/>
+        <segue reference="gzL-hA-pby"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,7 +10,7 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
 
 protocol SignupBusinessLogic {
     func createAccount(request: Signup.Request)
@@ -33,7 +33,7 @@ class SignupInteractor: SignupBusinessLogic {
                 return
             }
             
-            self.router?.routeToListMessages()
+            self.router?.routeToListContacts()
         }
     }
 }

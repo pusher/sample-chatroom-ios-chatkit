@@ -1,12 +1,12 @@
 //
-//  Token.swift
+//  UserToken.swift
 //  words
 //
-//  Created by Neo Ighodaro on 25/12/2017.
-//  Copyright © 2017 CreativityKills Co. All rights reserved.
+//  Created by Neo Ighodaro on 06/01/2018.
+//  Copyright © 2018 CreativityKills Co. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class UserToken: NSObject, NSCoding {
     

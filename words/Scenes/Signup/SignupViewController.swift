@@ -12,7 +12,6 @@
 
 import UIKit
 
-
 protocol SignupFormErrorLogic {
     func showValidationError(_ message: String)
 }

@@ -6,7 +6,7 @@
 //  Copyright © 2017 CreativityKills Co. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class ChatkitToken: NSObject, NSCoding {
     

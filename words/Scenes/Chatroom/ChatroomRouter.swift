@@ -10,16 +10,13 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
-
-@objc protocol ChatroomRoutingLogic {
-}
+import Foundation
 
 protocol ChatroomDataPassing {
     var dataStore: ChatroomDataStore? { get }
 }
 
-class ChatroomRouter: NSObject, ChatroomRoutingLogic, ChatroomDataPassing {
+class ChatroomRouter: NSObject, ChatroomDataPassing {
     weak var viewController: ChatroomViewController?
     var dataStore: ChatroomDataStore?
 }

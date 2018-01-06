@@ -13,7 +13,7 @@
 import UIKit
 
 @objc protocol ListContactsRoutingLogic {
-    func routeToChatroom(segue: UIStoryboardSegue?)
+    func routeToChatroom(segue: UIStoryboardSegue)
 }
 
 protocol ListContactsDataPassing {
@@ -29,28 +29,13 @@ class ListContactsRouter: NSObject, ListContactsRoutingLogic, ListContactsDataPa
 
     // MARK: Routing
     
-    func routeToChatroom(segue: UIStoryboardSegue?) {
-        if let segue = segue {
-            let destinationVC = segue.destination as! ChatroomViewController
-            var destinationDS = destinationVC.router!.dataStore!
+    func routeToChatroom(segue: UIStoryboardSegue) {
+        let destinationVC = segue.destination as! ChatroomViewController
+        var destinationDS = destinationVC.router!.dataStore!
             
-            passDataToChatroom(source: dataStore!, destination: &destinationDS)
-        } else {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let destinationVC = storyboard.instantiateViewController(withIdentifier: "ChatroomViewController") as! ChatroomViewController
-            var destinationDS = destinationVC.router!.dataStore!
-            
-            passDataToChatroom(source: dataStore!, destination: &destinationDS)
-            navigateToChatroom(source: viewController!, destination: destinationVC)
-        }
+        passDataToChatroom(source: dataStore!, destination: &destinationDS)
     }
-    
-    // MARK: Navigation
-    
-    func navigateToChatroom(source: ListContactsViewController, destination: ChatroomViewController) {
-        source.show(destination, sender: nil)
-    }
-    
+
     // MARK: Passing data
     
     func passDataToChatroom(source: ListContactsDataStore, destination: inout ChatroomDataStore) {
