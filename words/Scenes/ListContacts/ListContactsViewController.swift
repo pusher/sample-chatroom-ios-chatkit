@@ -82,7 +82,7 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
     
     private func initialiseChatkit() {
         let chatManager = ChatManager(
-            instanceId: AppConstants.CHATKIT_INSTANCE_ID,
+            instanceLocator: AppConstants.CHATKIT_INSTANCE_ID,
             tokenProvider: ChatkitTokenDataStore()
         )
         
@@ -150,9 +150,13 @@ extension ListContactsViewController {
         }
 
         let contact = displayedContacts[indexPath.row]
+        
+        if contact.isOnline == false {
+            cell?.detailTextLabel?.textColor = UIColor.lightGray
+        }
 
         cell?.textLabel?.text = contact.name
-        cell?.detailTextLabel?.text = contact.isOnline ? "online" : "offline"
+        cell?.detailTextLabel?.text = contact.isOnline ? "Online" : "Last seen recently"
 
         return cell!
     }
@@ -164,10 +168,32 @@ extension ListContactsViewController {
 extension ListContactsViewController: PCChatManagerDelegate {
     
     func userCameOnline(user: PCUser) {
+        let index = displayedContacts.index { contact -> Bool in
+            return contact.id == user.id
+        }
+        
+        ContactsOnline.shared.addContact(contact: displayedContacts[index!])
+        
+        DispatchQueue.main.async {
+            self.displayedContacts[index!].isOnline = true
+            self.tableView.reloadData()
+        }
+
         print("User \(user.displayName) came online...")
     }
     
     func userWentOffline(user: PCUser) {
+        let index = displayedContacts.index { contact -> Bool in
+            return contact.id == user.id
+        }
+        
+        ContactsOnline.shared.removeContact(contact: displayedContacts[index!])
+
+        DispatchQueue.main.async {
+            self.displayedContacts[index!].isOnline = false
+            self.tableView.reloadData()
+        }
+        
         print("User \(user.displayName) went offline...")
     }
 }

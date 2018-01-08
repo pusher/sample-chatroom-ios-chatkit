@@ -299,6 +299,6 @@ extension ChatroomViewController: MessageInputBarDelegate {
     func messageInputBar(_ inputBar: MessageInputBar, textViewTextDidChangeTo text: String) {
         guard interactor?.currentUser != nil else { return }
         guard let room = router?.dataStore?.contact?.room else { return }
-        self.interactor?.userStartedTyping(inRoom: room)
+        self.interactor?.startedTyping(inRoom: room)
     }
 }

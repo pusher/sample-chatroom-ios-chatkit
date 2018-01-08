@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="33" width="375" height="446"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awg-m9-uCK">
-                                        <rect key="frame" x="47" y="25" width="280" height="36"/>
+                                        <rect key="frame" x="47" y="25" width="280" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="Zsc-C4-xNW"/>
                                         </constraints>
@@ -166,7 +166,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Words helps you connect easily with friends from around the world" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGz-UC-TIO">
-                                <rect key="frame" x="44" y="488" width="288" height="36"/>
+                                <rect key="frame" x="64" y="489" width="248.5" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="288" id="zMJ-7b-dnn"/>
                                 </constraints>
@@ -175,7 +175,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hr7-wt-A4p">
-                                <rect key="frame" x="43" y="442" width="288" height="36"/>
+                                <rect key="frame" x="43" y="444" width="288" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="288" id="ITK-nH-QLM"/>
                                 </constraints>
@@ -184,10 +184,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BmA-Zu-jtj">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="422"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="424"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="bNC-hi-jP3">
-                                        <rect key="frame" x="105" y="168" width="164" height="87"/>
+                                        <rect key="frame" x="105" y="169" width="164" height="87"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="164" id="8Va-KO-4Ty"/>
                                             <constraint firstAttribute="height" constant="87" id="kwB-Zp-tt1"/>
@@ -202,7 +202,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vgw-F1-h2q">
-                                <rect key="frame" x="86" y="620" width="203" height="27"/>
+                                <rect key="frame" x="79.5" y="620" width="216" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="203" id="2vP-ny-EQp"/>
                                     <constraint firstAttribute="height" constant="27" id="nql-PE-HVU"/>
@@ -300,7 +300,7 @@
                                             <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.61769517920000006" green="0.65734697799999997" blue="0.6837127221" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="textColor" red="0.39690291881561279" green="0.83152675628662109" blue="0.509723961353302" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -369,7 +369,7 @@
                                 <rect key="frame" x="0.0" y="33" width="375" height="446"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdI-kg-0WT">
-                                        <rect key="frame" x="47" y="25" width="280" height="36"/>
+                                        <rect key="frame" x="47" y="25" width="280" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="280" id="dRO-cm-hj9"/>
                                         </constraints>

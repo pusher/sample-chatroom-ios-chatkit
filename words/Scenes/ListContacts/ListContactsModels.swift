@@ -52,7 +52,12 @@ enum ListContacts {
         struct ViewModel {
             var displayedContacts: [DisplayedContact]
 
-            struct DisplayedContact {
+            struct DisplayedContact: Equatable {
+                static func ==(lhs: DisplayedContact, rhs: DisplayedContact) -> Bool {
+                    return lhs.id == rhs.id
+                }
+                
+                var id: String
                 var name: String
                 var isOnline: Bool
             }

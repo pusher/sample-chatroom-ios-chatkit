@@ -30,16 +30,23 @@ class ListContactsPresenter: ListContactsPresentationLogic {
         displayedContacts = []
         
         for contact in contacts {
-            let contact = ListContacts.Fetch.ViewModel.DisplayedContact(name: contact.user.name, isOnline: false)
-            displayedContacts.append(contact)
+            displayedContacts.append(ListContacts.Fetch.ViewModel.DisplayedContact(
+                id: contact.user.chatkit_id,
+                name: contact.user.name,
+                isOnline: false
+            ))
         }
             
         displayContacts()
     }
     
     func presentAddedContact(_ contact: Contact) {
-        let contact = ListContacts.Fetch.ViewModel.DisplayedContact(name: contact.user.name, isOnline: false)
-        displayedContacts.append(contact)
+        displayedContacts.append(ListContacts.Fetch.ViewModel.DisplayedContact(
+            id: contact.user.chatkit_id,
+            name: contact.user.name,
+            isOnline: false
+        ))
+        
         displayContacts()
     }
     

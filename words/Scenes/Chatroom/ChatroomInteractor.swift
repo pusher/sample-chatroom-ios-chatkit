@@ -18,7 +18,7 @@ protocol ChatroomBusinessLogic {
     
     func subscribeToRoom(room: PCRoom)
     func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, Error?) -> Void)
-    func userStartedTyping(inRoom room: PCRoom)
+    func startedTyping(inRoom room: PCRoom)
 }
 
 protocol ChatroomDataStore {
@@ -47,7 +47,7 @@ class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore {
         }
     }
     
-    func userStartedTyping(inRoom room: PCRoom) {
+    func startedTyping(inRoom room: PCRoom) {
         currentUser?.typing(in: room)
     }
 }
@@ -66,10 +66,14 @@ extension ChatroomInteractor: PCRoomDelegate {
     }
 
     func userStartedTyping(user: PCUser) {
-        presenter?.toggleUserIsTyping(for: user.displayName)
+        DispatchQueue.main.async {
+            self.presenter?.toggleUserIsTyping(for: user.displayName)
+        }
     }
     
     func userStoppedTyping(user: PCUser) {
-        presenter?.toggleUserIsTyping(for: user.displayName)
+        DispatchQueue.main.async {
+            self.presenter?.toggleUserIsTyping(for: user.displayName)
+        }
     }
 }
