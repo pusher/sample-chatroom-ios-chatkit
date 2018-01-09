@@ -88,7 +88,27 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         chatManager.connect(delegate: self) { user, error in
             guard error == nil else { return }
             self.interactor?.currentUser = user
+            
             self.fetchContacts()
+            self.updateContactsPresence()
+        }
+    }
+    
+    private func updateContactsPresence() {
+        Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
+            guard let users = self.interactor?.currentUser?.users else { return }
+            
+            for contact in self.displayedContacts {
+                guard let user = users.first(where: {$0.id == contact.id}) else { return }
+                let index = self.displayedContacts.index(of: contact)
+                
+                switch user.presenceState {
+                case .online: self.displayedContacts[index!].isOnline = true
+                case .offline, .unknown: self.displayedContacts[index!].isOnline = false
+                }
+            }
+            
+            self.tableView.reloadData()
         }
     }
         
@@ -168,9 +188,7 @@ extension ListContactsViewController {
 extension ListContactsViewController: PCChatManagerDelegate {
     
     func userCameOnline(user: PCUser) {
-        let index = displayedContacts.index { contact -> Bool in
-            return contact.id == user.id
-        }
+        let index = displayedContacts.index(where: {$0.id == user.id})
         
         ContactsOnline.shared.addContact(contact: displayedContacts[index!])
         
@@ -178,14 +196,10 @@ extension ListContactsViewController: PCChatManagerDelegate {
             self.displayedContacts[index!].isOnline = true
             self.tableView.reloadData()
         }
-
-        print("User \(user.displayName) came online...")
     }
     
     func userWentOffline(user: PCUser) {
-        let index = displayedContacts.index { contact -> Bool in
-            return contact.id == user.id
-        }
+        let index = displayedContacts.index(where: {$0.id == user.id })
         
         ContactsOnline.shared.removeContact(contact: displayedContacts[index!])
 
@@ -193,8 +207,6 @@ extension ListContactsViewController: PCChatManagerDelegate {
             self.displayedContacts[index!].isOnline = false
             self.tableView.reloadData()
         }
-        
-        print("User \(user.displayName) went offline...")
     }
 }
 

@@ -40,7 +40,7 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
             guard error == nil else { return }
 
             self.contacts = contacts
-            self.presenter?.presentContacts(contacts!)
+            self.presenter?.presentContacts(contacts!, for: self.currentUser!.users)
         }
     }
     
