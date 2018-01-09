@@ -76,7 +76,7 @@ extension ChatroomViewController {
     private func initialiseChatkit() {
         guard let room = router?.dataStore?.contact?.room else { return }
         guard let currentUser = router?.dataStore?.currentUser else { return }
-
+        
         self.interactor?.currentUser = currentUser
         self.interactor?.subscribeToRoom(room: room)
     }

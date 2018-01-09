@@ -75,7 +75,6 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(showAddContactPopup))
         
         initialiseChatkit()
-        fetchContacts()
     }
     
     // MARK: Initialise Chatkit
@@ -89,9 +88,10 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         chatManager.connect(delegate: self) { user, error in
             guard error == nil else { return }
             self.interactor?.currentUser = user
+            self.fetchContacts()
         }
     }
-    
+        
     // MARK: - Add contact
     
     var emailTextField: UITextField?

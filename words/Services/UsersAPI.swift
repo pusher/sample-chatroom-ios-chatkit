@@ -8,12 +8,13 @@
 
 import UIKit
 import Alamofire
+import PusherChatkit
 
 class UsersAPI: UsersStoreProtocol {
     
     // MARK: - Contacts
     
-    func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
+    func fetchContacts(currentUser: PCCurrentUser, completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
         let url = AppConstants.ENDPOINT + "/api/contacts"
         let headers = authorizationHeader(token: nil)
         
@@ -23,7 +24,7 @@ class UsersAPI: UsersStoreProtocol {
                 switch (response.result) {
                 case .success(let data):
                     let data = data as! [[String:Any]?]
-                    let res = ListContacts.Fetch.Response(data: data)
+                    let res = ListContacts.Fetch.Response(for: currentUser, data: data)
                     
                     completionHandler(res.contacts, nil)
                 case .failure(_):

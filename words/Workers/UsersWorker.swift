@@ -8,6 +8,7 @@
 
 import Alamofire
 import Foundation
+import PusherChatkit
 
 class UsersWorker {
 
@@ -19,8 +20,8 @@ class UsersWorker {
     
     // MARK: - Contacts
     
-    func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
-        usersStore.fetchContacts { contacts, error in
+    func fetchContacts(currentUser: PCCurrentUser, completionHandler: @escaping ([Contact]?, ContactsError?) -> Void) {
+        usersStore.fetchContacts(currentUser: currentUser) { contacts, error in
             DispatchQueue.main.async {
                 completionHandler(contacts, error)
             }
@@ -65,7 +66,7 @@ class UsersWorker {
 // MARK: Users API
 
 protocol UsersStoreProtocol {
-    func fetchContacts(completionHandler: @escaping ([Contact]?, ContactsError?) -> Void)
+    func fetchContacts(currentUser: PCCurrentUser, completionHandler: @escaping ([Contact]?, ContactsError?) -> Void)
     func addContact(request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void)
     func login(request: Login.Account.Request, completionHandler: @escaping(UserToken?, UsersStoreError?) -> Void)
     func signup(request: Signup.Request, completionHandler: @escaping(User?, UsersStoreError?) -> Void)

@@ -36,7 +36,7 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
     // MARK: Fetch Contacts
   
     func fetchContacts(request: ListContacts.Fetch.Request) {
-        worker.fetchContacts { contacts, error in
+        worker.fetchContacts(currentUser: currentUser!) { contacts, error in
             guard error == nil else { return }
 
             self.contacts = contacts

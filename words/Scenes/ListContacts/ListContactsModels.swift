@@ -25,7 +25,7 @@ enum ListContacts {
             var contact: Contact
             
             init(data: [String:Any]) {
-                self.contact = ParseContact(data: data).contact
+                self.contact = ParseContact(using: nil, data: data).contact
             }
         }
         
@@ -42,9 +42,12 @@ enum ListContacts {
         struct Response {
             var contacts: [Contact] = []
             
-            init(data: [[String: Any]?]) {
+            init(for user: PCCurrentUser, data: [[String: Any]?]) {
+                let rooms: [PCRoom] = user.rooms
+                
                 for datum in data {
-                    self.contacts.append(ParseContact(data: datum!).contact)
+                    let parser = ParseContact(using: rooms, data: datum!)
+                    self.contacts.append(parser.contact)
                 }
             }
         }
@@ -67,7 +70,11 @@ enum ListContacts {
     struct ParseContact {
         var contact: Contact
         
-        init(data: [String:Any]) {
+        init(using rooms: [PCRoom]?, data: [String:Any]) {
+            let roomObject = data["room"] as! [String:Any]
+            let roomId = roomObject["id"] as! Int
+            let room = rooms!.first(where: {$0.id == roomId})
+            
             let user = User(
                 id: data["id"] as! Int,
                 name: data["name"] as! String,
@@ -75,18 +82,7 @@ enum ListContacts {
                 chatkit_id: data["chatkit_id"] as! String
             )
             
-            let roomObject = data["room"] as! [String:Any]
-            
-            let room = PCRoom(
-                id: roomObject["id"] as! Int,
-                name: roomObject["name"] as! String,
-                isPrivate: roomObject["private"] as! Bool,
-                createdByUserId: roomObject["created_by_id"] as! String,
-                createdAt: roomObject["created_at"] as! String,
-                updatedAt: roomObject["updated_at"] as! String
-            )
-            
-            self.contact = Contact(user: user, room: room)
+            self.contact = Contact(user: user, room: room!)
         }
     }
 }
