@@ -14,7 +14,7 @@ import Foundation
 import PusherChatkit
 
 protocol ListContactsPresentationLogic {
-    func presentContacts(_ contacts: [Contact], for users: Set<PCUser>)
+    func presentContacts(_ contacts: [Contact])
     func presentAddedContact(_ contact: Contact)
 }
 
@@ -27,25 +27,14 @@ class ListContactsPresenter: ListContactsPresentationLogic {
     
     // MARK: Present Contacts
 
-    func presentContacts(_ contacts: [Contact], for users: Set<PCUser>) {
+    func presentContacts(_ contacts: [Contact]) {
         displayedContacts = []
         
         for contact in contacts {
-//            guard let user = users.first(where: {$0.id == contact.user.chatkit_id}) else {
-//                print("eya")
-//                return
-//            }
-//            var isOnline: Bool
-//
-//            switch user.presenceState {
-//            case .online: isOnline = true
-//            case .offline, .unknown: isOnline = false
-//            }
-            
             displayedContacts.append(ListContacts.Fetch.ViewModel.DisplayedContact(
                 id: contact.user.chatkit_id,
                 name: contact.user.name,
-                isOnline: false// isOnline
+                isOnline: false
             ))
         }
             

@@ -9,7 +9,7 @@
 import Foundation
 
 class ChatkitToken: NSObject, NSCoding {
-    
+
     var access_token: String?
     var refresh_token: String?
     

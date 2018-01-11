@@ -187,26 +187,20 @@ extension ListContactsViewController {
 
 extension ListContactsViewController: PCChatManagerDelegate {
     
-    func userCameOnline(user: PCUser) {
-        let index = displayedContacts.index(where: {$0.id == user.id})
-        
-        ContactsOnline.shared.addContact(contact: displayedContacts[index!])
-        
+    func setPresence(for user: PCUser, _ online: Bool) {
         DispatchQueue.main.async {
-            self.displayedContacts[index!].isOnline = true
+            let index = self.displayedContacts.index(where: {$0.id == user.id})
+            self.displayedContacts[index!].isOnline = online
             self.tableView.reloadData()
         }
     }
     
+    func userCameOnline(user: PCUser) {
+        setPresence(for: user, true)
+    }
+    
     func userWentOffline(user: PCUser) {
-        let index = displayedContacts.index(where: {$0.id == user.id })
-        
-        ContactsOnline.shared.removeContact(contact: displayedContacts[index!])
-
-        DispatchQueue.main.async {
-            self.displayedContacts[index!].isOnline = false
-            self.tableView.reloadData()
-        }
+        setPresence(for: user, false)
     }
 }
 

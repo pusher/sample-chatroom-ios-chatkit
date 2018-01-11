@@ -14,7 +14,7 @@ import UIKit
 
 @objc protocol LaunchRoutingLogic {
     func routeToWelcome()
-    func routeToListMessages()
+    func routeToListContacts()
 }
 
 class LaunchRouter: NSObject, LaunchRoutingLogic {
@@ -25,7 +25,7 @@ class LaunchRouter: NSObject, LaunchRoutingLogic {
         viewController!.performSegue(withIdentifier: "Welcome", sender: nil)
     }
     
-    func routeToListMessages() {
+    func routeToListContacts() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let destinationVC = storyboard.instantiateViewController(withIdentifier: "MainNavigator") as! UINavigationController
         
