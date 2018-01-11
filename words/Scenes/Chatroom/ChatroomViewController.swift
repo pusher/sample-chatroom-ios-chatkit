@@ -138,20 +138,6 @@ extension ChatroomViewController {
 }
 
 
-// MARK: - PCChatManagerDelegate
-
-extension ChatroomViewController: PCChatManagerDelegate {
-    
-    func userCameOnline(user: PCUser) {
-        print("User \(String(describing: user.name)) came online")
-    }
-    
-    func userWentOffline(user: PCUser) {
-        print("User \(String(describing: user.name)) went offline")
-    }
-}
-
-
 // MARK: - MessagesDataSource
 
 extension ChatroomViewController: MessagesDataSource {
