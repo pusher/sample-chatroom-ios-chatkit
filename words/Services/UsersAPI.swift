@@ -33,7 +33,7 @@ class UsersAPI: UsersStoreProtocol {
             }
     }
     
-    func addContact(request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
+    func addContact(currentUser: PCCurrentUser, request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
         let params = ["user_id": request.user_id]
         let headers = authorizationHeader(token: nil)
 
@@ -42,7 +42,7 @@ class UsersAPI: UsersStoreProtocol {
                 return completionHandler(nil, ContactsError.CannotAdd("Unable to add contact"))
             }
 
-            let response = ListContacts.Create.Response(data: data!)
+            let response = ListContacts.Create.Response(for: currentUser, data: data!)
             completionHandler(response.contact, nil)
         }
     }

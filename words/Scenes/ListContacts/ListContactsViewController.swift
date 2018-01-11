@@ -189,8 +189,8 @@ extension ListContactsViewController: PCChatManagerDelegate {
     
     func setPresence(for user: PCUser, _ online: Bool) {
         DispatchQueue.main.async {
-            let index = self.displayedContacts.index(where: {$0.id == user.id})
-            self.displayedContacts[index!].isOnline = online
+            guard let index = self.displayedContacts.index(where: {$0.id == user.id}) else { return }
+            self.displayedContacts[index].isOnline = online
             self.tableView.reloadData()
         }
     }

@@ -35,7 +35,6 @@
 		B538952A2000B07C0043C46F /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53895292000B07C0043C46F /* UserToken.swift */; };
 		B54934431FF406E20087034B /* UserTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934421FF406E20087034B /* UserTokenDataStore.swift */; };
 		B54934451FF70F9D0087034B /* ChatkitTokenDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */; };
-		B54934471FF7B2400087034B /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54934461FF7B2400087034B /* Room.swift */; };
 		B54DDA561FFA6E2100E85635 /* ChatroomRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54DDA551FFA6E2100E85635 /* ChatroomRouter.swift */; };
 		B54ECF921FEEB0CB00A0F131 /* Authenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */; };
 		B559E1171FDADE7C002A59CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B559E1161FDADE7C002A59CD /* AppDelegate.swift */; };
@@ -79,7 +78,6 @@
 		B53895292000B07C0043C46F /* UserToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
 		B54934421FF406E20087034B /* UserTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTokenDataStore.swift; sourceTree = "<group>"; };
 		B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatkitTokenDataStore.swift; sourceTree = "<group>"; };
-		B54934461FF7B2400087034B /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		B54DDA551FFA6E2100E85635 /* ChatroomRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatroomRouter.swift; sourceTree = "<group>"; };
 		B54ECF911FEEB0CB00A0F131 /* Authenticator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Authenticator.swift; sourceTree = "<group>"; };
 		B559E1131FDADE7C002A59CD /* words.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = words.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,7 +250,6 @@
 				B5C1DFC51FEFAC1700B076F7 /* Message.swift */,
 				B5C1DFCF1FF01B2A00B076F7 /* Contact.swift */,
 				B5134C1D1FF11D1000C7F52A /* User.swift */,
-				B54934461FF7B2400087034B /* Room.swift */,
 				B537E4CD1FF3C33D00C8B58E /* ChatkitToken.swift */,
 				B53895292000B07C0043C46F /* UserToken.swift */,
 			);
@@ -424,7 +421,6 @@
 			files = (
 				B50A68F21FDB554E00A4989C /* LoginViewController.swift in Sources */,
 				B54ECF921FEEB0CB00A0F131 /* Authenticator.swift in Sources */,
-				B54934471FF7B2400087034B /* Room.swift in Sources */,
 				B5B048C61FE8E76800DDD1F6 /* RoundButton.swift in Sources */,
 				B50A68F31FDB554E00A4989C /* LoginInteractor.swift in Sources */,
 				B50A68F11FDB554E00A4989C /* LoginModels.swift in Sources */,

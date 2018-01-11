@@ -24,8 +24,8 @@ enum ListContacts {
         struct Response {
             var contact: Contact
             
-            init(data: [String:Any]) {
-                self.contact = ParseContact(using: nil, data: data).contact
+            init(for user: PCCurrentUser, data: [String:Any]) {
+                self.contact = ParseContact(using: user.rooms, data: data).contact
             }
         }
         

@@ -28,8 +28,8 @@ class UsersWorker {
         }
     }
     
-    func addContact(request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
-        usersStore.addContact(request: request) { (contact, error) in
+    func addContact(currentUser: PCCurrentUser, request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void) {
+        usersStore.addContact(currentUser: currentUser, request: request) { (contact, error) in
             DispatchQueue.main.async {
                 completionHandler(contact, error)
             }
@@ -67,7 +67,7 @@ class UsersWorker {
 
 protocol UsersStoreProtocol {
     func fetchContacts(currentUser: PCCurrentUser, completionHandler: @escaping ([Contact]?, ContactsError?) -> Void)
-    func addContact(request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void)
+    func addContact(currentUser: PCCurrentUser, request: ListContacts.Create.Request, completionHandler: @escaping (Contact?, ContactsError?) -> Void)
     func login(request: Login.Account.Request, completionHandler: @escaping(UserToken?, UsersStoreError?) -> Void)
     func signup(request: Signup.Request, completionHandler: @escaping(User?, UsersStoreError?) -> Void)
     func fetchChatkitToken(request: Login.Chatkit.Request, completionHandler: @escaping(ChatkitToken?, UsersStoreError?) -> Void)

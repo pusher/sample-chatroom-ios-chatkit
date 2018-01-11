@@ -47,7 +47,7 @@ class ListContactsInteractor: ListContactsBusinessLogic, ListContactsDataStore {
     // MARK: Add contact
     
     func addContact(request: ListContacts.Create.Request) {
-        worker.addContact(request: request) { contact, error in
+        worker.addContact(currentUser: currentUser!, request: request) { contact, error in
             guard error == nil else { return }
 
             self.contacts?.append(contact!)
