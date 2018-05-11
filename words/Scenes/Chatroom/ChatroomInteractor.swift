@@ -26,7 +26,7 @@ protocol ChatroomDataStore {
     var currentUser: PCCurrentUser? { get set }
 }
 
-class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore {
+class ChatroomInteractor: NSObject, ChatroomBusinessLogic, ChatroomDataStore {
     
     var contact: Contact?
     var messages: [PCMessage] = []
@@ -40,7 +40,7 @@ class ChatroomInteractor: ChatroomBusinessLogic, ChatroomDataStore {
     }
     
     func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, Error?) -> Void) {
-        currentUser?.addMessage(text: request.text, to: request.room) { messageId, error in
+        currentUser?.sendMessage(roomId: request.room.id, text: request.text) { messageId, error in
             DispatchQueue.main.async {
                 completionHandler(messageId, error)
             }

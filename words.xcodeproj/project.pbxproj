@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		330BD8EB20A5C75F00C4E1C1 /* CurrentUserIDDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330BD8EA20A5C75E00C4E1C1 /* CurrentUserIDDataStore.swift */; };
+		330BD8ED20A5C85C00C4E1C1 /* CurrentUserID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330BD8EC20A5C85C00C4E1C1 /* CurrentUserID.swift */; };
 		57C4711229497058D564594E /* Pods_words.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E19F5EA3F40025534612B58 /* Pods_words.framework */; };
 		B50A68F01FDB554E00A4989C /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A68EA1FDB554E00A4989C /* LoginRouter.swift */; };
 		B50A68F11FDB554E00A4989C /* LoginModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50A68EB1FDB554E00A4989C /* LoginModels.swift */; };
@@ -51,6 +53,8 @@
 /* Begin PBXFileReference section */
 		1E19F5EA3F40025534612B58 /* Pods_words.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_words.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C8DCF2957043BC62FCB4195 /* Pods-words.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-words.release.xcconfig"; path = "Pods/Target Support Files/Pods-words/Pods-words.release.xcconfig"; sourceTree = "<group>"; };
+		330BD8EA20A5C75E00C4E1C1 /* CurrentUserIDDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserIDDataStore.swift; sourceTree = "<group>"; };
+		330BD8EC20A5C85C00C4E1C1 /* CurrentUserID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserID.swift; sourceTree = "<group>"; };
 		B50A68EA1FDB554E00A4989C /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		B50A68EB1FDB554E00A4989C /* LoginModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModels.swift; sourceTree = "<group>"; };
 		B50A68EC1FDB554E00A4989C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +256,7 @@
 				B5134C1D1FF11D1000C7F52A /* User.swift */,
 				B537E4CD1FF3C33D00C8B58E /* ChatkitToken.swift */,
 				B53895292000B07C0043C46F /* UserToken.swift */,
+				330BD8EC20A5C85C00C4E1C1 /* CurrentUserID.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				B537E4CB1FF148F900C8B58E /* UsersAPI.swift */,
 				B54934421FF406E20087034B /* UserTokenDataStore.swift */,
 				B54934441FF70F9D0087034B /* ChatkitTokenDataStore.swift */,
+				330BD8EA20A5C75E00C4E1C1 /* CurrentUserIDDataStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -424,6 +430,7 @@
 				B5B048C61FE8E76800DDD1F6 /* RoundButton.swift in Sources */,
 				B50A68F31FDB554E00A4989C /* LoginInteractor.swift in Sources */,
 				B50A68F11FDB554E00A4989C /* LoginModels.swift in Sources */,
+				330BD8ED20A5C85C00C4E1C1 /* CurrentUserID.swift in Sources */,
 				B50A69191FDC396400A4989C /* LaunchRouter.swift in Sources */,
 				B50A69361FDC3AE200A4989C /* ListContactsInteractor.swift in Sources */,
 				B5C1DFC61FEFAC1700B076F7 /* Message.swift in Sources */,
@@ -449,6 +456,7 @@
 				B54934451FF70F9D0087034B /* ChatkitTokenDataStore.swift in Sources */,
 				B54DDA561FFA6E2100E85635 /* ChatroomRouter.swift in Sources */,
 				B50A690D1FDC38F900A4989C /* ChatroomModels.swift in Sources */,
+				330BD8EB20A5C75F00C4E1C1 /* CurrentUserIDDataStore.swift in Sources */,
 				B520350A1FEBDB060028D7FB /* WelcomeViewController.swift in Sources */,
 				B538952A2000B07C0043C46F /* UserToken.swift in Sources */,
 				B50A68F01FDB554E00A4989C /* LoginRouter.swift in Sources */,

@@ -1,31 +1,21 @@
 PODS:
-  - Alamofire (4.6.0)
-  - MessageKit (0.12.0)
-  - PusherChatkit (0.4.1):
-    - PusherPlatform (~> 0.2.1)
-  - PusherPlatform (0.2.1)
+  - Alamofire (4.7.2)
+  - MessageKit (1.0.0-beta.1)
+  - PusherChatkit (0.8.2):
+    - PusherPlatform (~> 0.5.0)
+  - PusherPlatform (0.5.0)
 
 DEPENDENCIES:
   - Alamofire
-  - MessageKit (from `git@github.com:MessageKit/MessageKit.git`, branch `master`)
+  - MessageKit (= 1.0.0-beta.1)
   - PusherChatkit
 
-EXTERNAL SOURCES:
-  MessageKit:
-    :branch: master
-    :git: git@github.com:MessageKit/MessageKit.git
-
-CHECKOUT OPTIONS:
-  MessageKit:
-    :commit: f6abab4717adb41008b5bb5de601c144761eb4d2
-    :git: git@github.com:MessageKit/MessageKit.git
-
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  MessageKit: 616b81ac09e7ec9627fa47f26f9b9c684b33eab6
-  PusherChatkit: f1c1649f55fdb2b2737eb2c5043b9e678f3bd2c8
-  PusherPlatform: de6469633edb6d581f0611674683c23d7f38b5f0
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  MessageKit: 6f1313d60e480e4b09641582c65f3e36825a5bf4
+  PusherChatkit: d732fa1c0dd8284af44aecb498b7b44103811090
+  PusherPlatform: 207b5d16dae956a697d5d12d823d9855217998b0
 
-PODFILE CHECKSUM: 78760c3b7c7b04b6377fe4ce6ae1723210a1e222
+PODFILE CHECKSUM: 1831195d6e3439e356760f15d77e2b4d3276bb16
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

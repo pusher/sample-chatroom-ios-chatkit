@@ -20,7 +20,7 @@ class ChatkitTokenDataStore: PPTokenProvider {
             return NSKeyedUnarchiver.unarchiveObject(with: token) as! ChatkitToken
         }
         
-        return ChatkitToken(access_token: nil, refresh_token: nil)
+        return ChatkitToken(access_token: nil)
     }
     
     func setToken(_ token: ChatkitToken) {

@@ -16,7 +16,7 @@ class UserTokenDataStore {
             return NSKeyedUnarchiver.unarchiveObject(with: token) as! UserToken
         }
 
-        return UserToken(token_type: nil, access_token: nil, refresh_token: nil, expires_in: nil)
+        return UserToken(token_type: nil, access_token: nil, expires_in: nil)
     }
     
     func setToken(_ token: UserToken) {

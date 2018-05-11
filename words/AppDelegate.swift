@@ -12,7 +12,7 @@ struct AppConstants {
     static let ENDPOINT = "http://127.0.0.1:8000"
     static let CLIENT_ID = 2
     static let CLIENT_SECRET = "CLIENT_SECRET"
-    static let CHATKIT_INSTANCE_ID = "INSTANCE_ID"
+    static let CHATKIT_INSTANCE_LOCATOR = "INSTANCE_LOCATOR"
 }
 
 @UIApplicationMain

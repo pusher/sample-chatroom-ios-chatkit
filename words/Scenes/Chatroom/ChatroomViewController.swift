@@ -141,31 +141,37 @@ extension ChatroomViewController {
 // MARK: - MessagesDataSource
 
 extension ChatroomViewController: MessagesDataSource {
-    
+
+    func isFromCurrentSender(message: MessageType) -> Bool {
+        return message.sender == currentSender()
+    }
+
     func currentSender() -> Sender {
         return Sender(id: (interactor?.currentUser?.id)!, displayName: (interactor?.currentUser?.name)!)
     }
-    
-    func numberOfMessages(in messagesCollectionView: MessagesCollectionView) -> Int {
+
+    func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return self.messages.count
     }
     
     func messageForItem(at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageType {
         return self.messages[indexPath.section]
     }
-    
-    func avatar(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Avatar {
-        return Avatar(image: nil, initials: self.initials(fromName: message.sender.displayName))
+
+    func configureAvatarView(_ avatarView: AvatarView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+        avatarView.initials = self.initials(fromName: message.sender.displayName)
     }
-    
-    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+
+    func messageTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+
         return NSAttributedString(
             string: message.sender.displayName,
             attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption1)]
         )
     }
-    
-    func cellBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+
         struct ConversationDateFormatter {
             static let formatter: DateFormatter = {
                 let formatter = DateFormatter()
@@ -179,7 +185,7 @@ extension ChatroomViewController: MessagesDataSource {
             attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption2)]
         )
     }
-    
+
     // MARK: Helpers
     
     func initials(fromName name: String?) -> String {
@@ -208,6 +214,13 @@ extension ChatroomViewController: MessagesDataSource {
 // MARK: - MessagesLayoutDelegate
 
 extension ChatroomViewController: MessagesLayoutDelegate {
+    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 16
+    }
+
+    func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        return 16
+    }
 
     func avatarPosition(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> AvatarPosition {
         return AvatarPosition(horizontal: .natural, vertical: .messageBottom)
@@ -217,18 +230,6 @@ extension ChatroomViewController: MessagesLayoutDelegate {
         return isFromCurrentSender(message: message)
             ? UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 4)
             : UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 30)
-    }
-
-    func cellTopLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
-        return isFromCurrentSender(message: message)
-            ? .messageTrailing(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
-            : .messageLeading(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
-    }
-
-    func cellBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment {
-        return isFromCurrentSender(message: message)
-            ? .messageLeading(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0))
-            : .messageTrailing(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
     }
 
     func footerViewSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize {
@@ -263,6 +264,7 @@ extension ChatroomViewController: MessagesDisplayDelegate {
         let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
         return .bubbleTail(corner, .curved)
     }
+
 }
 
 
