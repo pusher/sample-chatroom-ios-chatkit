@@ -80,9 +80,12 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
     // MARK: Initialise Chatkit
     
     private func initialiseChatkit() {
+        let userId = CurrentUserIDDataStore().getID()
+
         let chatManager = ChatManager(
-            instanceLocator: AppConstants.CHATKIT_INSTANCE_ID,
-            tokenProvider: ChatkitTokenDataStore()
+            instanceLocator: AppConstants.CHATKIT_INSTANCE_LOCATOR,
+            tokenProvider: ChatkitTokenDataStore(),
+            userId: userId.id!
         )
         
         chatManager.connect(delegate: self) { user, error in
@@ -194,11 +197,11 @@ extension ListContactsViewController: PCChatManagerDelegate {
             self.tableView.reloadData()
         }
     }
-    
+
     func userCameOnline(user: PCUser) {
         setPresence(for: user, true)
     }
-    
+
     func userWentOffline(user: PCUser) {
         setPresence(for: user, false)
     }

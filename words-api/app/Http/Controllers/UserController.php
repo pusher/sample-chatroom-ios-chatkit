@@ -25,7 +25,12 @@ class UserController extends Controller
 
         $data['chatkit_id'] = str_slug($data['email'], '_');
 
-        $response = $chatkit->create_user($data['chatkit_id'], $data['name']);
+        $userData = [
+            'id' => $data['chatkit_id'],
+            'name' => $data['name']
+        ];
+
+        $response = $chatkit->createUser($userData);
 
         if ($response['status'] !== 201) {
             return response()->json(['status' => 'error'], 400);

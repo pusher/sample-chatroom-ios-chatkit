@@ -11,7 +11,7 @@
         "laravel/framework": "5.5.*",
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
-        "pusher/pusher-chatkit-server": "^0.1.3"
+        "pusher/pusher-chatkit-server": "^0.5.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

@@ -28,7 +28,6 @@ enum Login {
                 self.userToken = UserToken(
                     token_type: data["token_type"] as? String,
                     access_token: data["access_token"] as? String,
-                    refresh_token: data["refresh_token"] as? String,
                     expires_in: data["expires_in"] as? Int
                 )
             }
@@ -48,8 +47,7 @@ enum Login {
             
             init(data: [String:Any]) {
                 self.token = ChatkitToken(
-                    access_token: data["access_token"] as? String,
-                    refresh_token: data["refresh_token"] as? String
+                    access_token: data["access_token"] as? String
                 )
             }
         }

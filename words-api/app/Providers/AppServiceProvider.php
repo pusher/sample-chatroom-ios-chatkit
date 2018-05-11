@@ -47,7 +47,10 @@ class AppServiceProvider extends ServiceProvider
             $instanceLocator = config('services.chatkit.instanceLocator');
             $secret = config('services.chatkit.secret');
 
-            return new Chatkit($instanceLocator, $secret);
+            return new Chatkit([
+                'instance_locator' => $instanceLocator,
+                'key' => $secret
+            ]);
         });
     }
 }

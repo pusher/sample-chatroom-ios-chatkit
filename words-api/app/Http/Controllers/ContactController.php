@@ -45,17 +45,18 @@ class ContactController extends Controller
 
         $friend = User::whereEmail($data['user_id'])->first();
 
-        $response = $chatkit->create_room([
+        $response = $chatkit->createRoom([
+            'creator_id' => env('CHATKIT_USER_ID'),
             'private' => true,
             'name' => generate_room_id($user, $friend),
             'user_ids' => [$user->chatkit_id, $friend->chatkit_id],
         ]);
 
-        if ($response['status'] !== 201 or !$room = json_decode($response['body'], true)) {
+        if ($response['status'] !== 201) {
             return response()->json(['status' => 'error'], 400);
         }
 
-        $room = Room::create($room);
+        $room = Room::create($response['body']);
 
         $contact = Contact::create([
             'user1_id' => $user->id,

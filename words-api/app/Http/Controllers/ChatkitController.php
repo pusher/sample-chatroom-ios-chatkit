@@ -15,8 +15,13 @@ class ChatkitController extends Controller
      */
     public function getToken(Chatkit $chatkit)
     {
+        $auth_data = $chatkit->authenticate([
+            'user_id' => Auth::user()->chatkit_id
+        ]);
+
         return response()->json(
-            $chatkit->generate_token_pair(['user_id' => Auth::user()->chatkit_id])
+            $auth_data['body'],
+            $auth_data['status']
         );
     }
 }

@@ -90,11 +90,13 @@ class UsersAPI: UsersStoreProtocol {
             guard data != nil else {
                 return completionHandler(nil, UsersStoreError.CannotSignup("Can't create account."))
             }
-            
+
             let response = Signup.Response(data: data!)
-            let request = Login.Account.Request(email: request.email, password: request.password)
+            CurrentUserIDDataStore().setID(CurrentUserID(id: response.user?.chatkit_id))
+
+            let loginRequest = Login.Account.Request(email: request.email, password: request.password)
             
-            self.login(request: request) { token, error in
+            self.login(request: loginRequest) { token, error in
                 guard error == nil else {
                     return completionHandler(nil, UsersStoreError.CannotLogin("Can't login."))
                 }
@@ -128,7 +130,9 @@ class UsersAPI: UsersStoreProtocol {
                  .responseJSON { response in
                      switch (response.result) {
                          case .success(let data): completion((data as! [String:Any]))
-                         case .failure(_): completion(nil)
+                         case .failure(let error):
+                            print("Request error: \(error.localizedDescription)")
+                            completion(nil)
                      }
                  }
     }
