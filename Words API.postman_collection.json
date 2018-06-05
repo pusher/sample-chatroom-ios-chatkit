@@ -1,0 +1,239 @@
+{
+	"info": {
+		"name": "Words API",
+		"_postman_id": "3d7c4af8-e4de-746b-51c6-958354622d60",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "neo@hotels.ng",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Neo Ighodaro",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/users/signup",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						"signup"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch OAuth Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "2",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "nneBZLH70o0Ez9rtpOYCBOzbarrcYpDVLCjnUTdn",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "neo@hotels.ng",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "secret",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/oauth/token",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"oauth",
+						"token"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Chatkit Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc1MzE5MGJiMmNlODI5MzY2YjIwNmE5NmQ3ZWMxM2U5Y2I5OTEwN2U2ZjBmMzQzMWY4MjJmNTUyNmM0NmQxZWNmMmQwOWY5OTA3ZDcxMTFlIn0.eyJhdWQiOiIyIiwianRpIjoiNzUzMTkwYmIyY2U4MjkzNjZiMjA2YTk2ZDdlYzEzZTljYjk5MTA3ZTZmMGYzNDMxZjgyMmY1NTI2YzQ2ZDFlY2YyZDA5Zjk5MDdkNzExMWUiLCJpYXQiOjE1MTQ3MzQ0NjIsIm5iZiI6MTUxNDczNDQ2MiwiZXhwIjoxNTQ2MjcwNDYyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.V7EB2sFVw0p6so5Sl7OcoyLX1PSDTtttRBnN7jD_4J9ke8hNApGuJIZvumYhq5pFCS4kaXLuMfSHa_DmXV_6XFHcBNs79VemvSBYIPxW2--eQxYTZ4ce1U-CGANO8S-8hkBSsqEW_9-VaDzFyHVt8GaVxdhauZCm5PJD41uQxba1GC3nq2fTzVixabzbU_FS34mnky1065yGHAaIY2R45psfdSXLyCnRj34aeePEkav2C4H0IjaguDHLR-qLt8xJMowZFmsXyl_M_4J6qvpy5OBfADIKmJNEsWm_hh4XItPlHWsAK81ntt6PDKyJp91CLy0qYOldDHtupOqZCUM36w0XyYe9wHtljRYwf3w_CS8a1XuTSftk1WKs8yR0KUbiytQIpmIe63hFhG4oSXux5MWYASYBieM2pgKbeW6VrmEq3fbpSRSSbsBkC4kYfRQgmzcgOn2jmqIuksDwpf-L3SpmNWTLjWIWorhdBtuD2QyYIEwp_9H9crU-nX3In7ljTWzF5-kqpws8-UEbOgZ1yiuCFcDIvQvNpYNXiTb9rrbO13C8PXwRnSiFggFv9YrqbM-Juzvp9mxcdbi6Jy3R2ZmCyP1d2YJFh8GWmR_4Uv7szCVPDWSgJhdrdHqVRiyLqXeNKJSOvT2E7JMv4nfKwmT7CB_jpRE-EH94LLoDq5Q"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/chatkit/token",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"chatkit",
+						"token"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Contacts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc1MzE5MGJiMmNlODI5MzY2YjIwNmE5NmQ3ZWMxM2U5Y2I5OTEwN2U2ZjBmMzQzMWY4MjJmNTUyNmM0NmQxZWNmMmQwOWY5OTA3ZDcxMTFlIn0.eyJhdWQiOiIyIiwianRpIjoiNzUzMTkwYmIyY2U4MjkzNjZiMjA2YTk2ZDdlYzEzZTljYjk5MTA3ZTZmMGYzNDMxZjgyMmY1NTI2YzQ2ZDFlY2YyZDA5Zjk5MDdkNzExMWUiLCJpYXQiOjE1MTQ3MzQ0NjIsIm5iZiI6MTUxNDczNDQ2MiwiZXhwIjoxNTQ2MjcwNDYyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.V7EB2sFVw0p6so5Sl7OcoyLX1PSDTtttRBnN7jD_4J9ke8hNApGuJIZvumYhq5pFCS4kaXLuMfSHa_DmXV_6XFHcBNs79VemvSBYIPxW2--eQxYTZ4ce1U-CGANO8S-8hkBSsqEW_9-VaDzFyHVt8GaVxdhauZCm5PJD41uQxba1GC3nq2fTzVixabzbU_FS34mnky1065yGHAaIY2R45psfdSXLyCnRj34aeePEkav2C4H0IjaguDHLR-qLt8xJMowZFmsXyl_M_4J6qvpy5OBfADIKmJNEsWm_hh4XItPlHWsAK81ntt6PDKyJp91CLy0qYOldDHtupOqZCUM36w0XyYe9wHtljRYwf3w_CS8a1XuTSftk1WKs8yR0KUbiytQIpmIe63hFhG4oSXux5MWYASYBieM2pgKbeW6VrmEq3fbpSRSSbsBkC4kYfRQgmzcgOn2jmqIuksDwpf-L3SpmNWTLjWIWorhdBtuD2QyYIEwp_9H9crU-nX3In7ljTWzF5-kqpws8-UEbOgZ1yiuCFcDIvQvNpYNXiTb9rrbO13C8PXwRnSiFggFv9YrqbM-Juzvp9mxcdbi6Jy3R2ZmCyP1d2YJFh8GWmR_4Uv7szCVPDWSgJhdrdHqVRiyLqXeNKJSOvT2E7JMv4nfKwmT7CB_jpRE-EH94LLoDq5Q"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/contacts",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contacts"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Contact",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc1MzE5MGJiMmNlODI5MzY2YjIwNmE5NmQ3ZWMxM2U5Y2I5OTEwN2U2ZjBmMzQzMWY4MjJmNTUyNmM0NmQxZWNmMmQwOWY5OTA3ZDcxMTFlIn0.eyJhdWQiOiIyIiwianRpIjoiNzUzMTkwYmIyY2U4MjkzNjZiMjA2YTk2ZDdlYzEzZTljYjk5MTA3ZTZmMGYzNDMxZjgyMmY1NTI2YzQ2ZDFlY2YyZDA5Zjk5MDdkNzExMWUiLCJpYXQiOjE1MTQ3MzQ0NjIsIm5iZiI6MTUxNDczNDQ2MiwiZXhwIjoxNTQ2MjcwNDYyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.V7EB2sFVw0p6so5Sl7OcoyLX1PSDTtttRBnN7jD_4J9ke8hNApGuJIZvumYhq5pFCS4kaXLuMfSHa_DmXV_6XFHcBNs79VemvSBYIPxW2--eQxYTZ4ce1U-CGANO8S-8hkBSsqEW_9-VaDzFyHVt8GaVxdhauZCm5PJD41uQxba1GC3nq2fTzVixabzbU_FS34mnky1065yGHAaIY2R45psfdSXLyCnRj34aeePEkav2C4H0IjaguDHLR-qLt8xJMowZFmsXyl_M_4J6qvpy5OBfADIKmJNEsWm_hh4XItPlHWsAK81ntt6PDKyJp91CLy0qYOldDHtupOqZCUM36w0XyYe9wHtljRYwf3w_CS8a1XuTSftk1WKs8yR0KUbiytQIpmIe63hFhG4oSXux5MWYASYBieM2pgKbeW6VrmEq3fbpSRSSbsBkC4kYfRQgmzcgOn2jmqIuksDwpf-L3SpmNWTLjWIWorhdBtuD2QyYIEwp_9H9crU-nX3In7ljTWzF5-kqpws8-UEbOgZ1yiuCFcDIvQvNpYNXiTb9rrbO13C8PXwRnSiFggFv9YrqbM-Juzvp9mxcdbi6Jy3R2ZmCyP1d2YJFh8GWmR_4Uv7szCVPDWSgJhdrdHqVRiyLqXeNKJSOvT2E7JMv4nfKwmT7CB_jpRE-EH94LLoDq5Q"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "patricia@hotels.ng",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/contacts",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"contacts"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
