@@ -53,7 +53,7 @@ enum Chatroom {
                 
                 init(message: PCMessage) {
                     self.message = Message(
-                        text: message.text!,
+                        text: message.text,
                         sender: Sender(id: message.sender.id, displayName: message.sender.displayName),
                         messageId: String(describing: message.id),
                         date: ISO8601DateFormatter().date(from: message.createdAt)!

@@ -70,10 +70,10 @@ enum ListContacts {
     struct ParseContact {
         var contact: Contact
         
-        init(using rooms: [PCRoom]?, data: [String:Any]) {
-            let roomObject = data["room"] as! [String:Any]
-            let roomId = roomObject["id"] as! Int
-            let room = rooms!.first(where: {$0.id == roomId})
+        init(using rooms: [PCRoom]?, data: [String: Any]) {
+            let roomObject = data["room"] as! [String: Any]
+            let roomId = roomObject["id"] as! String
+            let room = rooms!.first(where: { $0.id == roomId })
             
             let user = User(
                 id: data["id"] as! Int,
