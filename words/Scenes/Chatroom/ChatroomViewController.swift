@@ -13,6 +13,7 @@
 import UIKit
 import MessageKit
 import PusherChatkit
+import MessageInputBar
 
 protocol ChatroomDisplayLogic: class {
     func handleTyping(by username: String)
@@ -103,7 +104,7 @@ extension ChatroomViewController {
         
         // Keyboard and send btn
         messageInputBar.sendButton.tintColor = UIColor(red: 69/255, green: 193/255, blue: 89/255, alpha: 1)
-        scrollsToBottomOnKeybordBeginsEditing = true
+        scrollsToBottomOnKeyboardBeginsEditing = true
         maintainPositionOnKeyboardFrameChanged = true
     }
     
@@ -166,7 +167,7 @@ extension ChatroomViewController: MessagesDataSource {
 
         return NSAttributedString(
             string: message.sender.displayName,
-            attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption1)]
+            attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)]
         )
     }
 
@@ -182,7 +183,7 @@ extension ChatroomViewController: MessagesDataSource {
 
         return NSAttributedString(
             string: ConversationDateFormatter.formatter.string(from: message.sentDate),
-            attributes: [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .caption2)]
+            attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)]
         )
     }
 

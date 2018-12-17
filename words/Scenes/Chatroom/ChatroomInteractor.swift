@@ -15,7 +15,7 @@ import PusherChatkit
 
 protocol ChatroomBusinessLogic {
     var currentUser: PCCurrentUser? { get set }
-    
+
     func subscribeToRoom(room: PCRoom)
     func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, Error?) -> Void)
     func startedTyping(inRoom room: PCRoom)
@@ -27,28 +27,38 @@ protocol ChatroomDataStore {
 }
 
 class ChatroomInteractor: NSObject, ChatroomBusinessLogic, ChatroomDataStore {
-    
+
     var contact: Contact?
     var messages: [PCMessage] = []
     var currentUser: PCCurrentUser?
     var presenter: ChatroomPresentationLogic?
-    
+
     // MARK: Room
-    
+
     func subscribeToRoom(room: PCRoom) {
-        currentUser?.subscribeToRoom(room: room, roomDelegate: self)
+        currentUser?.subscribeToRoom(room: room, roomDelegate: self) { err in
+            guard err == nil else {
+                print("Error subscribing to room: \(err!.localizedDescription)")
+                return
+            }
+        }
     }
-    
+
     func addChatMessage(request: Chatroom.Messages.Create.Request, completionHandler: @escaping (Int?, Error?) -> Void) {
-        currentUser?.sendMessage(roomId: request.room.id, text: request.text) { messageId, error in
+        currentUser?.sendMessage(roomID: request.room.id, text: request.text) { messageId, error in
             DispatchQueue.main.async {
                 completionHandler(messageId, error)
             }
         }
     }
-    
+
     func startedTyping(inRoom room: PCRoom) {
-        currentUser?.typing(in: room)
+        currentUser?.typing(in: room) { err in
+            guard err == nil else {
+                print("Error sending typing indicator: \(err!.localizedDescription)")
+                return
+            }
+        }
     }
 }
 
@@ -57,7 +67,7 @@ class ChatroomInteractor: NSObject, ChatroomBusinessLogic, ChatroomDataStore {
 
 extension ChatroomInteractor: PCRoomDelegate {
 
-    func newMessage(message: PCMessage) {
+    func onMessage(_ message: PCMessage) {
         DispatchQueue.main.async {
             self.messages.append(message)
             let response = Chatroom.Messages.Fetch.Response(messages: self.messages)
@@ -65,13 +75,13 @@ extension ChatroomInteractor: PCRoomDelegate {
         }
     }
 
-    func userStartedTyping(user: PCUser) {
+    func onUserStartedTyping(user: PCUser) {
         DispatchQueue.main.async {
             self.presenter?.toggleUserIsTyping(for: user.displayName)
         }
     }
-    
-    func userStoppedTyping(user: PCUser) {
+
+    func onUserStoppedTyping(user: PCUser) {
         DispatchQueue.main.async {
             self.presenter?.toggleUserIsTyping(for: user.displayName)
         }

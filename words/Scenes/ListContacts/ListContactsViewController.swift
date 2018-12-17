@@ -20,31 +20,31 @@ protocol ListContactsDisplayLogic: class {
 class ListContactsViewController: UITableViewController, ListContactsDisplayLogic {
 
     // MARK: Properties
-    
+
     var interactor: ListContactsBusinessLogic?
     var displayedContacts: [ListContacts.Fetch.ViewModel.DisplayedContact] = []
     var router: (NSObjectProtocol & ListContactsRoutingLogic & ListContactsDataPassing)?
 
     // MARK: Object lifecycle
-  
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-  
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-  
+
     // MARK: Setup
-  
+
     private func setup() {
         let viewController = self
         let interactor = ListContactsInteractor()
         let presenter = ListContactsPresenter()
         let router = ListContactsRouter()
-        
+
         viewController.interactor = interactor
         viewController.router = router
         interactor.presenter = presenter
@@ -52,9 +52,9 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
         router.viewController = viewController
         router.dataStore = interactor
     }
-  
+
     // MARK: Routing
-  
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let scene = segue.identifier {
             let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
@@ -63,62 +63,62 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
             }
         }
     }
-  
+
     // MARK: View lifecycle
-  
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Update the titlebar
         navigationItem.title = "Contacts"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(showAddContactPopup))
-        
+
         initialiseChatkit()
     }
-    
+
     // MARK: Initialise Chatkit
-    
+
     private func initialiseChatkit() {
         let userId = CurrentUserIDDataStore().getID()
 
         let chatManager = ChatManager(
             instanceLocator: AppConstants.CHATKIT_INSTANCE_LOCATOR,
             tokenProvider: ChatkitTokenDataStore(),
-            userId: userId.id!
+            userID: userId.id!
         )
-        
+
         chatManager.connect(delegate: self) { user, error in
             guard error == nil else { return }
             self.interactor?.currentUser = user
-            
+
             self.fetchContacts()
             self.updateContactsPresence()
         }
     }
-    
+
     private func updateContactsPresence() {
         Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { timer in
             guard let users = self.interactor?.currentUser?.users else { return }
-            
+
             for contact in self.displayedContacts {
                 guard let user = users.first(where: {$0.id == contact.id}) else { return }
                 let index = self.displayedContacts.index(of: contact)
-                
+
                 switch user.presenceState {
                 case .online: self.displayedContacts[index!].isOnline = true
                 case .offline, .unknown: self.displayedContacts[index!].isOnline = false
                 }
             }
-            
+
             self.tableView.reloadData()
         }
     }
-        
+
     // MARK: - Add contact
-    
+
     var emailTextField: UITextField?
-    
+
     @objc func showAddContactPopup(_ sender: Any) {
         let alertController = UIAlertController(
             title: "Add",
@@ -130,22 +130,22 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
             emailTextField.placeholder = "Enter email address"
             self.emailTextField = emailTextField
         }
-        
+
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alertController.addAction(UIAlertAction(title: "Add Contact", style: .default) { action in
             let request = ListContacts.Create.Request(user_id: self.emailTextField!.text!)
             self.interactor?.addContact(request: request)
         })
-        
+
         present(alertController, animated: true, completion: nil)
     }
-    
+
     // MARK: Fetch contacts
-    
+
     private func fetchContacts() {
         interactor?.fetchContacts(request: ListContacts.Fetch.Request())
     }
-  
+
     func displayFetchedContacts(viewModel: ListContacts.Fetch.ViewModel) {
         displayedContacts = viewModel.displayedContacts
         tableView.reloadData()
@@ -156,24 +156,24 @@ class ListContactsViewController: UITableViewController, ListContactsDisplayLogi
 // MARK: UITableViewDelegate
 
 extension ListContactsViewController {
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayedContacts.count
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCell(withIdentifier: "ContactTableViewCell")
-        
+
         if cell == nil {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ContactTableViewCell")
         }
 
         let contact = displayedContacts[indexPath.row]
-        
+
         if contact.isOnline == false {
             cell?.detailTextLabel?.textColor = UIColor.lightGray
         }
@@ -189,7 +189,7 @@ extension ListContactsViewController {
 // MARK: Extension
 
 extension ListContactsViewController: PCChatManagerDelegate {
-    
+
     func setPresence(for user: PCUser, _ online: Bool) {
         DispatchQueue.main.async {
             guard let index = self.displayedContacts.index(where: {$0.id == user.id}) else { return }
@@ -198,12 +198,7 @@ extension ListContactsViewController: PCChatManagerDelegate {
         }
     }
 
-    func userCameOnline(user: PCUser) {
-        setPresence(for: user, true)
-    }
-
-    func userWentOffline(user: PCUser) {
-        setPresence(for: user, false)
+    func onPresenceChanged(stateChange: PCPresenceStateChange, user: PCUser) {
+        setPresence(for: user, stateChange.current == .online)
     }
 }
-
